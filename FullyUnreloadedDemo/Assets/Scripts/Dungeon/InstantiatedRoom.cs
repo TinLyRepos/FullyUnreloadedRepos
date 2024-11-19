@@ -18,6 +18,20 @@ public class InstantiatedRoom : MonoBehaviour
     private BoxCollider2D boxCollider2D;
 
     //===========================================================================
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // If the player triggered the collider
+        if (collision.tag == Settings.playerTag && room != GameManager.Instance.CurrentRoom)
+        {
+            // Set room as visited
+            this.room.isVisited = true;
+
+            // Call room changed event
+            StaticEventHandler.CallRoomChangedEvent(room);
+        }
+    }
+
+    //===========================================================================
     private void Awake()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -31,7 +45,9 @@ public class InstantiatedRoom : MonoBehaviour
     {
         PopulateTilemapMemberVariables(roomGameObject);
 
-        SealUnusedDoorway();
+        BlockUnusedDoorway();
+
+        AddDoorToRoom();
 
         DisableCollisionTilemapRenderer();
     }
@@ -102,7 +118,8 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
-    private void SealUnusedDoorway()
+    //===========================================================================
+    private void BlockUnusedDoorway()
     {
         // Go through all doorway
         foreach (Doorway doorway in room.doorwayList)
@@ -128,6 +145,71 @@ public class InstantiatedRoom : MonoBehaviour
 
             if (frontTilemap != null)
                 SealDoorwayOnTilemapLayer(frontTilemap, doorway);
+        }
+    }
+
+    private void AddDoorToRoom()
+    {
+        // if the room is a corridor then return
+        if (room.roomNodeType.isCorridor_Horizontal || room.roomNodeType.isCorridor_Vertical)
+            return;
+
+        // Instantiate door prefabs at doorway positions
+        foreach (Doorway doorway in room.doorwayList)
+        {
+
+            // if the doorway prefab isn't null and the doorway is connected
+            if (doorway.doorPrefab != null && doorway.isConnected)
+            {
+                float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+
+                GameObject door = null;
+
+                if (doorway.orientation == Orientation.North)
+                {
+                    // create door with parent as the room
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = 
+                        new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y + tileDistance, 0f);
+                }
+                else if (doorway.orientation == Orientation.South)
+                {
+                    // create door with parent as the room
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = 
+                        new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y, 0f);
+                }
+                else if (doorway.orientation == Orientation.East)
+                {
+                    // create door with parent as the room
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = 
+                        new Vector3(doorway.position.x + tileDistance, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+                else if (doorway.orientation == Orientation.West)
+                {
+                    // create door with parent as the room
+                    door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                    door.transform.localPosition = 
+                        new Vector3(doorway.position.x, doorway.position.y + tileDistance * 1.25f, 0f);
+                }
+
+                // Get door component
+                Door doorComponent = door.GetComponent<Door>();
+
+                // Set if door is part of a boss room
+                if (room.roomNodeType.isBossRoom)
+                {
+                    doorComponent.isBossRoomDoor = true;
+
+                    // lock the door to prevent access to the room
+                    doorComponent.LockDoor();
+
+                    // Instantiate skull icon for minimap by door
+                    // GameObject skullIcon = Instantiate(GameResources.Instance.minimapSkullPrefab, gameObject.transform);
+                    // skullIcon.transform.localPosition = door.transform.localPosition;
+                }
+            }
         }
     }
 

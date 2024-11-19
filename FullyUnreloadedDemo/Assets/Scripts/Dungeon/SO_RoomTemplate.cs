@@ -31,10 +31,10 @@ public class SO_RoomTemplate : ScriptableObject
             EditorUtility.SetDirty(this);
         }
 
-        HelperUtils.ValidateCheckEnumerableValues(this, nameof(doorwayList), doorwayList);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(doorwayList), doorwayList);
 
         // Check spawn positions populated
-        HelperUtils.ValidateCheckEnumerableValues(this, nameof(spawnPositionArray), spawnPositionArray);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(spawnPositionArray), spawnPositionArray);
     }
 #endif
 }

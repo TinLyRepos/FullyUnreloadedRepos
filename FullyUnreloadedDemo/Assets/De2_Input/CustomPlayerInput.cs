@@ -46,126 +46,9 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OffHandAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""15a1eddf-3a03-4541-b9b5-48498bdc16aa"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""7b3c12c2-e13c-4bca-91ff-a63cfde39fd4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""12296f3a-78ed-47f2-bcf9-856b11300bf9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""c2ae9a2f-d186-4771-a2d1-789e237bed6f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Inventory"",
-                    ""type"": ""Button"",
-                    ""id"": ""e521fa2b-1c31-4c55-9482-f274abd25fdc"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot1"",
-                    ""type"": ""Button"",
-                    ""id"": ""5a06d502-b0be-45d7-b535-405175ca58b4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot2"",
-                    ""type"": ""Button"",
-                    ""id"": ""2e484cd6-e16f-4402-b0fa-fb95185840d0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot3"",
-                    ""type"": ""Button"",
-                    ""id"": ""ae0cce7a-013d-42b4-9f4f-eee9c21d511b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot4"",
-                    ""type"": ""Button"",
-                    ""id"": ""0b53c235-a2cd-425c-9030-8fac1dbb083c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot5"",
-                    ""type"": ""Button"",
-                    ""id"": ""7add3581-d3de-46c5-b042-d372bd3cb4a1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot6"",
-                    ""type"": ""Button"",
-                    ""id"": ""885e7c4b-1a8b-494f-b04e-ff500cb55688"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot7"",
-                    ""type"": ""Button"",
-                    ""id"": ""998cfbff-a9aa-4e2b-98fb-4cb8b5fe36d4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot8"",
-                    ""type"": ""Button"",
-                    ""id"": ""e4a75025-8417-431e-aacb-7e0086ced1f5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Quickslot9"",
-                    ""type"": ""Button"",
-                    ""id"": ""0f9f5132-c179-4908-b58b-2687b1631160"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -241,17 +124,6 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""87663b68-bff5-4cae-ae23-321f009307ed"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""74db51f0-218e-4cb8-9968-9369622bc342"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -263,144 +135,12 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7e2a3340-4bad-47a5-b58d-49640b37e26d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""41cacb81-00ce-43a3-bec8-3e612f620309"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""MainHandAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ba8480d2-4642-4a1c-8faa-e352068ce2be"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""OffHandAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9702cfa6-76d6-4ed2-a68c-fcb5e2b0350e"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b8b35c3d-13e1-4798-94e5-0dae44bca060"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1699913a-0889-4417-8c36-57052bd68156"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""db3d430c-f96d-484d-ad73-b0104795d75a"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8b1639b5-2c09-4948-ad52-6b003b3da8c3"",
-                    ""path"": ""<Keyboard>/5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot5"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2075c562-fca6-4289-9af2-7aa2c704122a"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot6"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a11334c3-18e9-4427-98b4-446caab40c57"",
-                    ""path"": ""<Keyboard>/7"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot7"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1f17788e-b9df-40d0-be3d-77fb9dc075b7"",
-                    ""path"": ""<Keyboard>/8"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot8"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""86289e81-2106-4555-9831-601600f5eb15"",
-                    ""path"": ""<Keyboard>/9"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Quickslot9"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""748589e1-b150-4de5-b43f-efa70d2c17dc"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -474,20 +214,7 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
         m_InputAction = asset.FindActionMap("InputAction", throwIfNotFound: true);
         m_InputAction_Move = m_InputAction.FindAction("Move", throwIfNotFound: true);
         m_InputAction_MainHandAction = m_InputAction.FindAction("MainHandAction", throwIfNotFound: true);
-        m_InputAction_OffHandAction = m_InputAction.FindAction("OffHandAction", throwIfNotFound: true);
-        m_InputAction_Run = m_InputAction.FindAction("Run", throwIfNotFound: true);
-        m_InputAction_Jump = m_InputAction.FindAction("Jump", throwIfNotFound: true);
         m_InputAction_Interact = m_InputAction.FindAction("Interact", throwIfNotFound: true);
-        m_InputAction_Inventory = m_InputAction.FindAction("Inventory", throwIfNotFound: true);
-        m_InputAction_Quickslot1 = m_InputAction.FindAction("Quickslot1", throwIfNotFound: true);
-        m_InputAction_Quickslot2 = m_InputAction.FindAction("Quickslot2", throwIfNotFound: true);
-        m_InputAction_Quickslot3 = m_InputAction.FindAction("Quickslot3", throwIfNotFound: true);
-        m_InputAction_Quickslot4 = m_InputAction.FindAction("Quickslot4", throwIfNotFound: true);
-        m_InputAction_Quickslot5 = m_InputAction.FindAction("Quickslot5", throwIfNotFound: true);
-        m_InputAction_Quickslot6 = m_InputAction.FindAction("Quickslot6", throwIfNotFound: true);
-        m_InputAction_Quickslot7 = m_InputAction.FindAction("Quickslot7", throwIfNotFound: true);
-        m_InputAction_Quickslot8 = m_InputAction.FindAction("Quickslot8", throwIfNotFound: true);
-        m_InputAction_Quickslot9 = m_InputAction.FindAction("Quickslot9", throwIfNotFound: true);
     }
 
     ~@CustomPlayerInput()
@@ -556,40 +283,14 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
     private List<IInputActionActions> m_InputActionActionsCallbackInterfaces = new List<IInputActionActions>();
     private readonly InputAction m_InputAction_Move;
     private readonly InputAction m_InputAction_MainHandAction;
-    private readonly InputAction m_InputAction_OffHandAction;
-    private readonly InputAction m_InputAction_Run;
-    private readonly InputAction m_InputAction_Jump;
     private readonly InputAction m_InputAction_Interact;
-    private readonly InputAction m_InputAction_Inventory;
-    private readonly InputAction m_InputAction_Quickslot1;
-    private readonly InputAction m_InputAction_Quickslot2;
-    private readonly InputAction m_InputAction_Quickslot3;
-    private readonly InputAction m_InputAction_Quickslot4;
-    private readonly InputAction m_InputAction_Quickslot5;
-    private readonly InputAction m_InputAction_Quickslot6;
-    private readonly InputAction m_InputAction_Quickslot7;
-    private readonly InputAction m_InputAction_Quickslot8;
-    private readonly InputAction m_InputAction_Quickslot9;
     public struct InputActionActions
     {
         private @CustomPlayerInput m_Wrapper;
         public InputActionActions(@CustomPlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_InputAction_Move;
         public InputAction @MainHandAction => m_Wrapper.m_InputAction_MainHandAction;
-        public InputAction @OffHandAction => m_Wrapper.m_InputAction_OffHandAction;
-        public InputAction @Run => m_Wrapper.m_InputAction_Run;
-        public InputAction @Jump => m_Wrapper.m_InputAction_Jump;
         public InputAction @Interact => m_Wrapper.m_InputAction_Interact;
-        public InputAction @Inventory => m_Wrapper.m_InputAction_Inventory;
-        public InputAction @Quickslot1 => m_Wrapper.m_InputAction_Quickslot1;
-        public InputAction @Quickslot2 => m_Wrapper.m_InputAction_Quickslot2;
-        public InputAction @Quickslot3 => m_Wrapper.m_InputAction_Quickslot3;
-        public InputAction @Quickslot4 => m_Wrapper.m_InputAction_Quickslot4;
-        public InputAction @Quickslot5 => m_Wrapper.m_InputAction_Quickslot5;
-        public InputAction @Quickslot6 => m_Wrapper.m_InputAction_Quickslot6;
-        public InputAction @Quickslot7 => m_Wrapper.m_InputAction_Quickslot7;
-        public InputAction @Quickslot8 => m_Wrapper.m_InputAction_Quickslot8;
-        public InputAction @Quickslot9 => m_Wrapper.m_InputAction_Quickslot9;
         public InputActionMap Get() { return m_Wrapper.m_InputAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -605,48 +306,9 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
             @MainHandAction.started += instance.OnMainHandAction;
             @MainHandAction.performed += instance.OnMainHandAction;
             @MainHandAction.canceled += instance.OnMainHandAction;
-            @OffHandAction.started += instance.OnOffHandAction;
-            @OffHandAction.performed += instance.OnOffHandAction;
-            @OffHandAction.canceled += instance.OnOffHandAction;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Inventory.started += instance.OnInventory;
-            @Inventory.performed += instance.OnInventory;
-            @Inventory.canceled += instance.OnInventory;
-            @Quickslot1.started += instance.OnQuickslot1;
-            @Quickslot1.performed += instance.OnQuickslot1;
-            @Quickslot1.canceled += instance.OnQuickslot1;
-            @Quickslot2.started += instance.OnQuickslot2;
-            @Quickslot2.performed += instance.OnQuickslot2;
-            @Quickslot2.canceled += instance.OnQuickslot2;
-            @Quickslot3.started += instance.OnQuickslot3;
-            @Quickslot3.performed += instance.OnQuickslot3;
-            @Quickslot3.canceled += instance.OnQuickslot3;
-            @Quickslot4.started += instance.OnQuickslot4;
-            @Quickslot4.performed += instance.OnQuickslot4;
-            @Quickslot4.canceled += instance.OnQuickslot4;
-            @Quickslot5.started += instance.OnQuickslot5;
-            @Quickslot5.performed += instance.OnQuickslot5;
-            @Quickslot5.canceled += instance.OnQuickslot5;
-            @Quickslot6.started += instance.OnQuickslot6;
-            @Quickslot6.performed += instance.OnQuickslot6;
-            @Quickslot6.canceled += instance.OnQuickslot6;
-            @Quickslot7.started += instance.OnQuickslot7;
-            @Quickslot7.performed += instance.OnQuickslot7;
-            @Quickslot7.canceled += instance.OnQuickslot7;
-            @Quickslot8.started += instance.OnQuickslot8;
-            @Quickslot8.performed += instance.OnQuickslot8;
-            @Quickslot8.canceled += instance.OnQuickslot8;
-            @Quickslot9.started += instance.OnQuickslot9;
-            @Quickslot9.performed += instance.OnQuickslot9;
-            @Quickslot9.canceled += instance.OnQuickslot9;
         }
 
         private void UnregisterCallbacks(IInputActionActions instance)
@@ -657,48 +319,9 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
             @MainHandAction.started -= instance.OnMainHandAction;
             @MainHandAction.performed -= instance.OnMainHandAction;
             @MainHandAction.canceled -= instance.OnMainHandAction;
-            @OffHandAction.started -= instance.OnOffHandAction;
-            @OffHandAction.performed -= instance.OnOffHandAction;
-            @OffHandAction.canceled -= instance.OnOffHandAction;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Inventory.started -= instance.OnInventory;
-            @Inventory.performed -= instance.OnInventory;
-            @Inventory.canceled -= instance.OnInventory;
-            @Quickslot1.started -= instance.OnQuickslot1;
-            @Quickslot1.performed -= instance.OnQuickslot1;
-            @Quickslot1.canceled -= instance.OnQuickslot1;
-            @Quickslot2.started -= instance.OnQuickslot2;
-            @Quickslot2.performed -= instance.OnQuickslot2;
-            @Quickslot2.canceled -= instance.OnQuickslot2;
-            @Quickslot3.started -= instance.OnQuickslot3;
-            @Quickslot3.performed -= instance.OnQuickslot3;
-            @Quickslot3.canceled -= instance.OnQuickslot3;
-            @Quickslot4.started -= instance.OnQuickslot4;
-            @Quickslot4.performed -= instance.OnQuickslot4;
-            @Quickslot4.canceled -= instance.OnQuickslot4;
-            @Quickslot5.started -= instance.OnQuickslot5;
-            @Quickslot5.performed -= instance.OnQuickslot5;
-            @Quickslot5.canceled -= instance.OnQuickslot5;
-            @Quickslot6.started -= instance.OnQuickslot6;
-            @Quickslot6.performed -= instance.OnQuickslot6;
-            @Quickslot6.canceled -= instance.OnQuickslot6;
-            @Quickslot7.started -= instance.OnQuickslot7;
-            @Quickslot7.performed -= instance.OnQuickslot7;
-            @Quickslot7.canceled -= instance.OnQuickslot7;
-            @Quickslot8.started -= instance.OnQuickslot8;
-            @Quickslot8.performed -= instance.OnQuickslot8;
-            @Quickslot8.canceled -= instance.OnQuickslot8;
-            @Quickslot9.started -= instance.OnQuickslot9;
-            @Quickslot9.performed -= instance.OnQuickslot9;
-            @Quickslot9.canceled -= instance.OnQuickslot9;
         }
 
         public void RemoveCallbacks(IInputActionActions instance)
@@ -765,19 +388,6 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMainHandAction(InputAction.CallbackContext context);
-        void OnOffHandAction(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
-        void OnQuickslot1(InputAction.CallbackContext context);
-        void OnQuickslot2(InputAction.CallbackContext context);
-        void OnQuickslot3(InputAction.CallbackContext context);
-        void OnQuickslot4(InputAction.CallbackContext context);
-        void OnQuickslot5(InputAction.CallbackContext context);
-        void OnQuickslot6(InputAction.CallbackContext context);
-        void OnQuickslot7(InputAction.CallbackContext context);
-        void OnQuickslot8(InputAction.CallbackContext context);
-        void OnQuickslot9(InputAction.CallbackContext context);
     }
 }

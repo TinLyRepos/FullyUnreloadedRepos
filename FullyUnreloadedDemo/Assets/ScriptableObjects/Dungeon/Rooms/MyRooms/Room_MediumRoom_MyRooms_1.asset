@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2708e4084c4a1534ba646096300f778c, type: 3}
   m_Name: Room_MediumRoom_MyRooms_1
   m_EditorClassIdentifier: 
+  guid: 4f71b21ac89c22a44969b6e35e2e7201
   prefab: {fileID: 1050180267192197705, guid: 32816f424f77c264c97c5a60e91bad28, type: 3}
   roomNodeType: {fileID: 11400000, guid: 0b1569b5026186644bedf24e9694e5c1, type: 2}
   lowerBounds: {x: -14, y: -4}
@@ -19,28 +20,36 @@ MonoBehaviour:
   doorwayList:
   - position: {x: -1, y: 44}
     orientation: 0
-    doorPrefab: {fileID: 0}
+    doorPrefab: {fileID: 6927665885970513103, guid: f96ef92141f07a34c9cc706634bcc59f, type: 3}
     doorwayStartCopyPosition: {x: -4, y: 44}
     doorwayCopyTileWidth: 5
     doorwayCopyTileHeight: 7
+    isConnected: 0
+    isUnavailable: 0
   - position: {x: 39, y: 31}
     orientation: 1
-    doorPrefab: {fileID: 0}
+    doorPrefab: {fileID: 5578879441319861494, guid: 9b98586075294bc4e9f3a6139ddd09de, type: 3}
     doorwayStartCopyPosition: {x: 34, y: 37}
     doorwayCopyTileWidth: 6
     doorwayCopyTileHeight: 8
+    isConnected: 0
+    isUnavailable: 0
   - position: {x: 26, y: -4}
     orientation: 2
-    doorPrefab: {fileID: 0}
+    doorPrefab: {fileID: 6927665885970513103, guid: f96ef92141f07a34c9cc706634bcc59f, type: 3}
     doorwayStartCopyPosition: {x: 23, y: -1}
     doorwayCopyTileWidth: 5
     doorwayCopyTileHeight: 4
+    isConnected: 0
+    isUnavailable: 0
   - position: {x: -14, y: 7}
     orientation: 3
-    doorPrefab: {fileID: 0}
+    doorPrefab: {fileID: 5578879441319861494, guid: 9b98586075294bc4e9f3a6139ddd09de, type: 3}
     doorwayStartCopyPosition: {x: -14, y: 13}
     doorwayCopyTileWidth: 6
     doorwayCopyTileHeight: 8
+    isConnected: 0
+    isUnavailable: 0
   spawnPositionArray:
   - {x: -6, y: 31}
   - {x: 5, y: 31}

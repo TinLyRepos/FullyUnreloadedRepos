@@ -45,4 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeTypeList: {fileID: 11400000, guid: edd53da21991fdf4187eb523239c3a54, type: 2}
-  dimmedMaterial: {fileID: 2100000, guid: fd5ae752e16da36428c7ae98c49dc19e, type: 2}
+  material_dimmed: {fileID: 2100000, guid: fd5ae752e16da36428c7ae98c49dc19e, type: 2}
+  material_lit: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  shader_variableLit: {fileID: -6465566751694194690, guid: 60e350e080ee4c342a50c8655b14c11f, type: 3}
+  currentPlayerData: {fileID: 11400000, guid: 6fcdd36399eec5143948186329c398e2, type: 2}

@@ -10,7 +10,7 @@ public class SO_NodeTypeList : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        HelperUtils.ValidateCheckEnumerableValues(this, nameof(list), list);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(list), list);
     }
 #endif
 }

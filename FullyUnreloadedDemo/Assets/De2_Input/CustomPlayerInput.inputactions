@@ -24,126 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OffHandAction",
-                    "type": "Button",
-                    "id": "15a1eddf-3a03-4541-b9b5-48498bdc16aa",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Run",
-                    "type": "Button",
-                    "id": "7b3c12c2-e13c-4bca-91ff-a63cfde39fd4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "12296f3a-78ed-47f2-bcf9-856b11300bf9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "c2ae9a2f-d186-4771-a2d1-789e237bed6f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "e521fa2b-1c31-4c55-9482-f274abd25fdc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot1",
-                    "type": "Button",
-                    "id": "5a06d502-b0be-45d7-b535-405175ca58b4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot2",
-                    "type": "Button",
-                    "id": "2e484cd6-e16f-4402-b0fa-fb95185840d0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot3",
-                    "type": "Button",
-                    "id": "ae0cce7a-013d-42b4-9f4f-eee9c21d511b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot4",
-                    "type": "Button",
-                    "id": "0b53c235-a2cd-425c-9030-8fac1dbb083c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot5",
-                    "type": "Button",
-                    "id": "7add3581-d3de-46c5-b042-d372bd3cb4a1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot6",
-                    "type": "Button",
-                    "id": "885e7c4b-1a8b-494f-b04e-ff500cb55688",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot7",
-                    "type": "Button",
-                    "id": "998cfbff-a9aa-4e2b-98fb-4cb8b5fe36d4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot8",
-                    "type": "Button",
-                    "id": "e4a75025-8417-431e-aacb-7e0086ced1f5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quickslot9",
-                    "type": "Button",
-                    "id": "0f9f5132-c179-4908-b58b-2687b1631160",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -219,17 +102,6 @@
                 },
                 {
                     "name": "",
-                    "id": "87663b68-bff5-4cae-ae23-321f009307ed",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "74db51f0-218e-4cb8-9968-9369622bc342",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -241,144 +113,12 @@
                 },
                 {
                     "name": "",
-                    "id": "7e2a3340-4bad-47a5-b58d-49640b37e26d",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "41cacb81-00ce-43a3-bec8-3e612f620309",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MainHandAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ba8480d2-4642-4a1c-8faa-e352068ce2be",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "OffHandAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9702cfa6-76d6-4ed2-a68c-fcb5e2b0350e",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8b35c3d-13e1-4798-94e5-0dae44bca060",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1699913a-0889-4417-8c36-57052bd68156",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "db3d430c-f96d-484d-ad73-b0104795d75a",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8b1639b5-2c09-4948-ad52-6b003b3da8c3",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot5",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2075c562-fca6-4289-9af2-7aa2c704122a",
-                    "path": "<Keyboard>/6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot6",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a11334c3-18e9-4427-98b4-446caab40c57",
-                    "path": "<Keyboard>/7",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot7",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f17788e-b9df-40d0-be3d-77fb9dc075b7",
-                    "path": "<Keyboard>/8",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot8",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "86289e81-2106-4555-9831-601600f5eb15",
-                    "path": "<Keyboard>/9",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Quickslot9",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "748589e1-b150-4de5-b43f-efa70d2c17dc",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

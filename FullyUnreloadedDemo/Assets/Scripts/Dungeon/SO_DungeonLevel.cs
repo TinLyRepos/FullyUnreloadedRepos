@@ -17,12 +17,12 @@ public class SO_DungeonLevel : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        HelperUtils.ValidateCheckEmptyString(this, nameof(levelName), levelName);
+        HelperUtilities.ValidateCheckEmptyString(this, nameof(levelName), levelName);
 
-        if (HelperUtils.ValidateCheckEnumerableValues(this, nameof(roomTemplateList), roomTemplateList))
+        if (HelperUtilities.ValidateCheckEnumerableValues(this, nameof(roomTemplateList), roomTemplateList))
             return;
 
-        if (HelperUtils.ValidateCheckEnumerableValues(this, nameof(roomNodeGraphList), roomNodeGraphList))
+        if (HelperUtilities.ValidateCheckEnumerableValues(this, nameof(roomNodeGraphList), roomNodeGraphList))
             return;
 
         // Room templates need to be specified for all the room node types in the graph

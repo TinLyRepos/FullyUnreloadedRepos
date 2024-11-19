@@ -20,9 +20,18 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
         // Load the room node type newList
         LoadRoomNodeTypeList();
+    }
 
+    private void OnEnable()
+    {
+        // Set dimmed material to off
+        GameResources.Instance.material_dimmed.SetFloat("Alpha_Slider", 0f);
+    }
+
+    private void OnDisable()
+    {
         // Set dimmed material to fully visible
-        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1.0f);
+        GameResources.Instance.material_dimmed.SetFloat("Alpha_Slider", 1f);
     }
 
     //===========================================================================
@@ -189,8 +198,8 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
     private bool IsRoomOverlapping(Room r1, Room r2)
     {
-        bool overlappingX = HelperUtils.IsIntervalOverlapping(r1.lowerBounds.x, r1.upperBounds.x, r2.lowerBounds.x, r2.upperBounds.x);
-        bool overlappingY = HelperUtils.IsIntervalOverlapping(r1.lowerBounds.y, r1.upperBounds.y, r2.lowerBounds.y, r2.upperBounds.y);
+        bool overlappingX = HelperUtilities.IsIntervalOverlapping(r1.lowerBounds.x, r1.upperBounds.x, r2.lowerBounds.x, r2.upperBounds.x);
+        bool overlappingY = HelperUtilities.IsIntervalOverlapping(r1.lowerBounds.y, r1.upperBounds.y, r2.lowerBounds.y, r2.upperBounds.y);
 
         if (overlappingX && overlappingY)
             return true;
@@ -269,6 +278,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         {
             room.roomID_parent = string.Empty;
             room.isVisited = true;
+
+            // Set Entrance in game manager
+            GameManager.Instance.SetCurrentRoom(room);
         }
         else
         {

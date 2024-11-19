@@ -16,7 +16,7 @@ public class SO_NodeType : ScriptableObject
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        HelperUtils.ValidateCheckEmptyString(this, nameof(nodeTypeName), nodeTypeName);
+        HelperUtilities.ValidateCheckEmptyString(this, nameof(nodeTypeName), nodeTypeName);
     }
 #endif
 }

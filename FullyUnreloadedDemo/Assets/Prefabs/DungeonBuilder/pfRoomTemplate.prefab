@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 2202729494742117374}
   - component: {fileID: 5275931773185111863}
   - component: {fileID: 8155927025995751826}
+  - component: {fileID: 4267551765672708598}
   m_Layer: 12
   m_Name: pfRoomTemplate
   m_TagString: Untagged
@@ -1037,3 +1038,15 @@ MonoBehaviour:
   roomColliderBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
+--- !u!114 &4267551765672708598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7400580391979492762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f666081ffb256d94e93ba88db63a1fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
