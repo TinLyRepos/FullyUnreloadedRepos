@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
 [RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
-[DisallowMultipleComponent]
 public class FireWeapon : MonoBehaviour
 {
     private float firePreChargeTimer = 0f;
@@ -15,6 +15,7 @@ public class FireWeapon : MonoBehaviour
     private ReloadWeaponEvent reloadWeaponEvent;
     private WeaponFiredEvent weaponFiredEvent;
 
+    //===========================================================================
     private void Awake()
     {
         // Load components.
@@ -26,33 +27,26 @@ public class FireWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to fire weapon event.
         fireWeaponEvent.OnFireWeapon += FireWeaponEvent_OnFireWeapon;
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe from fire weapon event.
-        fireWeaponEvent.OnFireWeapon -= FireWeaponEvent_OnFireWeapon;
     }
 
     private void Update()
     {
-        // Decrease cooldown timer.
         fireRateCoolDownTimer -= Time.deltaTime;
     }
 
-    /// <summary>
-    /// Handle fire weapon event.
-    /// </summary>
+    private void OnDisable()
+    {
+        fireWeaponEvent.OnFireWeapon -= FireWeaponEvent_OnFireWeapon;
+    }
+
+    //===========================================================================
     private void FireWeaponEvent_OnFireWeapon(FireWeaponEvent fireWeaponEvent, FireWeaponEventArgs fireWeaponEventArgs)
     {
         WeaponFire(fireWeaponEventArgs);
     }
 
-    /// <summary>
-    /// Fire weapon.
-    /// </summary>
+    //===========================================================================
     private void WeaponFire(FireWeaponEventArgs fireWeaponEventArgs)
     {
         // Handle weapon precharge timer.
@@ -73,9 +67,6 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Handle weapon precharge.
-    /// </summary>
     private void WeaponPreCharge(FireWeaponEventArgs fireWeaponEventArgs)
     {
         // Weapon precharge.
@@ -91,9 +82,6 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Returns true if the weapon is ready to fire, else returns false.
-    /// </summary>
     private bool IsWeaponReadyToFire()
     {
         // if there is no ammo and weapon doesn't have infinite ammo then return false.
@@ -121,9 +109,6 @@ public class FireWeapon : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Set up ammo using an ammo gameobject and component from the object pool.
-    /// </summary>
     private void FireAmmo(float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
         AmmoDetailsSO currentAmmo = activeWeapon.GetCurrentAmmo();
@@ -135,9 +120,6 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Coroutine to spawn multiple ammo per shot if specified in the ammo details
-    /// </summary>
     private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
         int ammoCounter = 0;
@@ -195,28 +177,18 @@ public class FireWeapon : MonoBehaviour
         WeaponSoundEffect();
     }
 
-    /// <summary>
-    /// Reset cooldown timer
-    /// </summary>
     private void ResetCoolDownTimer()
     {
         // Reset cooldown timer
         fireRateCoolDownTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponFireRate;
     }
 
-    /// <summary>
-    /// Reset precharge timers
-    /// </summary>
     private void ResetPrechargeTimer()
     {
         // Reset precharge timer
         firePreChargeTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponPrechargeTime;
     }
 
-
-    /// <summary>
-    /// Display the weapon shoot effect
-    /// </summary>
     private void WeaponShootEffect(float aimAngle)
     {
         // Process if there is a shoot effect & prefab
@@ -234,9 +206,6 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Play weapon shooting sound effect
-    /// </summary>
     private void WeaponSoundEffect()
     {
         //if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect != null)

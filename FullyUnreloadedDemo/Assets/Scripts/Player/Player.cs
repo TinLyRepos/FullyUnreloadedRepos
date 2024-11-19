@@ -24,6 +24,8 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(MovementToPosition))]
 [RequireComponent(typeof(MovementToPositionEvent))]
 [RequireComponent(typeof(SetActiveWeaponEvent))]
+[RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(WeaponFiredEvent))]
 public class Player : MonoBehaviour
 {
     [HideInInspector] public SO_PlayerData playerData;
@@ -38,6 +40,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public SetActiveWeaponEvent setActiveWeaponEvent;
+    [HideInInspector] public FireWeaponEvent fireWeaponEvent;
+    [HideInInspector] public WeaponFiredEvent weaponFiredEvent;
 
     public List<Weapon> weaponList = new List<Weapon>();
 
@@ -55,6 +59,8 @@ public class Player : MonoBehaviour
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
+        fireWeaponEvent = GetComponent<FireWeaponEvent>();
+        weaponFiredEvent = GetComponent<WeaponFiredEvent>();
     }
 
     //===========================================================================
