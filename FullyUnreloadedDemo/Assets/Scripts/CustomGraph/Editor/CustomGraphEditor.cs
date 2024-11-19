@@ -8,7 +8,11 @@ public class CustomGraphEditor : EditorWindow
     private static SO_NodeGraph currentNodeGraph = default;
 
     private GUIStyle nodeStyle_Default = default;
-    private GUIStyle nodeStyle_Selected = default;
+    private GUIStyle nodeStyle_Default_Selected = default;
+    private GUIStyle nodeStyle_isEntrance = default;
+    private GUIStyle nodeStyle_isEntrance_Selected = default;
+    private GUIStyle nodeStyle_isBossRoom = default;
+    private GUIStyle nodeStyle_isBossRoom_Selected = default;
 
     private Vector2 graphOffset = Vector2.zero;
     private Vector2 graphDrag = Vector2.zero;
@@ -29,6 +33,7 @@ public class CustomGraphEditor : EditorWindow
     // Grid Spacing
     private const ushort GRID_LARGE = 100;
     private const ushort GRID_SMALL = 25;
+    private const float GRID_OPACITY = 0.2f;
 
     //===========================================================================
     [MenuItem("Custom Graph Editor", menuItem = "Window/Custom Editor/Custom Graph Editor")]
@@ -37,10 +42,10 @@ public class CustomGraphEditor : EditorWindow
         GetWindow<CustomGraphEditor>("Custom Graph Editor");
     }
 
-    /// Open the room node graph editor window by double click the SO file
     [OnOpenAsset(0)]
     public static bool OnDoubleClickAsset(int instanceID, int line)
     {
+        // Open the room node graph editor window by double click the SO file
         SO_NodeGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as SO_NodeGraph;
         if (nodeGraph == null)
             return false;
@@ -63,12 +68,40 @@ public class CustomGraphEditor : EditorWindow
         nodeStyle_Default.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
         nodeStyle_Default.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
 
-        // Define node layout style: Selected
-        nodeStyle_Selected = new GUIStyle();
-        nodeStyle_Selected.normal.background = EditorGUIUtility.Load("node1 on") as Texture2D;
-        nodeStyle_Selected.normal.textColor = Color.white;
-        nodeStyle_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+        // Define node layout style: Default Selected
+        nodeStyle_Default_Selected = new GUIStyle();
+        nodeStyle_Default_Selected.normal.background = EditorGUIUtility.Load("node1 on") as Texture2D;
+        nodeStyle_Default_Selected.normal.textColor = Color.white;
+        nodeStyle_Default_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
+        nodeStyle_Default_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+
+        // Define node layout style: isEntrance
+        nodeStyle_isEntrance = new GUIStyle();
+        nodeStyle_isEntrance.normal.background = EditorGUIUtility.Load("node3") as Texture2D;
+        nodeStyle_isEntrance.normal.textColor = Color.white;
+        nodeStyle_isEntrance.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
+        nodeStyle_isEntrance.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+
+        // Define node layout style: isEntrance Selected
+        nodeStyle_isEntrance_Selected = new GUIStyle();
+        nodeStyle_isEntrance_Selected.normal.background = EditorGUIUtility.Load("node3 on") as Texture2D;
+        nodeStyle_isEntrance_Selected.normal.textColor = Color.white;
+        nodeStyle_isEntrance_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
+        nodeStyle_isEntrance_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+
+        // Define node layout style: isBossRoom
+        nodeStyle_isBossRoom = new GUIStyle();
+        nodeStyle_isBossRoom.normal.background = EditorGUIUtility.Load("node6") as Texture2D;
+        nodeStyle_isBossRoom.normal.textColor = Color.white;
+        nodeStyle_isBossRoom.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
+        nodeStyle_isBossRoom.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+
+        // Define node layout style: isBossRoom Selected
+        nodeStyle_isBossRoom_Selected = new GUIStyle();
+        nodeStyle_isBossRoom_Selected.normal.background = EditorGUIUtility.Load("node6 on") as Texture2D;
+        nodeStyle_isBossRoom_Selected.normal.textColor = Color.white;
+        nodeStyle_isBossRoom_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
+        nodeStyle_isBossRoom_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
 
         // Load Room Node Types
         roomNodeTypeList = GameResources.Instance.nodeTypeList;
@@ -80,8 +113,8 @@ public class CustomGraphEditor : EditorWindow
         if (currentNodeGraph != null)
         {
             // Draw Grid
-            DrawBackgroundGrid(GRID_SMALL, 0.2f, Color.gray);
-            DrawBackgroundGrid(GRID_LARGE, 0.2f, Color.gray);
+            DrawBackgroundGrid(GRID_SMALL, GRID_OPACITY, Color.gray);
+            DrawBackgroundGrid(GRID_LARGE, GRID_OPACITY, Color.gray);
 
             // Draw dragging line
             DrawDraggingLine();
@@ -93,7 +126,7 @@ public class CustomGraphEditor : EditorWindow
             DrawNodeConnectLine();
 
             // Draw Room Nodes
-            DrawRoomNodes();
+            DrawNodes();
         }
 
         if (GUI.changed)
@@ -183,18 +216,43 @@ public class CustomGraphEditor : EditorWindow
         }
     }
 
-    private void DrawRoomNodes()
+    private void DrawNodes()
     {
         // Loop through all room nodes and draw them
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_Node node in currentNodeGraph.nodeList)
         {
-            if (roomNode.isSelected)
+            if (node.roomNodeType.isEntrance)
             {
-                roomNode.Draw(nodeStyle_Selected);
+                if (node.isSelected)
+                {
+                    node.Draw(nodeStyle_isEntrance_Selected);
+                }
+                else
+                {
+                    node.Draw(nodeStyle_isEntrance);
+                }
             }
-            else
+            else if (node.roomNodeType.isBossRoom)
             {
-                roomNode.Draw(nodeStyle_Default);
+                if (node.isSelected)
+                {
+                    node.Draw(nodeStyle_isBossRoom_Selected);
+                }
+                else
+                {
+                    node.Draw(nodeStyle_isBossRoom);
+                }
+            }
+            else 
+            {
+                if (node.isSelected)
+                {
+                    node.Draw(nodeStyle_Default_Selected);
+                }
+                else
+                {
+                    node.Draw(nodeStyle_Default);
+                }
             }
         }
 

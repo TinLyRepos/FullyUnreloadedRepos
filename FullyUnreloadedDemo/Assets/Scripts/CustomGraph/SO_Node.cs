@@ -17,6 +17,8 @@ public class SO_Node : ScriptableObject
     [HideInInspector] public bool isBeingDragged = false;
     [HideInInspector] public bool isSelected = false;
 
+    private GUIStyle labelStyle = default;
+
     //===========================================================================
     public void Initialize(Rect rect, SO_NodeGraph roomNodeGraph, SO_NodeType roomNodeType)
     {
@@ -28,6 +30,12 @@ public class SO_Node : ScriptableObject
 
         // Load room nodeID type list
         roomNodeTypeList = GameResources.Instance.nodeTypeList;
+
+        // Create a GUIStyle for the label
+        labelStyle = new GUIStyle(EditorStyles.label);
+        labelStyle.fontStyle = FontStyle.Bold;      // Make text bold
+        labelStyle.normal.textColor = Color.white;  // Set text color to white
+        labelStyle.alignment = TextAnchor.MiddleCenter;  // Center-align the text
 
         this.rect = rect;
     }
@@ -155,8 +163,8 @@ public class SO_Node : ScriptableObject
 
         if (roomNodeIDList_Parent.Count != 0 || roomNodeType.isEntrance)
         {
-            // Display a lable only: cannot be interact
-            EditorGUILayout.LabelField(roomNodeType.nodeTypeName);
+            // Display the label with the custom style
+            EditorGUILayout.LabelField(roomNodeType.nodeTypeName, labelStyle);
         }
         else
         {   // Create drop down selection for room type
