@@ -86,14 +86,6 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         roomDictionary.Clear();
     }
 
-    private SO_RoomTemplate GetRoomTemplate(string roomTemplateID)
-    {
-        if (roomTemplateDictionary.TryGetValue(roomTemplateID, out SO_RoomTemplate roomTemplate))
-            return roomTemplate;
-
-        return null;
-    }
-
     private Room GetRoom(string roomID)
     {
         if (roomDictionary.TryGetValue(roomID, out Room room))
@@ -270,6 +262,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
         room.spawnPositionArray = roomTemplate.spawnPositionArray;
 
+        room.enemiesByLevelList = roomTemplate.enemiesByLevelList;
+        room.roomLevelEnemySpawnParametersList = roomTemplate.roomEnemySpawnParametersList;
+
         room.roomIDList_Child = CopyStringList(roomNode.roomNodeIDList_Child);
         room.doorwayList = CopyDoorwayList(roomTemplate.doorwayList);
 
@@ -286,6 +281,10 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         {
             room.roomID_parent = roomNode.roomNodeIDList_Parent[0];
         }
+
+        // If there are no enemies to spawn then default the room to be clear of enemies
+        if (room.GetNumberOfEnemiesToSpawn(GameManager.Instance.GetCurrentDungeonLevel()) == 0)
+            room.isCleared = true;
 
         return room;
     }
@@ -536,5 +535,13 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
 
         return buildSuccessful;
+    }
+
+    public SO_RoomTemplate GetRoomTemplate(string roomTemplateID)
+    {
+        if (roomTemplateDictionary.TryGetValue(roomTemplateID, out SO_RoomTemplate roomTemplate))
+            return roomTemplate;
+
+        return null;
     }
 }

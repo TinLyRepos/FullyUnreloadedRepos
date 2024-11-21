@@ -56,7 +56,7 @@ public class RoomLightingControl : MonoBehaviour
     private IEnumerator FadeInRoomLightingRoutine(InstantiatedRoom instantiatedRoom)
     {
         // Create new material to fade in
-        Material material = new Material(GameResources.Instance.shader_variableLit);
+        Material material = new Material(GameResources.Instance.shader_VariableLit);
 
         instantiatedRoom.groundTilemap.GetComponent<TilemapRenderer>().material = material;
         instantiatedRoom.decoration1Tilemap.GetComponent<TilemapRenderer>().material = material;

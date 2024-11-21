@@ -5,7 +5,7 @@ public class Ammo : MonoBehaviour, IFireable
 {
     [SerializeField] private TrailRenderer trailRenderer;
 
-    private float ammoRange = 0f; // the range of each ammo
+    private float ammoRange = 0f;
     private float ammoSpeed;
     private Vector3 fireDirectionVector;
     private float fireDirectionAngle;
@@ -139,11 +139,6 @@ public class Ammo : MonoBehaviour, IFireable
         fireDirectionVector = HelperUtilities.GetVectorFromAngle(fireDirectionAngle);
     }
 
-    private void DisableAmmo()
-    {
-        gameObject.SetActive(false);
-    }
-
     private void AmmoHitEffect()
     {
         // Process if a hit effect has been specified
@@ -159,6 +154,11 @@ public class Ammo : MonoBehaviour, IFireable
             // gameobject once finished)
             ammoHitEffect.gameObject.SetActive(true);
         }
+    }
+
+    private void DisableAmmo()
+    {
+        gameObject.SetActive(false);
     }
 
     //===========================================================================

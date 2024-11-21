@@ -15,6 +15,8 @@ public class SO_PlayerData : ScriptableObject
 
     [Header("GAMEPLAY")]
     [SerializeField] private int playerBaseMaxHealth;
+    public bool isImmuneAfterHit = false;
+    public float hitImmunityTime;
 
     [Header("WEAPON")]
     [SerializeField] private WeaponDetailsSO startingWeapon;

@@ -6,6 +6,7 @@ public class SO_DungeonLevel : ScriptableObject
 {
     [Header("BASIC LEVEL DETAILS")]
     [SerializeField] private string levelName = string.Empty;
+    public string Name => levelName;
     [Space]
     [Header("ROOM TEMPLATE")]
     public List<SO_RoomTemplate> roomTemplateList = default;

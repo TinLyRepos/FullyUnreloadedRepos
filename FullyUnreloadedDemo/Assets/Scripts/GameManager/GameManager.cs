@@ -13,7 +13,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private Player player = default;
     private SO_PlayerData playerData = default;
 
-    private GameState gameState = default;
+    public GameState gameState = default;
+    public GameState prevGameState = default;
 
     public Room CurrentRoom => currentRoom;
     public Player Player => player;
@@ -23,9 +24,10 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         base.Awake();
 
-        playerData = GameResources.Instance.currentPlayerData.playerData;
+        HelperUtilities.CacheMainCamera();
 
         // Create player gameobject
+        playerData = GameResources.Instance.currentPlayerData.playerData;
         InstantiatePlayer();
     }
 
@@ -37,13 +39,14 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void Start()
     {
         gameState = GameState.GameStarted;
+        prevGameState = GameState.GameStarted;
     }
 
     private void Update()
     {
         HandleGameState();
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Home))
         {
             Debug.Log("Debug: Key R Pressed");
             gameState = GameState.GameStarted;
@@ -131,6 +134,17 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Set player position to the closest spawn point from roomCenter
         player.gameObject.transform.position = HelperUtilities.GetClosetSpawnPosition(roomCenter);
+    }
+
+    //===========================================================================
+    public Sprite GetPlayerMinimapIcon()
+    {
+        return playerData.MiniMapIcon;
+    }
+
+    public SO_DungeonLevel GetCurrentDungeonLevel()
+    {
+        return dungeonLevelList[currentLevelIndex];
     }
 
     //===========================================================================

@@ -54,39 +54,32 @@ public static class Settings
     public const string playerTag = "Player";
     public const string playerWeapon = "playerWeapon";
 
-    #region AUDIO
+    // AUDIO
     public const float musicFadeOutTime = 0.5f;  // Defualt Music Fade Out Transition
     public const float musicFadeInTime = 0.5f;  // Default Music Fade In Transition
-    #endregion
 
-    #region FIRING CONTROL
+    // FIRING CONTROL
     // if the target distance is less than this then the aim angle will be used (calculated from player)
     // else the weapon aim angle will be used (calculated from the weapon).
     public const float useAimAngleDistance = 3.5f; 
-    #endregion
 
-    #region ASTAR PATHFINDING PARAMETERS
+    // ASTAR PATHFINDING PARAMETERS
     public const int defaultAStarMovementPenalty = 40;
     public const int preferredPathAStarMovementPenalty = 1;
     public const int targetFrameRateToSpreadPathfindingOver = 60;
     public const float playerMoveDistanceToRebuildPath = 3f;
     public const float enemyPathRebuildCooldown = 2f;
-    #endregion
 
-    #region ENEMY PARAMETERS
-    public const int defaultEnemyHealth = 20;
-    #endregion
-
-    #region UI PARAMETERS
+    // UI PARAMETERS
     public const float uiHeartSpacing = 16f;
-    public const float uiAmmoIconSpacing = 4f;
-    #endregion
+    public const float CANVAS_AMMO_ICON_SPACING = 4f;
 
-    #region CONTACT DAMAGE PARAMETERS
+    // ENEMY PARAMETERS
+    public const int defaultEnemyHealth = 20;
+
+    // CONTACT DAMAGE PARAMETERS
     public const float contactDamageCollisionResetDelay = 0.5f;
-    #endregion
 
-    #region HIGHSCORES
+    // HIGHSCORES
     public const int numberOfHighScoresToSave = 100;
-    #endregion
 }

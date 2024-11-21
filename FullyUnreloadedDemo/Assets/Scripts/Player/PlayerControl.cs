@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -11,12 +12,13 @@ public class PlayerControl : MonoBehaviour
     private float moveSpeed;
 
     private Coroutine playerRollCoroutine;
-    private WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-    private bool isPlayerRolling = false;
+    private WaitForFixedUpdate waitForFixedUpdate;
+    public bool isPlayerRolling = false;
     private float playerRollCDTimer = 0.0f;
 
     // Weapon
     private int currentWeaponIndex = 1;
+    private bool leftMouseDownPreviousFrame = false;
 
     //===========================================================================
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,13 +43,12 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-
         moveSpeed = movementData.GetMoveSpeed();
     }
 
     private void Start()
     {
-        HelperUtilities.CacheMainCamera();
+        waitForFixedUpdate = new WaitForFixedUpdate();
 
         SetStartingWeapon();
 
@@ -60,6 +61,7 @@ public class PlayerControl : MonoBehaviour
             return;
 
         MovementInput();
+
         WeaponInput();
 
         PlayerRollCooldownTimer();
@@ -98,6 +100,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    //===========================================================================
     private void WeaponInput()
     {
         Vector3 weaponDirection = Vector3.zero;
@@ -110,6 +113,12 @@ public class PlayerControl : MonoBehaviour
 
         // Fire Weapon Input
         FireWeaponInput(weaponDirection, weaponAngle, playerAngle, playerAimDirection);
+
+        // Switch weapon
+        SwitchWeaponInput();
+
+        // Reload Weapon Input
+        ReloadWeaponInput();
     }
 
     private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngle, out float playerAngle, out AimDirection playerAimDirection)
@@ -142,16 +151,97 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             // Trigger fire weapon event
-            player.fireWeaponEvent.CallFireWeaponEvent(true, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
-            // player.fireWeaponEvent.CallFireWeaponEvent(true, leftMouseDownPreviousFrame, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
-            // leftMouseDownPreviousFrame = true;
+            player.fireWeaponEvent.CallFireWeaponEvent(true, leftMouseDownPreviousFrame, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+            leftMouseDownPreviousFrame = true;
         }
         else
         {
-            // leftMouseDownPreviousFrame = false;
+            leftMouseDownPreviousFrame = false;
         }
     }
 
+    private void ReloadWeaponInput()
+    {
+        Weapon currentWeapon = player.activeWeapon.GetCurrentWeapon();
+
+        // if current weapon is reloading return
+        if (currentWeapon.isWeaponReloading)
+            return;
+
+        // remaining ammo is less than clip capacity then return and not infinite ammo then return
+        if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && 
+            currentWeapon.weaponDetails.hasInfiniteAmmo == false)
+            return;
+
+        // if ammo in clip equals clip capacity then return
+        if (currentWeapon.weaponClipRemainingAmmo == currentWeapon.weaponDetails.weaponClipAmmoCapacity)
+            return;
+
+        // Call the reload weapon event
+        if (Input.GetKeyDown(KeyCode.R))
+            player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
+    }
+
+    private void SwitchWeaponInput()
+    {
+        // Mouse Input
+        if (Input.mouseScrollDelta.y > 0f)
+        {
+            currentWeaponIndex++;
+            if (currentWeaponIndex > player.weaponList.Count)
+                currentWeaponIndex = 1;
+            SetWeaponByIndex(currentWeaponIndex);
+        }
+        else if (Input.mouseScrollDelta.y < 0f)
+        {
+            currentWeaponIndex--;
+            if (currentWeaponIndex < 1)
+                currentWeaponIndex = player.weaponList.Count;
+            SetWeaponByIndex(currentWeaponIndex);
+        }
+
+        // Keyboard Input
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SetWeaponByIndex(1);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            SetWeaponByIndex(2);
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            SetWeaponByIndex(3);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            SetWeaponByIndex(4);
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            SetWeaponByIndex(5);
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            SetWeaponByIndex(6);
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+            SetWeaponByIndex(7);
+
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+            SetWeaponByIndex(8);
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+            SetWeaponByIndex(9);
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            SetWeaponByIndex(10);
+    }
+
+    private void SetWeaponByIndex(int weaponIndex)
+    {
+        if (weaponIndex - 1 < player.weaponList.Count)
+        {
+            currentWeaponIndex = weaponIndex;
+            player.setActiveWeaponEvent.CallSetActiveWeaponEvent(player.weaponList[weaponIndex - 1]);
+        }
+    }
+
+    //===========================================================================
     private void PlayerRollCooldownTimer()
     {
         if (playerRollCDTimer >= 0f)

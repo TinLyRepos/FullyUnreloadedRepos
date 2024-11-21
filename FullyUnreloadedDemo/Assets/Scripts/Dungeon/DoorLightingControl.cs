@@ -23,7 +23,7 @@ public class DoorLightingControl : MonoBehaviour
     public void FadeIn(Door door)
     {
         // Create new material to fade in
-        Material material = new Material(GameResources.Instance.shader_variableLit);
+        Material material = new Material(GameResources.Instance.shader_VariableLit);
 
         if (!isLit)
         {

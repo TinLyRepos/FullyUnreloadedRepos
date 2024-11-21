@@ -18,7 +18,6 @@ public class FireWeapon : MonoBehaviour
     //===========================================================================
     private void Awake()
     {
-        // Load components.
         activeWeapon = GetComponent<ActiveWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
         reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
@@ -97,11 +96,10 @@ public class FireWeapon : MonoBehaviour
             return false;
 
         // if no ammo in the clip and the weapon doesn't have infinite clip capacity then return false.
-        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0)
+        if (activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0 &&
+            activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity == false)
         {
-            // trigger a reload weapon event.
             reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
-
             return false;
         }
 
@@ -120,7 +118,8 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
+    private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle,
+        Vector3 weaponAimDirectionVector)
     {
         int ammoCounter = 0;
 
@@ -174,7 +173,9 @@ public class FireWeapon : MonoBehaviour
         WeaponShootEffect(aimAngle);
 
         // Weapon fired sound effect
-        WeaponSoundEffect();
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.soundEffectFire != null)
+            SoundEffectManager.Instance.PlaySoundEffect(
+                activeWeapon.GetCurrentWeapon().weaponDetails.soundEffectFire);
     }
 
     private void ResetCoolDownTimer()
@@ -192,25 +193,22 @@ public class FireWeapon : MonoBehaviour
     private void WeaponShootEffect(float aimAngle)
     {
         // Process if there is a shoot effect & prefab
-        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect != null && activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab != null)
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect != null &&
+            activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab != null)
         {
             // Get weapon shoot effect gameobject from the pool with particle system component
-            WeaponShootEffect weaponShootEffect = (WeaponShootEffect)PoolManager.Instance.ReuseComponent(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab, activeWeapon.GetShootEffectPosition(), Quaternion.identity);
+            WeaponShootEffect weaponShootEffect =
+                (WeaponShootEffect)PoolManager.Instance.ReuseComponent(
+                    activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab,
+                    activeWeapon.GetShootEffectPosition(), Quaternion.identity);
 
             // Set shoot effect
-            weaponShootEffect.SetShootEffect(activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect, aimAngle);
+            weaponShootEffect.SetShootEffect(
+                activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect, aimAngle);
 
             // Set gameobject active (the particle system is set to automatically disable the
             // gameobject once finished)
             weaponShootEffect.gameObject.SetActive(true);
         }
-    }
-
-    private void WeaponSoundEffect()
-    {
-        //if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect != null)
-        //{
-        //    SoundEffectManager.Instance.PlaySoundEffect(activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect);
-        //}
     }
 }

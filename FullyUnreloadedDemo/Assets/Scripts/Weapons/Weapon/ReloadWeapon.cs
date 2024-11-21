@@ -1,12 +1,11 @@
+using NUnit.Framework;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(WeaponReloadedEvent))]
 [RequireComponent(typeof(SetActiveWeaponEvent))]
-
-[DisallowMultipleComponent]
 public class ReloadWeapon : MonoBehaviour
 {
     private ReloadWeaponEvent reloadWeaponEvent;
@@ -14,9 +13,9 @@ public class ReloadWeapon : MonoBehaviour
     private SetActiveWeaponEvent setActiveWeaponEvent;
     private Coroutine reloadWeaponCoroutine;
 
+    //===========================================================================
     private void Awake()
     {
-        // Load components
         reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
         weaponReloadedEvent = GetComponent<WeaponReloadedEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
@@ -24,53 +23,47 @@ public class ReloadWeapon : MonoBehaviour
 
     private void OnEnable()
     {
-        // subscribe to reload weapon event
         reloadWeaponEvent.OnReloadWeapon += ReloadWeaponEvent_OnReloadWeapon;
-
-        // Subscribe to set active weapon event
         setActiveWeaponEvent.OnSetActiveWeapon += SetActiveWeaponEvent_OnSetActiveWeapon;
     }
 
     private void OnDisable()
     {
-        // unsubscribe from reload weapon event
         reloadWeaponEvent.OnReloadWeapon -= ReloadWeaponEvent_OnReloadWeapon;
-
-        // Unsubscribe from set active weapon event
         setActiveWeaponEvent.OnSetActiveWeapon -= SetActiveWeaponEvent_OnSetActiveWeapon;
     }
 
-    /// <summary>
-    /// Handle reload weapon event
-    /// </summary>
+    //===========================================================================
     private void ReloadWeaponEvent_OnReloadWeapon(ReloadWeaponEvent reloadWeaponEvent, ReloadWeaponEventArgs reloadWeaponEventArgs)
     {
         StartReloadWeapon(reloadWeaponEventArgs);
     }
 
-    /// <summary>
-    /// Start reloading the weapon
-    /// </summary>
+    private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponEventArgs)
+    {
+        if (setActiveWeaponEventArgs.weapon.isWeaponReloading)
+            return;
+
+        if (reloadWeaponCoroutine != null)
+            StopCoroutine(reloadWeaponCoroutine);
+
+        reloadWeaponCoroutine = StartCoroutine(ReloadWeaponRoutine(setActiveWeaponEventArgs.weapon, 0));
+    }
+
+    //===========================================================================
     private void StartReloadWeapon(ReloadWeaponEventArgs reloadWeaponEventArgs)
     {
         if (reloadWeaponCoroutine != null)
-        {
             StopCoroutine(reloadWeaponCoroutine);
-        }
 
         reloadWeaponCoroutine = StartCoroutine(ReloadWeaponRoutine(reloadWeaponEventArgs.weapon, reloadWeaponEventArgs.topUpAmmoPercent));
     }
 
-    /// <summary>
-    /// Reload weapon coroutine
-    /// </summary>
     private IEnumerator ReloadWeaponRoutine(Weapon weapon, int topUpAmmoPercent)
     {
         // Play reload sound if there is one
-        //if (weapon.weaponDetails.weaponReloadingSoundEffect != null)
-        //{
-        //    SoundEffectManager.Instance.PlaySoundEffect(weapon.weaponDetails.weaponReloadingSoundEffect);
-        //}
+        if (weapon.weaponDetails.soundEffectReload != null && SoundEffectManager.Instance != null)
+            SoundEffectManager.Instance.PlaySoundEffect(weapon.weaponDetails.soundEffectReload);
 
         // Set weapon as reloading
         weapon.isWeaponReloading = true;
@@ -124,24 +117,5 @@ public class ReloadWeapon : MonoBehaviour
 
         // Call weapon reloaded event
         weaponReloadedEvent.CallWeaponReloadedEvent(weapon);
-
     }
-
-    /// <summary>
-    /// Set active weapon event handler
-    /// </summary>
-    private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponEventArgs)
-    {
-        if (setActiveWeaponEventArgs.weapon.isWeaponReloading)
-        {
-            if (reloadWeaponCoroutine != null)
-            {
-                StopCoroutine(reloadWeaponCoroutine);
-            }
-
-            reloadWeaponCoroutine = StartCoroutine(ReloadWeaponRoutine(setActiveWeaponEventArgs.weapon, 0));
-        }
-    }
-
-
 }
