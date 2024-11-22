@@ -9,7 +9,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
     private Dictionary<string, SO_RoomTemplate> roomTemplateDictionary = new();
     private List<SO_RoomTemplate> roomTemplateList = null;
-    private SO_NodeTypeList roomNodeTypeList = null;
+    private SO_MapNodeTypeList roomNodeTypeList = null;
 
     private bool buildSuccessful;
 
@@ -126,7 +126,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return newList;
     }
 
-    private SO_RoomTemplate GetRandomRoomTemplate(SO_NodeType roomNodeType)
+    private SO_RoomTemplate GetRandomRoomTemplate(SO_MapNodeType roomNodeType)
     {
         List<SO_RoomTemplate> matchingRoomTemplateList = new List<SO_RoomTemplate>();
 
@@ -216,7 +216,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return null;
     }
 
-    private SO_RoomTemplate GetRandomTemplateForRoomConsistentWithParent(SO_Node roomNode, Doorway doorway)
+    private SO_RoomTemplate GetRandomTemplateForRoomConsistentWithParent(SO_MapNode roomNode, Doorway doorway)
     {
         SO_RoomTemplate roomTemplate = null;
 
@@ -245,7 +245,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return roomTemplate;
     }
 
-    private Room TryBuildRoomFromRoomTemplate(SO_Node roomNode, SO_RoomTemplate roomTemplate)
+    private Room TryBuildRoomFromRoomTemplate(SO_MapNode roomNode, SO_RoomTemplate roomTemplate)
     {
         // Initialize room from template
         Room room = new Room();
@@ -354,7 +354,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
     }
 
-    private bool TryPlaceRoomWithNoOverlaps(SO_Node roomNode, Room parentRoom)
+    private bool TryPlaceRoomWithNoOverlaps(SO_MapNode roomNode, Room parentRoom)
     {
         bool roomOverlaps = true;
 
@@ -396,16 +396,16 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return true; // no room overlaps
     }
 
-    private bool ProcessRoomsInOpenRoomNodeQueue(SO_MapNodeGraph roomNodeGraph, Queue<SO_Node> openRoomNodeQueue, bool noRoomOverlaps)
+    private bool ProcessRoomsInOpenRoomNodeQueue(SO_MapNodeGraph roomNodeGraph, Queue<SO_MapNode> openRoomNodeQueue, bool noRoomOverlaps)
     {
         // While room nodes in openQueue & no room overlaps detected
         while (openRoomNodeQueue.Count > 0 && noRoomOverlaps == true)
         {
             // Get next room node from open room node queue
-            SO_Node roomNode = openRoomNodeQueue.Dequeue();
+            SO_MapNode roomNode = openRoomNodeQueue.Dequeue();
 
             // Add child Nodes to queue from room node graph (with links to this parent room)
-            foreach (SO_Node childRoomNode in roomNodeGraph.GetChildRoomNodes(roomNode))
+            foreach (SO_MapNode childRoomNode in roomNodeGraph.GetChildRoomNodes(roomNode))
             {
                 openRoomNodeQueue.Enqueue(childRoomNode);
             }
@@ -438,10 +438,10 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     private bool TryBuildRandomDungeon(SO_MapNodeGraph roomNodeGraph)
     {
         // Create Open Room Node Queue
-        Queue<SO_Node> openRoomNodeQueue = new Queue<SO_Node>();
+        Queue<SO_MapNode> openRoomNodeQueue = new Queue<SO_MapNode>();
 
         // Add Entrance Node to room node queue from room node gragh
-        SO_Node entranceNode = roomNodeGraph.GetRoomNode(roomNodeTypeList.list.Find(x => x.isEntrance));
+        SO_MapNode entranceNode = roomNodeGraph.GetRoomNode(roomNodeTypeList.list.Find(x => x.isEntrance));
         if (entranceNode != null)
         {
             openRoomNodeQueue.Enqueue(entranceNode);

@@ -19,7 +19,7 @@ public class GameResources : MonoBehaviour
     }
 
     [Header("NODE TYPE LIST")]
-    public SO_NodeTypeList nodeTypeList = default;
+    public SO_MapNodeTypeList nodeTypeList = default;
 
     [Header("RUNTIME MATERIALS & SHADERS")]
     public Material material_dimmed = default;

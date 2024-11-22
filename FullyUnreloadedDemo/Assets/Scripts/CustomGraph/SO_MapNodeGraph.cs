@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NodeGraph", menuName = "Scriptable Objects/Map Editor/Node Graph")]
 public class SO_MapNodeGraph : ScriptableObject
 {
-    [HideInInspector] public SO_NodeTypeList nodeTypeList = default;
-    [HideInInspector] public List<SO_Node> nodeList = new List<SO_Node>();
-    [HideInInspector] public Dictionary<string, SO_Node> nodeDictionary = new Dictionary<string, SO_Node>();
+    [HideInInspector] public SO_MapNodeTypeList nodeTypeList = default;
+    [HideInInspector] public List<SO_MapNode> nodeList = new List<SO_MapNode>();
+    [HideInInspector] public Dictionary<string, SO_MapNode> nodeDictionary = new Dictionary<string, SO_MapNode>();
 
     //===========================================================================
     private void Awake()
@@ -19,22 +19,22 @@ public class SO_MapNodeGraph : ScriptableObject
     {
         nodeDictionary.Clear();
 
-        foreach (SO_Node roomNode in nodeList)
+        foreach (SO_MapNode roomNode in nodeList)
             nodeDictionary[roomNode.guid] = roomNode;
     }
 
     //===========================================================================
-    public SO_Node GetRoomNode(string roomNodeID)
+    public SO_MapNode GetRoomNode(string roomNodeID)
     {
-        if (nodeDictionary.TryGetValue(roomNodeID, out SO_Node roomNode))
+        if (nodeDictionary.TryGetValue(roomNodeID, out SO_MapNode roomNode))
             return roomNode;
 
         return null;
     }
 
-    public SO_Node GetRoomNode(SO_NodeType roomNodeType)
+    public SO_MapNode GetRoomNode(SO_MapNodeType roomNodeType)
     {
-        foreach (SO_Node roomNode in nodeList)
+        foreach (SO_MapNode roomNode in nodeList)
         {
             if (roomNode.roomNodeType == roomNodeType)
                 return roomNode;
@@ -42,7 +42,7 @@ public class SO_MapNodeGraph : ScriptableObject
         return null;
     }
 
-    public IEnumerable<SO_Node> GetChildRoomNodes(SO_Node parentRoomNode)
+    public IEnumerable<SO_MapNode> GetChildRoomNodes(SO_MapNode parentRoomNode)
     {
         foreach (string childNodeID in parentRoomNode.roomNodeIDList_Child)
         {
@@ -52,7 +52,7 @@ public class SO_MapNodeGraph : ScriptableObject
 
     //===========================================================================
 #if UNITY_EDITOR
-    [HideInInspector] public SO_Node roomNodeStart = null;
+    [HideInInspector] public SO_MapNode roomNodeStart = null;
     [HideInInspector] public Vector2 endLinePosition = Vector2.zero;
 
     public void OnValidate()
@@ -60,7 +60,7 @@ public class SO_MapNodeGraph : ScriptableObject
         LoadRoomNodeDictionary();
     }
 
-    public void SetDrawStartNode(SO_Node node, Vector2 position)
+    public void SetDrawStartNode(SO_MapNode node, Vector2 position)
     {
         roomNodeStart = node;
         endLinePosition = position;

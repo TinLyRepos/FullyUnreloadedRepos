@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class SO_Node : ScriptableObject
+public class SO_MapNode : ScriptableObject
 {
     [HideInInspector] public string guid = string.Empty;
     [HideInInspector] public List<string> roomNodeIDList_Parent = new List<string>();
     [HideInInspector] public List<string> roomNodeIDList_Child = new List<string>();
     [HideInInspector] public SO_MapNodeGraph roomNodeGraph = null;
-    [HideInInspector] public SO_NodeType roomNodeType = default;
-    [HideInInspector] public SO_NodeTypeList roomNodeTypeList = null;
+    [HideInInspector] public SO_MapNodeType roomNodeType = default;
+    [HideInInspector] public SO_MapNodeTypeList roomNodeTypeList = null;
 
 #if UNITY_EDITOR
     [HideInInspector] public Rect rect;
@@ -20,7 +20,7 @@ public class SO_Node : ScriptableObject
     private GUIStyle labelStyle = default;
 
     //===========================================================================
-    public void Initialize(Rect rect, SO_MapNodeGraph roomNodeGraph, SO_NodeType roomNodeType)
+    public void Initialize(Rect rect, SO_MapNodeGraph roomNodeGraph, SO_MapNodeType roomNodeType)
     {
         name = "RoomNode";
 
@@ -78,7 +78,7 @@ public class SO_Node : ScriptableObject
         if (roomNodeGraph.GetRoomNode(nodeID).roomNodeType.isBossRoom)
         {
             bool isConnectedBossNodeAlready = false;
-            foreach (SO_Node roomNode in roomNodeGraph.nodeList)
+            foreach (SO_MapNode roomNode in roomNodeGraph.nodeList)
             {
                 if (roomNode.roomNodeType.isBossRoom && roomNode.roomNodeIDList_Parent.Count != 0)
                     isConnectedBossNodeAlready = true;
@@ -188,7 +188,7 @@ public class SO_Node : ScriptableObject
                 for (int i = roomNodeIDList_Child.Count - 1; i >= 0; i--)
                 {
                     // Get child room node
-                    SO_Node childRoomNode = roomNodeGraph.GetRoomNode(roomNodeIDList_Child[i]);
+                    SO_MapNode childRoomNode = roomNodeGraph.GetRoomNode(roomNodeIDList_Child[i]);
                     if (childRoomNode == null)
                         continue;
 

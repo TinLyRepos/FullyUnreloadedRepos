@@ -12,7 +12,7 @@ public class SO_RoomTemplate : ScriptableObject
     private GameObject prefab_cache;
     [Space]
     [Header("ROOM CONFIG")]
-    public SO_NodeType roomNodeType;
+    public SO_MapNodeType roomNodeType;
     public Vector2Int lowerBounds; // Use by Doorway.cs to seal unused door - bottom left
     public Vector2Int upperBounds; // Use by Doorway.cs to seal unused door - top right
     [Space]

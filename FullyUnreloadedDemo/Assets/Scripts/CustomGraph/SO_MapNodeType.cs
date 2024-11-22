@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NodeType", menuName = "Scriptable Objects/Map Editor/Node Type")]
-public class SO_NodeType : ScriptableObject
+public class SO_MapNodeType : ScriptableObject
 {
     public string nodeTypeName = string.Empty;
     public bool showInMapEditor = true;
@@ -20,3 +21,18 @@ public class SO_NodeType : ScriptableObject
     }
 #endif
 }
+
+[CreateAssetMenu(fileName = "NodeTypeList", menuName = "Scriptable Objects/Map Editor/Node Type List")]
+public class SO_MapNodeTypeList : ScriptableObject
+{
+    [Header("NODE TYPE LIST")]
+    public List<SO_MapNodeType> list = default;
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(list), list);
+    }
+#endif
+}
+

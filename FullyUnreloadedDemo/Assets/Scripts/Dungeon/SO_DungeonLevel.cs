@@ -63,7 +63,7 @@ public class SO_DungeonLevel : ScriptableObject
                 return;
 
             // Loop through all nodes in node graph
-            foreach (SO_Node roomNode in roomNodeGraph.nodeList)
+            foreach (SO_MapNode roomNode in roomNodeGraph.nodeList)
             {
                 if (roomNode == null)
                     continue;

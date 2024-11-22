@@ -14,8 +14,8 @@ public class MapNodeGraphEditor : EditorWindow
     private Vector2 graphOffset = Vector2.zero;
     private Vector2 dragDelta = Vector2.zero;
 
-    private SO_Node selectedRoomNode = null;
-    private SO_NodeTypeList roomNodeTypeList = default;
+    private SO_MapNode selectedRoomNode = null;
+    private SO_MapNodeTypeList roomNodeTypeList = default;
 
     //===========================================================================
     [MenuItem("Map Node Graph Editor", menuItem = "Window/Custom Window/Map Node Graph Editor")]
@@ -143,7 +143,7 @@ public class MapNodeGraphEditor : EditorWindow
 
     private void DrawNodeConnectLine()
     {
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_MapNode roomNode in currentNodeGraph.nodeList)
         {
             if (roomNode.roomNodeIDList_Child.Count == 0)
                 continue;
@@ -178,7 +178,7 @@ public class MapNodeGraphEditor : EditorWindow
     private void DrawNodes()
     {
         // Loop through all room nodes and draw them
-        foreach (SO_Node node in currentNodeGraph.nodeList)
+        foreach (SO_MapNode node in currentNodeGraph.nodeList)
         {
             if (node.roomNodeType.isEntrance)
             {
@@ -286,7 +286,7 @@ public class MapNodeGraphEditor : EditorWindow
             case 1: // RIGHT MOUSE
                 if (currentNodeGraph.roomNodeStart != null)
                 {
-                    SO_Node roomNode = GetNodeAtMouse(e);
+                    SO_MapNode roomNode = GetNodeAtMouse(e);
                     if (roomNode != null && currentNodeGraph.roomNodeStart.AddRoomNodeID_Child(roomNode.guid))
                     {   // Set room node as a child of the parent room node if possible
                         // Set parent ID in child room node
@@ -346,7 +346,7 @@ public class MapNodeGraphEditor : EditorWindow
     }
 
     //===========================================================================
-    private SO_Node GetNodeAtMouse(Event currentEvent)
+    private SO_MapNode GetNodeAtMouse(Event currentEvent)
     {
         for (int i = currentNodeGraph.nodeList.Count - 1; i >= 0; i--)
         {
@@ -359,7 +359,7 @@ public class MapNodeGraphEditor : EditorWindow
 
     private void ClearAllSelectedRoomNodes()
     {
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_MapNode roomNode in currentNodeGraph.nodeList)
         {
             if (roomNode.isSelected == false)
                 continue;
@@ -371,7 +371,7 @@ public class MapNodeGraphEditor : EditorWindow
 
     private void SelectAllRoomNodes()
     {
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_MapNode roomNode in currentNodeGraph.nodeList)
             roomNode.isSelected = true;
 
         GUI.changed = true;
@@ -387,12 +387,12 @@ public class MapNodeGraphEditor : EditorWindow
         CreateNode(mousePositionObject, roomNodeTypeList.list.Find(x => x.isNone));
     }
 
-    private void CreateNode(object mousePositionObject, SO_NodeType nodeType)
+    private void CreateNode(object mousePositionObject, SO_MapNodeType nodeType)
     {
         Vector2 mousePos = (Vector2)mousePositionObject;
 
         // create room node scriptable object
-        SO_Node node = CreateInstance<SO_Node>();
+        SO_MapNode node = CreateInstance<SO_MapNode>();
 
         // add room node to current room node graph room node list
         currentNodeGraph.nodeList.Add(node);
@@ -411,7 +411,7 @@ public class MapNodeGraphEditor : EditorWindow
     // Delete selected room nodes and links
     private void DeleteSelectedRoomNodeLinks()
     {
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_MapNode roomNode in currentNodeGraph.nodeList)
         {
             if (roomNode.isSelected == false || roomNode.roomNodeIDList_Child.Count == 0)
                 continue;
@@ -419,7 +419,7 @@ public class MapNodeGraphEditor : EditorWindow
             for (int i = roomNode.roomNodeIDList_Child.Count - 1; i >= 0; i--)
             {
                 // Get child room node
-                SO_Node childRoomNode = currentNodeGraph.GetRoomNode(roomNode.roomNodeIDList_Child[i]);
+                SO_MapNode childRoomNode = currentNodeGraph.GetRoomNode(roomNode.roomNodeIDList_Child[i]);
                 if (childRoomNode == null || childRoomNode.isSelected == false)
                     continue;
 
@@ -433,9 +433,9 @@ public class MapNodeGraphEditor : EditorWindow
 
     private void DeleteSelectedRoomNodes()
     {
-        Queue<SO_Node> roomNodeDeletionQueue = new Queue<SO_Node>();
+        Queue<SO_MapNode> roomNodeDeletionQueue = new Queue<SO_MapNode>();
 
-        foreach (SO_Node roomNode in currentNodeGraph.nodeList)
+        foreach (SO_MapNode roomNode in currentNodeGraph.nodeList)
         {
             if (roomNode.isSelected && roomNode.roomNodeType.isEntrance == false)
             {
@@ -448,7 +448,7 @@ public class MapNodeGraphEditor : EditorWindow
                 foreach (string childRoomNodeID in roomNode.roomNodeIDList_Child)
                 {
                     // Retrive child room node
-                    SO_Node childRoomNode = currentNodeGraph.GetRoomNode(childRoomNodeID);
+                    SO_MapNode childRoomNode = currentNodeGraph.GetRoomNode(childRoomNodeID);
                     if (childRoomNode != null)
                         childRoomNode.RemoveRoomNodeID_Parent(roomNode.guid);
                 }
@@ -457,7 +457,7 @@ public class MapNodeGraphEditor : EditorWindow
                 foreach (string parentRoomNodeID in roomNode.roomNodeIDList_Parent)
                 {
                     // Retrive child room node
-                    SO_Node parentRoomNode = currentNodeGraph.GetRoomNode(parentRoomNodeID);
+                    SO_MapNode parentRoomNode = currentNodeGraph.GetRoomNode(parentRoomNodeID);
                     if (parentRoomNode != null)
                         parentRoomNode.RemoveRoomNodeID_Child(roomNode.guid);
                 }
@@ -467,7 +467,7 @@ public class MapNodeGraphEditor : EditorWindow
         while (roomNodeDeletionQueue.Count != 0)
         {
             // Get room node from queue
-            SO_Node roomNodeToDelete = roomNodeDeletionQueue.Dequeue();
+            SO_MapNode roomNodeToDelete = roomNodeDeletionQueue.Dequeue();
 
             // Remove node from dictionary
             currentNodeGraph.nodeDictionary.Remove(roomNodeToDelete.guid);

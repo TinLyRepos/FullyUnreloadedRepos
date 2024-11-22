@@ -7,7 +7,7 @@ public class Room
 
     public string templateID = default;
     public GameObject prefab = default;
-    public SO_NodeType roomNodeType = default;
+    public SO_MapNodeType roomNodeType = default;
 
     public Vector2Int lowerBounds = Vector2Int.zero;
     public Vector2Int upperBounds = Vector2Int.zero;
