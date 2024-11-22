@@ -539,9 +539,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.10384068
     width: 1
-    height: 1
+    height: 0.792941
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -2329,6 +2329,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 79a8f3e29dbb7ba4f9bea34360a221b0, type: 2}
   - {fileID: 11400000, guid: 85a77b16ad171e54a93701179864a5f8, type: 2}
   currentLevelIndex: 2
+  gameState: 0
+  prevGameState: 0
 --- !u!4 &1978190102
 Transform:
   m_ObjectHideFlags: 0

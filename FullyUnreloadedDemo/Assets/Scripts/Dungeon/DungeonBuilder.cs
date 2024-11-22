@@ -58,7 +58,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
     }
 
-    private SO_NodeGraph GetRandomRoomNodeGraph(List<SO_NodeGraph> roomNodeGraphList)
+    private SO_MapNodeGraph GetRandomRoomNodeGraph(List<SO_MapNodeGraph> roomNodeGraphList)
     {
         if (roomNodeGraphList.Count == 0)
         {
@@ -396,7 +396,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return true; // no room overlaps
     }
 
-    private bool ProcessRoomsInOpenRoomNodeQueue(SO_NodeGraph roomNodeGraph, Queue<SO_Node> openRoomNodeQueue, bool noRoomOverlaps)
+    private bool ProcessRoomsInOpenRoomNodeQueue(SO_MapNodeGraph roomNodeGraph, Queue<SO_Node> openRoomNodeQueue, bool noRoomOverlaps)
     {
         // While room nodes in openQueue & no room overlaps detected
         while (openRoomNodeQueue.Count > 0 && noRoomOverlaps == true)
@@ -435,7 +435,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         return noRoomOverlaps;
     }
 
-    private bool TryBuildRandomDungeon(SO_NodeGraph roomNodeGraph)
+    private bool TryBuildRandomDungeon(SO_MapNodeGraph roomNodeGraph)
     {
         // Create Open Room Node Queue
         Queue<SO_Node> openRoomNodeQueue = new Queue<SO_Node>();
@@ -512,7 +512,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
             dungeonAttempts++;
 
             // Select a random room node graph from the newList
-            SO_NodeGraph roomNodeGraph = GetRandomRoomNodeGraph(currentLevel.roomNodeGraphList);
+            SO_MapNodeGraph roomNodeGraph = GetRandomRoomNodeGraph(currentLevel.roomNodeGraphList);
 
             int graphAttempts = 0;
             buildSuccessful = false;

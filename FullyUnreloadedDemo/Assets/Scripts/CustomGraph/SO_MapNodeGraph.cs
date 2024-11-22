@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NodeGraph", menuName = "Scriptable Objects/Map Editor/Node Graph")]
-public class SO_NodeGraph : ScriptableObject
+public class SO_MapNodeGraph : ScriptableObject
 {
     [HideInInspector] public SO_NodeTypeList nodeTypeList = default;
     [HideInInspector] public List<SO_Node> nodeList = new List<SO_Node>();

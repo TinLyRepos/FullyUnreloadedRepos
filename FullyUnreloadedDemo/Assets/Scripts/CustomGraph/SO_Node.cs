@@ -8,7 +8,7 @@ public class SO_Node : ScriptableObject
     [HideInInspector] public string guid = string.Empty;
     [HideInInspector] public List<string> roomNodeIDList_Parent = new List<string>();
     [HideInInspector] public List<string> roomNodeIDList_Child = new List<string>();
-    [HideInInspector] public SO_NodeGraph roomNodeGraph = null;
+    [HideInInspector] public SO_MapNodeGraph roomNodeGraph = null;
     [HideInInspector] public SO_NodeType roomNodeType = default;
     [HideInInspector] public SO_NodeTypeList roomNodeTypeList = null;
 
@@ -20,7 +20,7 @@ public class SO_Node : ScriptableObject
     private GUIStyle labelStyle = default;
 
     //===========================================================================
-    public void Initialize(Rect rect, SO_NodeGraph roomNodeGraph, SO_NodeType roomNodeType)
+    public void Initialize(Rect rect, SO_MapNodeGraph roomNodeGraph, SO_NodeType roomNodeType)
     {
         name = "RoomNode";
 
@@ -167,7 +167,8 @@ public class SO_Node : ScriptableObject
             EditorGUILayout.LabelField(roomNodeType.nodeTypeName, labelStyle);
         }
         else
-        {   // Create drop down selection for room type
+        {
+            // Create drop down selection for room type
             int selectedType = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
 
             // Create list of options
@@ -181,18 +182,18 @@ public class SO_Node : ScriptableObject
                 roomNodeTypeList.list[selectedType].isBossRoom == false && roomNodeTypeList.list[selection].isBossRoom)
             {
                 // Remove potentially invalid links
-                if (roomNodeIDList_Child.Count > 0)
-                {
-                    for (int i = roomNodeIDList_Child.Count - 1; i >= 0; i--)
-                    {
-                        // Get child room node
-                        SO_Node childRoomNode = roomNodeGraph.GetRoomNode(roomNodeIDList_Child[i]);
-                        if (childRoomNode == null)
-                            continue;
+                if (roomNodeIDList_Child.Count != 0)
+                    return;
 
-                        RemoveRoomNodeID_Child(childRoomNode.guid);
-                        childRoomNode.RemoveRoomNodeID_Parent(guid);
-                    }
+                for (int i = roomNodeIDList_Child.Count - 1; i >= 0; i--)
+                {
+                    // Get child room node
+                    SO_Node childRoomNode = roomNodeGraph.GetRoomNode(roomNodeIDList_Child[i]);
+                    if (childRoomNode == null)
+                        continue;
+
+                    RemoveRoomNodeID_Child(childRoomNode.guid);
+                    childRoomNode.RemoveRoomNodeID_Parent(guid);
                 }
             }
         }

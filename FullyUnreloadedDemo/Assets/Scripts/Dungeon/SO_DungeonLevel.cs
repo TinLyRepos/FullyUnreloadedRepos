@@ -12,7 +12,7 @@ public class SO_DungeonLevel : ScriptableObject
     public List<SO_RoomTemplate> roomTemplateList = default;
     [Space]
     [Header("ROOM NODE GRAPH")]
-    public List<SO_NodeGraph> roomNodeGraphList = default;
+    public List<SO_MapNodeGraph> roomNodeGraphList = default;
 
     //===========================================================================
 #if UNITY_EDITOR
@@ -57,7 +57,7 @@ public class SO_DungeonLevel : ScriptableObject
             Debug.Log($"In {this.name} : No Entrance Room Type Specified!");
 
         // Loop through all node graph
-        foreach (SO_NodeGraph roomNodeGraph in roomNodeGraphList)
+        foreach (SO_MapNodeGraph roomNodeGraph in roomNodeGraphList)
         {
             if (roomNodeGraph == null)
                 return;

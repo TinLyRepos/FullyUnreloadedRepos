@@ -3,50 +3,32 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
 
-public class CustomGraphEditor : EditorWindow
-{
-    private static SO_NodeGraph currentNodeGraph = default;
+using MapNodeGraph;
 
-    private GUIStyle nodeStyle_Default = default;
-    private GUIStyle nodeStyle_Default_Selected = default;
-    private GUIStyle nodeStyle_isEntrance = default;
-    private GUIStyle nodeStyle_isEntrance_Selected = default;
-    private GUIStyle nodeStyle_isBossRoom = default;
-    private GUIStyle nodeStyle_isBossRoom_Selected = default;
+public class MapNodeGraphEditor : EditorWindow
+{
+    private static SO_MapNodeGraph currentNodeGraph = default;
+
+    private Dictionary<MapGraph.NODEKEY, GUIStyle> nodeStyleDictionary = new Dictionary<MapGraph.NODEKEY, GUIStyle>();
 
     private Vector2 graphOffset = Vector2.zero;
-    private Vector2 graphDrag = Vector2.zero;
+    private Vector2 dragDelta = Vector2.zero;
 
     private SO_Node selectedRoomNode = null;
     private SO_NodeTypeList roomNodeTypeList = default;
 
-    // Node style values
-    private const ushort NODE_WIDTH = 160;
-    private const ushort NODE_HEIGHT = 75;
-    private const ushort NODE_PADDING = 25;
-    private const ushort NODE_BORDER = 12;
-
-    // Connect line values
-    private const ushort CONNECT_LINE_THICKNESS = 3;
-    private const ushort CONNECT_LINE_ARROW_SIZE = 6;
-
-    // Grid Spacing
-    private const ushort GRID_LARGE = 100;
-    private const ushort GRID_SMALL = 25;
-    private const float GRID_OPACITY = 0.2f;
-
     //===========================================================================
-    [MenuItem("Custom Graph Editor", menuItem = "Window/Custom Editor/Custom Graph Editor")]
+    [MenuItem("Map Node Graph Editor", menuItem = "Window/Custom Window/Map Node Graph Editor")]
     private static void OpenWindow()
     {
-        GetWindow<CustomGraphEditor>("Custom Graph Editor");
+        GetWindow<MapNodeGraphEditor>("Custom Graph Editor");
     }
 
     [OnOpenAsset(0)]
     public static bool OnDoubleClickAsset(int instanceID, int line)
     {
         // Open the room node graph editor window by double click the SO file
-        SO_NodeGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as SO_NodeGraph;
+        SO_MapNodeGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as SO_MapNodeGraph;
         if (nodeGraph == null)
             return false;
 
@@ -58,50 +40,28 @@ public class CustomGraphEditor : EditorWindow
     //===========================================================================
     private void OnEnable()
     {
-        // Subcribe to the inspector selection changed event
+        // Subscribe to the inspector selection changed event
         Selection.selectionChanged += InspectorSelectionChanged;
 
-        // Define node layout style: Default
-        nodeStyle_Default = new GUIStyle();
-        nodeStyle_Default.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
-        nodeStyle_Default.normal.textColor = Color.white;
-        nodeStyle_Default.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_Default.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+        // Initialize the node style dictionary
+        nodeStyleDictionary = new Dictionary<MapGraph.NODEKEY, GUIStyle>();
 
-        // Define node layout style: Default Selected
-        nodeStyle_Default_Selected = new GUIStyle();
-        nodeStyle_Default_Selected.normal.background = EditorGUIUtility.Load("node1 on") as Texture2D;
-        nodeStyle_Default_Selected.normal.textColor = Color.white;
-        nodeStyle_Default_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_Default_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+        for (int i = 0; i < MapGraph.NODE_TEXTURES.Length; i++)
+        {
+            // Create the node style
+            GUIStyle nodeStyle = new GUIStyle
+            {
+                normal = {
+                background = EditorGUIUtility.Load(MapGraph.NODE_TEXTURES[i]) as Texture2D,
+                textColor = Color.white
+            },
+                padding = new RectOffset(MapGraph.NODE_PADDING, MapGraph.NODE_PADDING, MapGraph.NODE_PADDING, MapGraph.NODE_PADDING),
+                border = new RectOffset(MapGraph.NODE_BORDER, MapGraph.NODE_BORDER, MapGraph.NODE_BORDER, MapGraph.NODE_BORDER)
+            };
 
-        // Define node layout style: isEntrance
-        nodeStyle_isEntrance = new GUIStyle();
-        nodeStyle_isEntrance.normal.background = EditorGUIUtility.Load("node3") as Texture2D;
-        nodeStyle_isEntrance.normal.textColor = Color.white;
-        nodeStyle_isEntrance.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_isEntrance.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
-
-        // Define node layout style: isEntrance Selected
-        nodeStyle_isEntrance_Selected = new GUIStyle();
-        nodeStyle_isEntrance_Selected.normal.background = EditorGUIUtility.Load("node3 on") as Texture2D;
-        nodeStyle_isEntrance_Selected.normal.textColor = Color.white;
-        nodeStyle_isEntrance_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_isEntrance_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
-
-        // Define node layout style: isBossRoom
-        nodeStyle_isBossRoom = new GUIStyle();
-        nodeStyle_isBossRoom.normal.background = EditorGUIUtility.Load("node6") as Texture2D;
-        nodeStyle_isBossRoom.normal.textColor = Color.white;
-        nodeStyle_isBossRoom.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_isBossRoom.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
-
-        // Define node layout style: isBossRoom Selected
-        nodeStyle_isBossRoom_Selected = new GUIStyle();
-        nodeStyle_isBossRoom_Selected.normal.background = EditorGUIUtility.Load("node6 on") as Texture2D;
-        nodeStyle_isBossRoom_Selected.normal.textColor = Color.white;
-        nodeStyle_isBossRoom_Selected.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
-        nodeStyle_isBossRoom_Selected.border = new RectOffset(NODE_BORDER, NODE_BORDER, NODE_BORDER, NODE_BORDER);
+            // Add the style to the dictionary with the corresponding key
+            nodeStyleDictionary[(MapGraph.NODEKEY)i] = nodeStyle;
+        }
 
         // Load Room Node Types
         roomNodeTypeList = GameResources.Instance.nodeTypeList;
@@ -113,8 +73,8 @@ public class CustomGraphEditor : EditorWindow
         if (currentNodeGraph != null)
         {
             // Draw Grid
-            DrawBackgroundGrid(GRID_SMALL, GRID_OPACITY, Color.gray);
-            DrawBackgroundGrid(GRID_LARGE, GRID_OPACITY, Color.gray);
+            DrawBackgroundGrid(MapGraph.GRID_SMALL, MapGraph.GRID_OPACITY, Color.gray);
+            DrawBackgroundGrid(MapGraph.GRID_LARGE, MapGraph.GRID_OPACITY, Color.gray);
 
             // Draw dragging line
             DrawDraggingLine();
@@ -146,8 +106,7 @@ public class CustomGraphEditor : EditorWindow
 
         Handles.color = new Color(color.r, color.g, color.b, opacity);
 
-        graphOffset += graphDrag * 0.5f;
-
+        graphOffset += dragDelta;
         Vector3 gridOffset = new Vector3(graphOffset.x % size, graphOffset.y % size, 0);
 
         // Draw vertical lines
@@ -179,7 +138,7 @@ public class CustomGraphEditor : EditorWindow
         Handles.DrawBezier(
             currentNodeGraph.roomNodeStart.rect.center, currentNodeGraph.endLinePosition,
             currentNodeGraph.roomNodeStart.rect.center, currentNodeGraph.endLinePosition,
-            Color.white, null, CONNECT_LINE_THICKNESS);
+            Color.white, null, MapGraph.CONNECT_LINE_THICKNESS);
     }
 
     private void DrawNodeConnectLine()
@@ -202,14 +161,14 @@ public class CustomGraphEditor : EditorWindow
                 Vector2 direction = endPos - startPos;
 
                 // Calculate normalize perpendicular positions from midPos
-                Vector2 arrowTailPos1 = midPos - new Vector2(-direction.y, direction.x).normalized * CONNECT_LINE_ARROW_SIZE;
-                Vector2 arrowTailPos2 = midPos + new Vector2(-direction.y, direction.x).normalized * CONNECT_LINE_ARROW_SIZE;
-                Vector2 arrowHeadPos = midPos + direction.normalized * CONNECT_LINE_ARROW_SIZE;
+                Vector2 arrowTailPos1 = midPos - new Vector2(-direction.y, direction.x).normalized * MapGraph.CONNECT_LINE_ARROW_SIZE;
+                Vector2 arrowTailPos2 = midPos + new Vector2(-direction.y, direction.x).normalized * MapGraph.CONNECT_LINE_ARROW_SIZE;
+                Vector2 arrowHeadPos = midPos + direction.normalized * MapGraph.CONNECT_LINE_ARROW_SIZE;
 
                 // Draw line
-                Handles.DrawBezier(arrowHeadPos, arrowTailPos1, arrowHeadPos, arrowTailPos1, Color.white, null, CONNECT_LINE_THICKNESS);
-                Handles.DrawBezier(arrowHeadPos, arrowTailPos2, arrowHeadPos, arrowTailPos2, Color.white, null, CONNECT_LINE_THICKNESS);
-                Handles.DrawBezier(startPos, endPos, startPos, endPos, Color.white, null, CONNECT_LINE_THICKNESS);
+                Handles.DrawBezier(arrowHeadPos, arrowTailPos1, arrowHeadPos, arrowTailPos1, Color.white, null, MapGraph.CONNECT_LINE_THICKNESS);
+                Handles.DrawBezier(arrowHeadPos, arrowTailPos2, arrowHeadPos, arrowTailPos2, Color.white, null, MapGraph.CONNECT_LINE_THICKNESS);
+                Handles.DrawBezier(startPos, endPos, startPos, endPos, Color.white, null, MapGraph.CONNECT_LINE_THICKNESS);
 
                 GUI.changed = true;
             }
@@ -225,33 +184,33 @@ public class CustomGraphEditor : EditorWindow
             {
                 if (node.isSelected)
                 {
-                    node.Draw(nodeStyle_isEntrance_Selected);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.EntranceOn]);
                 }
                 else
                 {
-                    node.Draw(nodeStyle_isEntrance);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.Entrance]);
                 }
             }
             else if (node.roomNodeType.isBossRoom)
             {
                 if (node.isSelected)
                 {
-                    node.Draw(nodeStyle_isBossRoom_Selected);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.BossOn]);
                 }
                 else
                 {
-                    node.Draw(nodeStyle_isBossRoom);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.Boss]);
                 }
             }
-            else 
+            else
             {
                 if (node.isSelected)
                 {
-                    node.Draw(nodeStyle_Default_Selected);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.DefaultOn]);
                 }
                 else
                 {
-                    node.Draw(nodeStyle_Default);
+                    node.Draw(nodeStyleDictionary[MapGraph.NODEKEY.Default]);
                 }
             }
         }
@@ -263,7 +222,7 @@ public class CustomGraphEditor : EditorWindow
     private void ProcessEvents(Event currentEvent)
     {
         // Reset graph drag
-        graphDrag = Vector2.zero;
+        dragDelta = Vector2.zero;
 
         if (selectedRoomNode == null || selectedRoomNode.isBeingDragged == false)
         {
@@ -357,9 +316,12 @@ public class CustomGraphEditor : EditorWindow
                 }
                 break;
             case 2: // MIDDLE MOUSE
-                graphDrag = e.delta;
+                dragDelta = e.delta * 0.5f;
+
+                // Move all nodes in graph to be in sync with grid movement
                 for (int i = 0; i < currentNodeGraph.nodeList.Count; ++i)
                     currentNodeGraph.nodeList[i].DragNode(e);
+
                 GUI.changed = true;
                 break;
             default:
@@ -436,7 +398,7 @@ public class CustomGraphEditor : EditorWindow
         currentNodeGraph.nodeList.Add(node);
 
         // set room node values
-        node.Initialize(new Rect(mousePos, new Vector2(NODE_WIDTH, NODE_HEIGHT)), currentNodeGraph, nodeType);
+        node.Initialize(new Rect(mousePos, new Vector2(MapGraph.NODE_WIDTH, MapGraph.NODE_HEIGHT)), currentNodeGraph, nodeType);
 
         // add room node to room node graph scriptable object asset database
         AssetDatabase.AddObjectToAsset(node, currentNodeGraph);
@@ -523,7 +485,7 @@ public class CustomGraphEditor : EditorWindow
     // Selection changed in the Unity inspector
     private void InspectorSelectionChanged()
     {
-        SO_NodeGraph roomNodeGraph = Selection.activeObject as SO_NodeGraph;
+        SO_MapNodeGraph roomNodeGraph = Selection.activeObject as SO_MapNodeGraph;
         if (roomNodeGraph == null)
             return;
 
