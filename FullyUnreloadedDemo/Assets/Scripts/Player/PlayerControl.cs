@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private SO_MovementData movementData = default;
+    [SerializeField] private MovementDetailsSO movementData = default;
 
     private Player player;
     private float moveSpeed;
@@ -272,7 +272,7 @@ public class PlayerControl : MonoBehaviour
         isPlayerRolling = false;
 
         // Set cooldown timer
-        playerRollCDTimer = movementData.rollCDTime;
+        playerRollCDTimer = movementData.rollCooldownTime;
 
         player.transform.position = targetPosition;
     }

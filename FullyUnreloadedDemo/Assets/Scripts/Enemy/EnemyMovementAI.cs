@@ -9,7 +9,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMovementAI : MonoBehaviour
 {
-    [SerializeField] private SO_MovementData movementData;
+    [SerializeField] private MovementDetailsSO movementData;
 
     private Enemy enemy;
     private Stack<Vector3> movementSteps = new Stack<Vector3>();

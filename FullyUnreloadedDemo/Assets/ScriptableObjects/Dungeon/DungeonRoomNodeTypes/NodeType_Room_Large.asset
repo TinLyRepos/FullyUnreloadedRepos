@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1839a7654714e1646adaa6831c27bba8, type: 3}
+  m_Name: NodeType_Room_Large
+  m_EditorClassIdentifier: 
+  nodeTypeName: Large Room
+  showInMapEditor: 1
+  isBossRoom: 0
+  isCorridor: 0
+  isCorridor_Horizontal: 0
+  isCorridor_Vertical: 0
+  isEntrance: 0
+  isNone: 0
