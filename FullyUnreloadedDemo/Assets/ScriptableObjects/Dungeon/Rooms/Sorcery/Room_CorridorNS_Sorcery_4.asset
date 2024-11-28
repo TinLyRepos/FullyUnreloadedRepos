@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2708e4084c4a1534ba646096300f778c, type: 3}
   m_Name: Room_CorridorNS_Sorcery_4
   m_EditorClassIdentifier: 
+  guid: 9a44b4fc9c3200e418988225f999c6b2
   prefab: {fileID: 4327421925113694216, guid: 911583a4fd587474fa4be8553838449c, type: 3}
   roomNodeType: {fileID: 11400000, guid: e7d4dad64660b3147a630a1f08d64bee, type: 2}
   lowerBounds: {x: 7, y: 2}
@@ -23,13 +24,21 @@ MonoBehaviour:
     doorwayStartCopyPosition: {x: 0, y: 0}
     doorwayCopyTileWidth: 0
     doorwayCopyTileHeight: 0
+    isConnected: 0
+    isUnavailable: 0
   - position: {x: 13, y: 2}
     orientation: 2
     doorPrefab: {fileID: 0}
     doorwayStartCopyPosition: {x: 0, y: 0}
     doorwayCopyTileWidth: 0
     doorwayCopyTileHeight: 0
+    isConnected: 0
+    isUnavailable: 0
   spawnPositionArray:
   - {x: 13, y: 5}
   - {x: 13, y: 17}
   - {x: 13, y: 30}
+  battleMusic: {fileID: 11400000, guid: 1c43eb8bfd83ff74ba7120088d448881, type: 2}
+  ambientMusic: {fileID: 11400000, guid: beea8b2feefcd0a4cbc6476d26d66796, type: 2}
+  enemiesByLevelList: []
+  roomEnemySpawnParametersList: []

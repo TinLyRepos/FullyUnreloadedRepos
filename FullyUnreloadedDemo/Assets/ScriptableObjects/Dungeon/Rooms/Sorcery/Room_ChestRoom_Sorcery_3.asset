@@ -55,3 +55,7 @@ MonoBehaviour:
   - {x: 18, y: 14}
   - {x: 32, y: 14}
   - {x: 25, y: 8}
+  battleMusic: {fileID: 11400000, guid: 1c43eb8bfd83ff74ba7120088d448881, type: 2}
+  ambientMusic: {fileID: 11400000, guid: dca6919a1377f014287747ab9af42a4e, type: 2}
+  enemiesByLevelList: []
+  roomEnemySpawnParametersList: []

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Room_", menuName = "Scriptable Objects/Dungeon/Dungeon Room")]
 public class SO_RoomTemplate : ScriptableObject
 {
-    public string guid = string.Empty;
+    [HideInInspector] public string guid = string.Empty;
 
     [Header("ROOM PREFAB")]
     public GameObject prefab;
@@ -15,8 +15,6 @@ public class SO_RoomTemplate : ScriptableObject
     public SO_MapNodeType roomNodeType;
     public Vector2Int lowerBounds; // Use by Doorway.cs to seal unused door - bottom left
     public Vector2Int upperBounds; // Use by Doorway.cs to seal unused door - top right
-    [Space]
-    [Header("ENVIRONMENT CONFIG")]
     public List<Doorway> doorwayList;
     public Vector2Int[] spawnPositionArray;
     [Space]

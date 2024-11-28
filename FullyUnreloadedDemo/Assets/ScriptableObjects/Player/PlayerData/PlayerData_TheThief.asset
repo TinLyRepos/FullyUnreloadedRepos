@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: PlayerData_TheThief
   m_EditorClassIdentifier: 
   characterName: The Thief
-  characterPrefab: {fileID: 3635253461030913308, guid: 3d456632e94c916458312010c6963a35, type: 3}
+  characterPrefab: {fileID: 2053632239539711317, guid: 16ff540de77aac244b906c9a6a85db0a, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: 0fce1cedb78343c4b856875667130653, type: 2}
   playerMiniMapSprite: {fileID: 21300000, guid: 6a2553e3630dab14d9f8ac99fad2fd8a, type: 3}
   playerHandSprite: {fileID: 21300000, guid: 78a026c94cfeb524790ba5e25197e00f, type: 3}
   playerBaseMaxHealth: 50
+  isImmuneAfterHit: 1
+  hitImmunityTime: 4
   startingWeapon: {fileID: 11400000, guid: fc9a712ee31a314488093c4231c9c7d6, type: 2}
   startingWeaponList:
   - {fileID: 11400000, guid: fc9a712ee31a314488093c4231c9c7d6, type: 2}

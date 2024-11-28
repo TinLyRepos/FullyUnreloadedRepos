@@ -6,7 +6,7 @@ public class ChestSpawner : MonoBehaviour
     [System.Serializable]
     private struct RangeByLevel
     {
-        public SO_DungeonLevel dungeonLevel;
+        public DungeonLevelSO dungeonLevel;
         [Range(0, 100)] public int min;
         [Range(0, 100)] public int max;
     }

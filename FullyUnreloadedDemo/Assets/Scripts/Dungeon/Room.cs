@@ -38,7 +38,7 @@ public class Room
     }
 
     /// Get the number of enemies to spawn for this room in this dungeon level
-    public int GetNumberOfEnemiesToSpawn(SO_DungeonLevel dungeonLevel)
+    public int GetNumberOfEnemiesToSpawn(DungeonLevelSO dungeonLevel)
     {
         foreach (RoomEnemySpawnParameters roomEnemySpawnParameters in roomLevelEnemySpawnParametersList)
         {
@@ -51,7 +51,7 @@ public class Room
     }
 
     /// Get the room enemy spawn parameters for this dungeon level - if none found then return null
-    public RoomEnemySpawnParameters GetRoomEnemySpawnParameters(SO_DungeonLevel dungeonLevel)
+    public RoomEnemySpawnParameters GetRoomEnemySpawnParameters(DungeonLevelSO dungeonLevel)
     {
         foreach (RoomEnemySpawnParameters roomEnemySpawnParameters in roomLevelEnemySpawnParametersList)
         {

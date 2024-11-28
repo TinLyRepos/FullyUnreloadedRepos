@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Tilemaps;
@@ -28,11 +29,12 @@ public class GameResources : MonoBehaviour
     public Shader shader_Materialize;
 
     [Header("PLAYER")]
+    public List<SO_PlayerData> playerDetailsList;
     public SO_CurrentPlayerData currentPlayerData = default;
 
     [Header("MUSIC")]
     public AudioMixerGroup musicMasterMixerGroup;
-    // public MusicTrackSO mainMenuMusic;
+    public MusicTrackSO mainMenuMusic;
     public AudioMixerSnapshot musicOnFullSnapshot;
     public AudioMixerSnapshot musicLowSnapshot;
     public AudioMixerSnapshot musicOffSnapshot;

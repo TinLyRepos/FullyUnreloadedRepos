@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DungeonLevel_", menuName = "Scriptable Objects/Dungeon/Dungeon Level")]
-public class SO_DungeonLevel : ScriptableObject
+public class DungeonLevelSO : ScriptableObject
 {
     [Header("BASIC LEVEL DETAILS")]
     [SerializeField] private string levelName = string.Empty;

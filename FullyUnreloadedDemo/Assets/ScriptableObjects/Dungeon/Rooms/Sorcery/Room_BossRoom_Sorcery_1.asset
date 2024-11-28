@@ -55,3 +55,46 @@ MonoBehaviour:
   - {x: 37, y: 32}
   - {x: 17, y: 21}
   - {x: 36, y: 19}
+  battleMusic: {fileID: 11400000, guid: cfe76a70dc6e9e043836e19506e08a9d, type: 2}
+  ambientMusic: {fileID: 11400000, guid: beea8b2feefcd0a4cbc6476d26d66796, type: 2}
+  enemiesByLevelList:
+  - dungeonLevel: {fileID: 11400000, guid: 82924023654b55d408182b175017ef2d, type: 2}
+    spawnableObjectRatioList:
+    - dungeonObject: {fileID: 11400000, guid: ffd2aa2d495d0854b9cd94cce4f5f0ae, type: 2}
+      ratio: 1
+  - dungeonLevel: {fileID: 11400000, guid: 79a8f3e29dbb7ba4f9bea34360a221b0, type: 2}
+    spawnableObjectRatioList:
+    - dungeonObject: {fileID: 11400000, guid: ffd2aa2d495d0854b9cd94cce4f5f0ae, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: 73e97604b2f058349a53c226d672db6d, type: 2}
+      ratio: 1
+  - dungeonLevel: {fileID: 11400000, guid: 85a77b16ad171e54a93701179864a5f8, type: 2}
+    spawnableObjectRatioList:
+    - dungeonObject: {fileID: 11400000, guid: ffd2aa2d495d0854b9cd94cce4f5f0ae, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: 73e97604b2f058349a53c226d672db6d, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: 73dd0adb9e6338e4391d0f50a5980827, type: 2}
+      ratio: 1
+  roomEnemySpawnParametersList:
+  - dungeonLevel: {fileID: 11400000, guid: 82924023654b55d408182b175017ef2d, type: 2}
+    minTotalEnemiesToSpawn: 2
+    maxTotalEnemiesToSpawn: 2
+    minConcurrentEnemies: 2
+    maxConcurrentEnemies: 2
+    minSpawnInterval: 2
+    maxSpawnInterval: 4
+  - dungeonLevel: {fileID: 11400000, guid: 79a8f3e29dbb7ba4f9bea34360a221b0, type: 2}
+    minTotalEnemiesToSpawn: 3
+    maxTotalEnemiesToSpawn: 3
+    minConcurrentEnemies: 3
+    maxConcurrentEnemies: 3
+    minSpawnInterval: 1
+    maxSpawnInterval: 2
+  - dungeonLevel: {fileID: 11400000, guid: 85a77b16ad171e54a93701179864a5f8, type: 2}
+    minTotalEnemiesToSpawn: 4
+    maxTotalEnemiesToSpawn: 4
+    minConcurrentEnemies: 3
+    maxConcurrentEnemies: 3
+    minSpawnInterval: 1
+    maxSpawnInterval: 2

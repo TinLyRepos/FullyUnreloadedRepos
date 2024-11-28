@@ -2,7 +2,7 @@
 [System.Serializable]
 public class RoomEnemySpawnParameters
 {
-    public SO_DungeonLevel dungeonLevel;
+    public DungeonLevelSO dungeonLevel;
 
     public int minTotalEnemiesToSpawn;
     public int maxTotalEnemiesToSpawn;

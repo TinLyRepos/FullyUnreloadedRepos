@@ -13,7 +13,7 @@ public class PlayerControl : MonoBehaviour
 
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    public bool isPlayerRolling = false;
+    [HideInInspector] public bool isPlayerRolling = false;
     private float playerRollCDTimer = 0.0f;
 
     // Weapon

@@ -498,7 +498,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
     }
 
     //===========================================================================
-    public bool GenerateDungeon(SO_DungeonLevel currentLevel)
+    public bool GenerateDungeon(DungeonLevelSO currentLevel)
     {
         roomTemplateList = currentLevel.roomTemplateList;
 

@@ -144,7 +144,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
         currentEnemyCount++;
 
         // Get current dungeon level
-        SO_DungeonLevel dungeonLevel = GameManager.Instance.GetCurrentDungeonLevel();
+        DungeonLevelSO dungeonLevel = GameManager.Instance.GetCurrentDungeonLevel();
 
         // Instantiate enemy
         GameObject enemy = Instantiate(enemyDetails.enemyPrefab, position, Quaternion.identity, transform);

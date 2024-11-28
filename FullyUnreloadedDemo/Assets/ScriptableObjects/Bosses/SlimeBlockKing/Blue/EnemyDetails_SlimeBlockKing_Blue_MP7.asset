@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d02a05818c8554089107eb2f3ee837, type: 3}
+  m_Name: EnemyDetails_SlimeBlockKing_Blue_MP7
+  m_EditorClassIdentifier: 
+  enemyName: Slime Block King Blue
+  enemyPrefab: {fileID: 7319223158551244009, guid: 9e2646ae2207ff047aedab938000aa99, type: 3}
+  chaseDistance: 50
+  enemyStandardMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  enemyMaterializeTime: 2
+  enemyMaterializeShader: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
+  enemyMaterializeColor: {r: 8.47419, g: 0, b: 6.122713, a: 1}
+  enemyWeapon: {fileID: 11400000, guid: f82f044586a857b4ab61b6167d55be59, type: 2}
+  firingIntervalMin: 1
+  firingIntervalMax: 3
+  firingDurationMin: 8
+  firingDurationMax: 10
+  firingLineOfSightRequired: 0
+  enemyHealthDetailsArray:
+  - dungeonLevel: {fileID: 11400000, guid: c482d7541881b1c49886c692c81fa227, type: 2}
+    enemyHealthAmount: 300
+  - dungeonLevel: {fileID: 11400000, guid: e17a820b458be4840b0e98826b71160c, type: 2}
+    enemyHealthAmount: 400
+  - dungeonLevel: {fileID: 11400000, guid: 8e657be4529680d47a4bce2e34599b1e, type: 2}
+    enemyHealthAmount: 400
+  - dungeonLevel: {fileID: 11400000, guid: 82924023654b55d408182b175017ef2d, type: 2}
+    enemyHealthAmount: 400
+  - dungeonLevel: {fileID: 11400000, guid: 79a8f3e29dbb7ba4f9bea34360a221b0, type: 2}
+    enemyHealthAmount: 400
+  - dungeonLevel: {fileID: 11400000, guid: 85a77b16ad171e54a93701179864a5f8, type: 2}
+    enemyHealthAmount: 400
+  isImmuneAfterHit: 0
+  hitImmunityTime: 0
+  isHealthBarDisplayed: 1

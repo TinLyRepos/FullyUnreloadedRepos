@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : SingletonMonobehaviour<GameManager>
 {
     [Header("DUNGEON LEVEL LIST")]
-    [SerializeField] private List<SO_DungeonLevel> dungeonLevelList = default;
+    [SerializeField] private List<DungeonLevelSO> dungeonLevelList = default;
     [SerializeField] private int currentLevelIndex = default;
 
     private Room currentRoom = default;
@@ -142,7 +142,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         return playerData.MiniMapIcon;
     }
 
-    public SO_DungeonLevel GetCurrentDungeonLevel()
+    public DungeonLevelSO GetCurrentDungeonLevel()
     {
         return dungeonLevelList[currentLevelIndex];
     }

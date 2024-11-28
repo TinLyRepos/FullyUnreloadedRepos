@@ -2,6 +2,6 @@
 [System.Serializable]
 public struct EnemyHealthDetails
 {
-    public SO_DungeonLevel dungeonLevel;
+    public DungeonLevelSO dungeonLevel;
     public int enemyHealthAmount;
 }

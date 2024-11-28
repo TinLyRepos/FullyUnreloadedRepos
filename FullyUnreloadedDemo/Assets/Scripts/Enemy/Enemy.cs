@@ -99,7 +99,7 @@ public class Enemy : MonoBehaviour
         enemyMovementAI.SetUpdateFrameNumber(enemySpawnNumber % Settings.targetFrameRateToSpreadPathfindingOver);
     }
 
-    private void SetEnemyStartingHealth(SO_DungeonLevel dungeonLevel)
+    private void SetEnemyStartingHealth(DungeonLevelSO dungeonLevel)
     {
         // Get the enemy health for the dungeon level
         foreach (EnemyHealthDetails enemyHealthDetails in enemyDetails.enemyHealthDetailsArray)
@@ -157,7 +157,7 @@ public class Enemy : MonoBehaviour
     }
 
     //===========================================================================
-    public void EnemyInitialization(EnemyDetailsSO enemyDetails, int enemySpawnNumber, SO_DungeonLevel dungeonLevel)
+    public void EnemyInitialization(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel)
     {
         this.enemyDetails = enemyDetails;
 

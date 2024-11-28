@@ -39,6 +39,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
+    m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   duration: 0.5
@@ -52,4 +53,4 @@ MonoBehaviour:
   sprite: {fileID: 0}
   velocityOverLifetimeMin: {x: 0, y: 0, z: 0}
   velocityOverLifetimeMax: {x: 0, y: 0, z: 0}
-  ammoHitEffectPrefab: {fileID: 7853615770937549561, guid: a67a9f991dc97ed46b3202ca3f58f2df, type: 3}
+  ammoHitEffectPrefab: {fileID: 7853615770937549561, guid: 1413ad612c348044e8d5245f3e42ae0c, type: 3}
