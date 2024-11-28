@@ -20,24 +20,16 @@ public class SO_MapNode : ScriptableObject
     private GUIStyle labelStyle = default;
 
     //===========================================================================
-    public void Initialize(Rect rect, SO_MapNodeGraph roomNodeGraph, SO_MapNodeType roomNodeType)
+    private void OnEnable()
     {
-        name = "RoomNode";
-
-        guid = Guid.NewGuid().ToString();
-        this.roomNodeGraph = roomNodeGraph;
-        this.roomNodeType = roomNodeType;
-
-        // Load room nodeID type list
-        roomNodeTypeList = GameResources.Instance.nodeTypeList;
-
-        // Create a GUIStyle for the label
-        labelStyle = new GUIStyle(EditorStyles.label);
-        labelStyle.fontStyle = FontStyle.Bold;      // Make text bold
-        labelStyle.normal.textColor = Color.white;  // Set text color to white
-        labelStyle.alignment = TextAnchor.MiddleCenter;  // Center-align the text
-
-        this.rect = rect;
+        if (labelStyle == null)
+        {
+            // Create a GUIStyle for the label
+            labelStyle = new GUIStyle();
+            labelStyle.fontStyle = FontStyle.Bold;      // Make text bold
+            labelStyle.normal.textColor = Color.white;  // Set text color to white
+            labelStyle.alignment = TextAnchor.MiddleCenter;  // Center-align the text
+        }
     }
 
     //===========================================================================
@@ -155,6 +147,20 @@ public class SO_MapNode : ScriptableObject
     }
 
     //===========================================================================
+    public void Initialize(Rect rect, SO_MapNodeGraph roomNodeGraph, SO_MapNodeType roomNodeType)
+    {
+        name = "RoomNode";
+
+        guid = Guid.NewGuid().ToString();
+        this.roomNodeGraph = roomNodeGraph;
+        this.roomNodeType = roomNodeType;
+
+        // Load room nodeID type list
+        roomNodeTypeList = GameResources.Instance.nodeTypeList;
+
+        this.rect = rect;
+    }
+
     public void Draw(GUIStyle style)
     {
         GUILayout.BeginArea(rect, style);
