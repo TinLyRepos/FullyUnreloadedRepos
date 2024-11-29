@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2708e4084c4a1534ba646096300f778c, type: 3}
   m_Name: Room_SmallRoom_Catacombs_4
   m_EditorClassIdentifier: 
-  guid: f07cc453f76410c42b40f1b42b3de251
+  guid: dc4efbad29c5a7743b858d6ccb2807b8
   prefab: {fileID: 4327421925113694216, guid: e7673f8a0f62ae648bdec60031ae1092, type: 3}
   roomNodeType: {fileID: 11400000, guid: f9e89429069b71c4197c4ec6cf5bec07, type: 2}
   lowerBounds: {x: 2, y: 5}
@@ -61,13 +61,13 @@ MonoBehaviour:
   battleMusic: {fileID: 11400000, guid: 1c43eb8bfd83ff74ba7120088d448881, type: 2}
   ambientMusic: {fileID: 11400000, guid: beea8b2feefcd0a4cbc6476d26d66796, type: 2}
   enemiesByLevelList:
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: c482d7541881b1c49886c692c81fa227, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 9e1461e3d5c110a44ac597e7bbf92042, type: 2}
       ratio: 1
     - dungeonObject: {fileID: 11400000, guid: 2726a8143e1a84a43bbaae049842f036, type: 2}
       ratio: 2
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: e17a820b458be4840b0e98826b71160c, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 9e1461e3d5c110a44ac597e7bbf92042, type: 2}
       ratio: 5
@@ -77,7 +77,7 @@ MonoBehaviour:
       ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 500b2ed8da523014daffe64cf8c34db3, type: 2}
       ratio: 5
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: 8e657be4529680d47a4bce2e34599b1e, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 9e1461e3d5c110a44ac597e7bbf92042, type: 2}
       ratio: 3
@@ -92,21 +92,21 @@ MonoBehaviour:
     - dungeonObject: {fileID: 11400000, guid: fac23ecfe5d254542ba460bca1718f7f, type: 2}
       ratio: 6
   roomEnemySpawnParametersList:
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: c482d7541881b1c49886c692c81fa227, type: 2}
     minTotalEnemiesToSpawn: 4
     maxTotalEnemiesToSpawn: 6
     minConcurrentEnemies: 2
     maxConcurrentEnemies: 3
     minSpawnInterval: 4
     maxSpawnInterval: 6
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: e17a820b458be4840b0e98826b71160c, type: 2}
     minTotalEnemiesToSpawn: 5
     maxTotalEnemiesToSpawn: 6
     minConcurrentEnemies: 3
     maxConcurrentEnemies: 4
     minSpawnInterval: 4
     maxSpawnInterval: 5
-  - dungeonLevel: {fileID: 0}
+  - dungeonLevel: {fileID: 11400000, guid: 8e657be4529680d47a4bce2e34599b1e, type: 2}
     minTotalEnemiesToSpawn: 6
     maxTotalEnemiesToSpawn: 7
     minConcurrentEnemies: 4
