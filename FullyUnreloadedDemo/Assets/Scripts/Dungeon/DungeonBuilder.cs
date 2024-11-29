@@ -13,6 +13,8 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
 
     private bool buildSuccessful;
 
+    public Dictionary<string, Room> RoomDictionary => roomDictionary;
+
     //===========================================================================
     protected override void Awake()
     {
@@ -259,6 +261,9 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         room.upperBounds = roomTemplate.upperBounds;
         room.templateLowerBounds = roomTemplate.lowerBounds;
         room.templateUpperBounds = roomTemplate.upperBounds;
+
+        room.battleMusic = roomTemplate.battleMusic;
+        room.ambientMusic = roomTemplate.ambientMusic;
 
         room.spawnPositionArray = roomTemplate.spawnPositionArray;
 

@@ -49,13 +49,14 @@ MonoBehaviour:
   material_lit: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   shader_VariableLit: {fileID: -6465566751694194690, guid: 60e350e080ee4c342a50c8655b14c11f, type: 3}
   shader_Materialize: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
+  playerSelectionPrefab: {fileID: 4228832101867735334, guid: bb98044667ff63c41866daa0c56b71df, type: 3}
   playerDetailsList:
   - {fileID: 11400000, guid: 07d4e30dfad64274d976160cffeb66d3, type: 2}
   - {fileID: 11400000, guid: d972924e5a9329649835ae6500fff022, type: 2}
   - {fileID: 11400000, guid: 934ed19a6e0a25f45aaf5b87405c736b, type: 2}
   currentPlayerData: {fileID: 11400000, guid: 6fcdd36399eec5143948186329c398e2, type: 2}
   musicMasterMixerGroup: {fileID: -7206380732494497733, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
-  mainMenuMusic: {fileID: 11400000, guid: 1c43eb8bfd83ff74ba7120088d448881, type: 2}
+  mainMenuMusic: {fileID: 11400000, guid: 486363a203924d545a549159c8d72478, type: 2}
   musicOnFullSnapshot: {fileID: 24500006, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
   musicLowSnapshot: {fileID: 8893122114324796974, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
   musicOffSnapshot: {fileID: -3084740370723268673, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}

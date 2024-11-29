@@ -24,6 +24,9 @@ public class InstantiatedRoom : MonoBehaviour
 
     [HideInInspector] public List<MoveItem> moveableItemsList = new List<MoveItem>();
 
+    [Header("OBJECT REFERENCES")]
+    [SerializeField] private GameObject environmentGameObject;
+
     private BoxCollider2D boxCollider2D;
 
     //===========================================================================
@@ -325,6 +328,18 @@ public class InstantiatedRoom : MonoBehaviour
                 aStarItemObstacles[x, y] = Settings.defaultAStarMovementPenalty;
             }
         }
+    }
+
+    public void ActivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+            environmentGameObject.SetActive(true);
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+            environmentGameObject.SetActive(false);
     }
 
     //===========================================================================

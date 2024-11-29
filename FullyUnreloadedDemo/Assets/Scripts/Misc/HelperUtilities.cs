@@ -110,6 +110,16 @@ public static class HelperUtilities
         return Mathf.Log10((float)linear / linearScaleRange) * 20f;
     }
 
+    /// Get the camera viewport lower and upper bounds
+    public static void CameraWorldPositionBounds(out Vector2Int cameraWorldPositionLowerBounds, out Vector2Int cameraWorldPositionUpperBounds, Camera camera)
+    {
+        Vector3 worldPositionViewportBottomLeft = camera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f));
+        Vector3 worldPositionViewportTopRight = camera.ViewportToWorldPoint(new Vector3(1f, 1f, 0f));
+
+        cameraWorldPositionLowerBounds = new Vector2Int((int)worldPositionViewportBottomLeft.x, (int)worldPositionViewportBottomLeft.y);
+        cameraWorldPositionUpperBounds = new Vector2Int((int)worldPositionViewportTopRight.x, (int)worldPositionViewportTopRight.y);
+    }
+
     //===========================================================================
     public static bool ValidateCheckNullValue(Object obj, string fieldName, Object objectToCheck)
     {

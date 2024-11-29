@@ -35,7 +35,7 @@ public class MainMenuUI : MonoBehaviour
     private void Start()
     {
         // Play Music
-        // MusicManager.Instance.PlayMusic(GameResources.Instance.mainMenuMusic, 0f, 2f);
+        MusicManager.Instance.PlayMusic(GameResources.Instance.mainMenuMusic, 0f, 2f);
 
         // Load Character selector scene additively
         SceneManager.LoadScene("CharacterSelectorScene", LoadSceneMode.Additive);
@@ -118,16 +118,11 @@ public class MainMenuUI : MonoBehaviour
         SceneManager.LoadScene("InstructionsScene", LoadSceneMode.Additive);
     }
 
-    /// <summary>
-    /// Quit the game - this method is called from the onClick event set in the inspector
-    /// </summary>
     public void QuitGame()
     {
         Application.Quit();
     }
 
-
-    #region Validation
 #if UNITY_EDITOR
     // Validate the scriptable object details entered
     private void OnValidate()
@@ -139,5 +134,4 @@ public class MainMenuUI : MonoBehaviour
         HelperUtilities.ValidateCheckNullValue(this, nameof(returnToMainMenuButton), returnToMainMenuButton);
     }
 #endif
-    #endregion
 }

@@ -11,10 +11,11 @@ public class PlayerControl : MonoBehaviour
     private Player player;
     private float moveSpeed;
 
+    [HideInInspector] public bool isPlayerRolling = false;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    [HideInInspector] public bool isPlayerRolling = false;
     private float playerRollCDTimer = 0.0f;
+    private bool isPlayerMovementDisabled = false;
 
     // Weapon
     private int currentWeaponIndex = 1;
@@ -23,6 +24,7 @@ public class PlayerControl : MonoBehaviour
     //===========================================================================
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Stop player roll Coroutine
         if (playerRollCoroutine != null)
         {
             StopCoroutine(playerRollCoroutine);
@@ -32,6 +34,7 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        // Stop player roll Coroutine
         if (playerRollCoroutine != null)
         {
             StopCoroutine(playerRollCoroutine);
@@ -57,12 +60,16 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerRolling)
+        if (isPlayerMovementDisabled)
             return;
+
+        if (isPlayerRolling) return;
 
         MovementInput();
 
         WeaponInput();
+
+        UseItemInput();
 
         PlayerRollCooldownTimer();
     }
@@ -85,8 +92,9 @@ public class PlayerControl : MonoBehaviour
 
         if (direction != Vector2.zero)
         {
-            if (!rightMouseButtonDown)
+            if (rightMouseButtonDown == false)
             {
+                // trigger movement event
                 player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
             }
             else if (playerRollCDTimer <= 0f)
@@ -242,6 +250,30 @@ public class PlayerControl : MonoBehaviour
     }
 
     //===========================================================================
+    /// Use the nearest item within 2 unity units from the player
+    private void UseItemInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            float useItemRadius = 2f;
+
+            // Get any 'Useable' item near the player
+            Collider2D[] collider2DArray = Physics2D.OverlapCircleAll(player.GetPlayerPosition(), useItemRadius);
+
+            // Loop through detected items to see if any are 'useable'
+            foreach (Collider2D collider2D in collider2DArray)
+            {
+                IUseable iUseable = collider2D.GetComponent<IUseable>();
+
+                if (iUseable != null)
+                {
+                    iUseable.UseItem();
+                }
+            }
+        }
+    }
+
+    //===========================================================================
     private void PlayerRollCooldownTimer()
     {
         if (playerRollCDTimer >= 0f)
@@ -260,12 +292,12 @@ public class PlayerControl : MonoBehaviour
 
         isPlayerRolling = true;
 
-        Vector3 targetPosition = player.transform.position + direction * movementData.rollDistance;
+        Vector3 targetPosition = player.transform.position + (Vector3)direction * movementData.rollDistance;
 
         while (Vector3.Distance(player.transform.position, targetPosition) > minDistance)
         {
-            player.movementToPositionEvent.CallMovementToPositionEvent(targetPosition, 
-                player.transform.position, movementData.rollSpeed, direction, isPlayerRolling);
+            player.movementToPositionEvent.CallMovementToPositionEvent(
+                targetPosition, player.transform.position, movementData.rollSpeed, direction, isPlayerRolling);
             yield return waitForFixedUpdate;
         }
 
@@ -295,6 +327,49 @@ public class PlayerControl : MonoBehaviour
             }
             weaponIndex++;
         }
+    }
+
+    /// Set the current weapon to be first in the player weapon list
+    private void SetCurrentWeaponToFirstInTheList()
+    {
+        // Create new temporary list
+        List<Weapon> tempWeaponList = new List<Weapon>();
+
+        // Add the current weapon to first in the temp list
+        Weapon currentWeapon = player.weaponList[currentWeaponIndex - 1];
+        currentWeapon.weaponListPosition = 1;
+        tempWeaponList.Add(currentWeapon);
+
+        // Loop through existing weapon list and add - skipping current weapon
+        int index = 2;
+
+        foreach (Weapon weapon in player.weaponList)
+        {
+            if (weapon == currentWeapon) continue;
+
+            tempWeaponList.Add(weapon);
+            weapon.weaponListPosition = index;
+            index++;
+        }
+
+        // Assign new list
+        player.weaponList = tempWeaponList;
+
+        currentWeaponIndex = 1;
+
+        // Set current weapon
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    public void EnablePlayer()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    public void DisablePlayer()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.CallIdleEvent();
     }
 
 #if UNITY_EDITOR

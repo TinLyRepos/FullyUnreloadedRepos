@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 175292955224890515}
   - component: {fileID: 175292955224890518}
   - component: {fileID: 175292955224890513}
-  - component: {fileID: 175292955224890512}
+  - component: {fileID: 5717965283407521190}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &175292955224890512
+--- !u!114 &5717965283407521190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
         currentRoom = roomChangedEventArgs.room;
 
         // Update music for room
+        Assert.IsNotNull(currentRoom);
+        Assert.IsNotNull(currentRoom.ambientMusic);
         MusicManager.Instance.PlayMusic(currentRoom.ambientMusic, 0.2f, 2f);
 
         // if the room is a corridor or the entrance then return

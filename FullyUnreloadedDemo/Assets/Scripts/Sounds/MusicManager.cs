@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 
@@ -19,16 +20,13 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
 
         // Start with music off
         GameResources.Instance.musicOffSnapshot.TransitionTo(0f);
-
     }
 
     private void Start()
     {
         // Check if volume levels have been saved in playerprefs - if so retrieve and set them
         if (PlayerPrefs.HasKey("musicVolume"))
-        {
             musicVolume = PlayerPrefs.GetInt("musicVolume");
-        }
 
         SetMusicVolume(musicVolume);
     }
@@ -39,17 +37,7 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         PlayerPrefs.SetInt("musicVolume", musicVolume);
     }
 
-
-
-    public void PlayMusic(MusicTrackSO musicTrack, float fadeOutTime = Settings.musicFadeOutTime, float fadeInTime = Settings.musicFadeInTime)
-    {
-        // Play music track
-        StartCoroutine(PlayMusicRoutine(musicTrack, fadeOutTime, fadeInTime));
-    }
-
-    /// <summary>
     /// Play music for room routine
-    /// </summary>
     private IEnumerator PlayMusicRoutine(MusicTrackSO musicTrack, float fadeOutTime, float fadeInTime)
     {
         // if fade out routine already running then stop it
@@ -77,9 +65,7 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         yield return null;
     }
 
-    /// <summary>
     /// Fade out music routine
-    /// </summary>
     private IEnumerator FadeOutMusic(float fadeOutTime)
     {
         GameResources.Instance.musicLowSnapshot.TransitionTo(fadeOutTime);
@@ -87,9 +73,7 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         yield return new WaitForSeconds(fadeOutTime);
     }
 
-    /// <summary>
     /// Fade in music routine
-    /// </summary>
     private IEnumerator FadeInMusic(MusicTrackSO musicTrack, float fadeInTime)
     {
         // Set clip & play
@@ -102,9 +86,13 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         yield return new WaitForSeconds(fadeInTime);
     }
 
-    /// <summary>
-    /// Increase music volume
-    /// </summary>
+    //===========================================================================
+    public void PlayMusic(MusicTrackSO musicTrack, float fadeOutTime = Settings.musicFadeOutTime, float fadeInTime = Settings.musicFadeInTime)
+    {
+        Assert.IsNotNull(musicTrack);
+        StartCoroutine(PlayMusicRoutine(musicTrack, fadeOutTime, fadeInTime));
+    }
+
     public void IncreaseMusicVolume()
     {
         int maxMusicVolume = 20;
@@ -116,9 +104,6 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         SetMusicVolume(musicVolume);
     }
 
-    /// <summary>
-    /// Decrease music volume
-    /// </summary>
     public void DecreaseMusicVolume()
     {
         if (musicVolume == 0) return;
@@ -128,9 +113,6 @@ public class MusicManager : SingletonMonobehaviour<MusicManager>
         SetMusicVolume(musicVolume);
     }
 
-    /// <summary>
-    /// Set music volume
-    /// </summary>
     public void SetMusicVolume(int musicVolume)
     {
         float muteDecibels = -80f;

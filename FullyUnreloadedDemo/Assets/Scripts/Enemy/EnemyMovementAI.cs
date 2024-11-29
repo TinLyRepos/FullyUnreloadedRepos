@@ -1,9 +1,7 @@
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Enemy))]
@@ -129,6 +127,10 @@ public class EnemyMovementAI : MonoBehaviour
         Vector3Int enemyGridPosition = grid.WorldToCell(transform.position);
 
         // Build a path for the enemy to move on
+        Assert.IsNotNull(currentRoom);
+        Assert.IsNotNull(enemyGridPosition);
+        Assert.IsNotNull(playerGridPosition);
+
         movementSteps = AStar.BuildPath(currentRoom, enemyGridPosition, playerGridPosition);
 
         // Take off first step on path - this is the grid square the enemy is already on

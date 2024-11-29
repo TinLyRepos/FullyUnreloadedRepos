@@ -28,6 +28,9 @@ public class GameResources : MonoBehaviour
     public Shader shader_VariableLit = default;
     public Shader shader_Materialize;
 
+    [Header("PLAYER SELECTION")]
+    public GameObject playerSelectionPrefab;
+
     [Header("PLAYER")]
     public List<SO_PlayerData> playerDetailsList;
     public SO_CurrentPlayerData currentPlayerData = default;
