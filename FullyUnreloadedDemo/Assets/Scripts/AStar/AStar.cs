@@ -17,7 +17,8 @@ public static class AStar
         HashSet<Node> closedNodeHashSet = new HashSet<Node>();
 
         // Create gridnodes for path finding
-        GridNode gridNodes = new GridNode(room.templateUpperBounds.x - room.templateLowerBounds.x + 1, room.templateUpperBounds.y - room.templateLowerBounds.y + 1);
+        GridNode gridNodes = new GridNode(room.templateUpperBounds.x - room.templateLowerBounds.x + 1,
+            room.templateUpperBounds.y - room.templateLowerBounds.y + 1);
 
         Node startNode = gridNodes.GetNode(startGridPos.x, startGridPos.y);
         Node targetNode = gridNodes.GetNode(endGridPos.x, endGridPos.y);
@@ -56,8 +57,7 @@ public static class AStar
             closedNodeHashSet.Add(currentNode);
 
             // evaluate fcost for each neighbour of the current node
-            EvaluateCurrentNodeNeighbours(currentNode, targetNode, gridNodes,
-                openNodeList, closedNodeHashSet, instantiatedRoom);
+            EvaluateCurrentNodeNeighbours(currentNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, instantiatedRoom);
         }
         return null;
     }
@@ -109,9 +109,12 @@ public static class AStar
                 if (i == 0 && j == 0)
                     continue;
 
-                validNeighbourNode = GetValidNodeNeighbour(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, instantiatedRoom);
+                validNeighbourNode = GetValidNodeNeighbour(
+                    currentNodeGridPosition.x + i,
+                    currentNodeGridPosition.y + j,
+                    gridNodes, closedNodeHashSet, instantiatedRoom);
 
-                if (validNeighbourNode != null)
+                if (validNeighbourNode == null)
                     continue;
 
                 // Calculate new gcost for neighbour
@@ -179,8 +182,12 @@ public static class AStar
 
         // if neighbour is an obstacle or neighbour is in the closed list then skip
         if (movementPenaltyForGridSpace == 0 || itemObstacleForGridSpace == 0 || closedNodeHashSet.Contains(neighbourNode))
+        {
             return null;
-
-        return neighbourNode;
+        }
+        else
+        {
+            return neighbourNode;
+        }
     }
 }
