@@ -23,10 +23,11 @@ public class ActivateRooms : MonoBehaviour
         if (GameManager.Instance.gameState == GameState.DungeonOverviewMap)
             return;
 
-        HelperUtilities.CameraWorldPositionBounds(out Vector2Int miniMapCameraWorldPositionLowerBounds, out Vector2Int miniMapCameraWorldPositionUpperBounds, miniMapCamera);
+        HelperUtilities.CameraWorldPositionBounds(out Vector2Int miniMapCameraWorldPositionLowerBounds,
+            out Vector2Int miniMapCameraWorldPositionUpperBounds, miniMapCamera);
 
-        HelperUtilities.CameraWorldPositionBounds(out Vector2Int mainCameraWorldPositionLowerBounds, out Vector2Int mainCameraWorldPositionUpperBounds, cameraMain);
-
+        HelperUtilities.CameraWorldPositionBounds(out Vector2Int mainCameraWorldPositionLowerBounds,
+            out Vector2Int mainCameraWorldPositionUpperBounds, cameraMain);
 
         // Iterate through dungeon rooms
         foreach (KeyValuePair<string, Room> keyValuePair in DungeonBuilder.Instance.RoomDictionary)
@@ -47,23 +48,18 @@ public class ActivateRooms : MonoBehaviour
                 {
                     room.instantiatedRoom.DeactivateEnvironmentGameObjects();
                 }
-
-
             }
             else
             {
                 room.instantiatedRoom.gameObject.SetActive(false);
             }
-
         }
     }
 
-    #region Validation
 #if UNITY_EDITOR
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckNullValue(this, nameof(miniMapCamera), miniMapCamera);
     }
 #endif
-    #endregion
 }

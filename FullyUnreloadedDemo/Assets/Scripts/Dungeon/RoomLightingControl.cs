@@ -34,10 +34,10 @@ public class RoomLightingControl : MonoBehaviour
             FadeInRoomLighting();
 
             // Ensure room environment decoration game objects are activated
-            // instantiatedRoom.ActivateEnvironmentGameObjects();
+            instantiatedRoom.ActivateEnvironmentGameObjects();
 
             // Fade in the environment decoration gameobjects lighting
-            // FadeInEnvironmentLighting();
+            FadeInEnvironmentLighting();
 
             // Fade in the room doors lighting
             FadeInDoors();
@@ -78,40 +78,40 @@ public class RoomLightingControl : MonoBehaviour
         instantiatedRoom.minimapTilemap.GetComponent<TilemapRenderer>().material = GameResources.Instance.material_lit;
     }
 
-    //private void FadeInEnvironmentLighting()
-    //{
-    //    // Create new material to fade in
-    //    Material material = new Material(GameResources.Instance.variableLitShader);
+    private void FadeInEnvironmentLighting()
+    {
+        // Create new material to fade in
+        Material material = new Material(GameResources.Instance.shader_VariableLit);
 
-    //    // Get all environment components in room
-    //    Environment[] environmentComponents = GetComponentsInChildren<Environment>();
+        // Get all environment components in room
+        Environment[] environmentComponents = GetComponentsInChildren<Environment>();
 
-    //    // Loop through
-    //    foreach (Environment environmentComponent in environmentComponents)
-    //    {
-    //        if (environmentComponent.spriteRenderer != null)
-    //            environmentComponent.spriteRenderer.material = material;
-    //    }
+        // Loop through
+        foreach (Environment environmentComponent in environmentComponents)
+        {
+            if (environmentComponent.spriteRenderer != null)
+                environmentComponent.spriteRenderer.material = material;
+        }
 
-    //    StartCoroutine(FadeInEnvironmentLightingRoutine(material, environmentComponents));
-    //}
+        StartCoroutine(FadeInEnvironmentLightingRoutine(material, environmentComponents));
+    }
 
-    //private IEnumerator FadeInEnvironmentLightingRoutine(Material material, Environment[] environmentComponents)
-    //{
-    //    // Gradually fade in the lighting
-    //    for (float i = 0.05f; i <= 1f; i += Time.deltaTime / Settings.fadeInTime)
-    //    {
-    //        material.SetFloat("Alpha_Slider", i);
-    //        yield return null;
-    //    }
+    private IEnumerator FadeInEnvironmentLightingRoutine(Material material, Environment[] environmentComponents)
+    {
+        // Gradually fade in the lighting
+        for (float i = 0.05f; i <= 1f; i += Time.deltaTime / Settings.FADE_IN_TIME)
+        {
+            material.SetFloat("Alpha_Slider", i);
+            yield return null;
+        }
 
-    //    // Set environment components material back to lit material
-    //    foreach (Environment environmentComponent in environmentComponents)
-    //    {
-    //        if (environmentComponent.spriteRenderer != null)
-    //            environmentComponent.spriteRenderer.material = GameResources.Instance.litMaterial;
-    //    }
-    //}
+        // Set environment components material back to lit material
+        foreach (Environment environmentComponent in environmentComponents)
+        {
+            if (environmentComponent.spriteRenderer != null)
+                environmentComponent.spriteRenderer.material = GameResources.Instance.material_lit;
+        }
+    }
 
     private void FadeInDoors()
     {

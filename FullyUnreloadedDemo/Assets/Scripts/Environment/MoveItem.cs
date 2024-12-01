@@ -4,19 +4,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MoveItem : MonoBehaviour
 {
-    #region SOUND EFFECT
     [Header("SOUND EFFECT")]
-    #endregion SOUND EFFECT
-    #region Tooltip
-    [Tooltip("The sound effect when this item is moved")]
-    #endregion Tooltip
     [SerializeField] private SoundEffectSO moveSoundEffect;
-
     [HideInInspector] public BoxCollider2D boxCollider2D;
     private Rigidbody2D rigidBody2D;
     private InstantiatedRoom instantiatedRoom;
     private Vector3 previousPosition;
 
+    //===========================================================================
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        /// Update the obstacle positions when something comes into contact
+        UpdateObstacles();
+    }
+
+    //===========================================================================
     private void Awake()
     {
         // Get component references
@@ -28,18 +30,8 @@ public class MoveItem : MonoBehaviour
         instantiatedRoom.moveableItemsList.Add(this);
     }
 
-    /// <summary>
-    /// Update the obstacle positions when something comes into contact
-    /// </summary>
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        UpdateObstacles();
-    }
-
-
-    /// <summary>
+    //===========================================================================
     /// Update the obstacle positions
-    /// </summary>
     private void UpdateObstacles()
     {
         // Make sure the item stays within the room
@@ -52,26 +44,23 @@ public class MoveItem : MonoBehaviour
         previousPosition = transform.position;
 
         // Play sound if moving (allowing for small velocities)
-        if (Mathf.Abs(rigidBody2D.linearVelocity.x) > 0.001f || Mathf.Abs(rigidBody2D.linearVelocity.y) > 0.001f)
+        if (Mathf.Abs(rigidBody2D.linearVelocity.x) > 0.001f ||
+            Mathf.Abs(rigidBody2D.linearVelocity.y) > 0.001f)
         {
             // Play moving sound every 10 frames
             if (moveSoundEffect != null && Time.frameCount % 10 == 0)
-            {
                 SoundEffectManager.Instance.PlaySoundEffect(moveSoundEffect);
-            }
         }
     }
 
-    /// <summary>
     /// Confine the item to stay within the room bounds
-    /// </summary>
     private void ConfineItemToRoomBounds()
     {
         Bounds itemBounds = boxCollider2D.bounds;
         Bounds roomBounds = instantiatedRoom.roomColliderBounds;
 
-        // If the item is being pushed beyond the room bounds then set the item position to its
-        // previous position
+        // If the item is being pushed beyond the room bounds
+        // then set the item position to its previous position
         if (itemBounds.min.x <= roomBounds.min.x ||
             itemBounds.max.x >= roomBounds.max.x ||
             itemBounds.min.y <= roomBounds.min.y ||
@@ -79,7 +68,5 @@ public class MoveItem : MonoBehaviour
         {
             transform.position = previousPosition;
         }
-
     }
-
 }

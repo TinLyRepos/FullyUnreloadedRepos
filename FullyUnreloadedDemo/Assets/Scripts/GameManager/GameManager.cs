@@ -231,6 +231,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Set player position to the closest spawn point from roomCenter
         player.gameObject.transform.position = HelperUtilities.GetClosetSpawnPosition(roomCenter);
+
+        // Display Dungeon Level Text
+        StartCoroutine(DisplayDungeonLevelText());
     }
 
     private void RoomEnemiesDefeated()
@@ -278,7 +281,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             gameState = GameState.BossState;
             StartCoroutine(BossStage());
         }
-
     }
 
     private void DisplayDungeonOverviewMap()
@@ -309,7 +311,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Fade In
         yield return StartCoroutine(Fade(1f, 0f, 2f, Color.black));
-
     }
 
     /// Display the message text for displaySeconds
@@ -342,7 +343,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         yield return null;
 
         // Clear text
-        messageTextTMP.SetText("");
+        messageTextTMP.SetText(string.Empty);
     }
 
     /// Enter boss stage
@@ -401,7 +402,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Increase index to next level
         currentDungeonLevelIndex++;
-
         PlayDungeonLevel(currentDungeonLevelIndex);
     }
 
@@ -414,7 +414,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         image.color = backgroundColor;
 
         float time = 0;
-
         while (time <= fadeSeconds)
         {
             time += Time.deltaTime;
@@ -423,7 +422,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
 
         isFading = false;
-
     }
 
     private IEnumerator GameWon()
@@ -575,7 +573,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             // Set game state
             gameState = prevGameState;
             prevGameState = GameState.GamePaused;
-
         }
     }
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Cinemachine;
 
 public class DungeonMap : SingletonMonobehaviour<DungeonMap>
 {
@@ -16,13 +15,6 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         // Cache main camera
         cameraMain = Camera.main;
 
-        // Get player transform
-        Transform playerTransform = GameManager.Instance.Player.transform;
-
-        // Populate player as cinemachine camera target
-        CinemachineCamera cinemachineVirtualCamera = GetComponentInChildren<CinemachineCamera>();
-        cinemachineVirtualCamera.Follow = playerTransform;
-
         // get dungeonmap camera
         dungeonMapCamera = GetComponentInChildren<Camera>();
         dungeonMapCamera.gameObject.SetActive(false);
@@ -35,6 +27,9 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         {
             GetRoomClicked();
         }
+
+        if (dungeonMapCamera.gameObject.activeInHierarchy)
+            dungeonMapCamera.transform.position = GameManager.Instance.Player.transform.position;
     }
 
     //===========================================================================
@@ -63,7 +58,6 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
                 }
             }
         }
-
     }
 
     /// Move the player to the selected room

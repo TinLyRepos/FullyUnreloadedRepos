@@ -4,13 +4,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
-    #region Header References
-    [Space(10)]
-    [Header("References")]
-    #endregion
-    #region Tooltip
-    [Tooltip("Populate with the HealthBar component on the HealthBar gameobject")]
-    #endregion
+    [Header("REFERENCES")]
     [SerializeField] private HealthBar healthBar;
     private int startingHealth;
     private int currentHealth;
@@ -28,7 +22,6 @@ public class Health : MonoBehaviour
 
     private void Awake()
     {
-        //Load compnents
         healthEvent = GetComponent<HealthEvent>();
     }
 
@@ -40,7 +33,6 @@ public class Health : MonoBehaviour
         // Attempt to load enemy / player components
         player = GetComponent<Player>();
         enemy = GetComponent<Enemy>();
-
 
         // Get player / enemy hit immunity details
         if (player != null)
@@ -125,21 +117,16 @@ public class Health : MonoBehaviour
         while (iterations > 0)
         {
             spriteRenderer.color = Color.red;
-
             yield return WaitForSecondsSpriteFlashInterval;
 
             spriteRenderer.color = Color.white;
-
             yield return WaitForSecondsSpriteFlashInterval;
 
             iterations--;
-
             yield return null;
-
         }
 
         isDamageable = true;
-
     }
 
     private void CallHealthEvent(int damageAmount)
@@ -152,6 +139,8 @@ public class Health : MonoBehaviour
     {
         this.startingHealth = startingHealth;
         currentHealth = startingHealth;
+
+        CallHealthEvent(0);
     }
 
     public int GetStartingHealth()

@@ -181,7 +181,6 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
                 GameManager.Instance.gameState = GameState.PlayingLevel;
                 GameManager.Instance.prevGameState = GameState.EngagingEnemy;
             }
-
             else if (GameManager.Instance.gameState == GameState.EngagingBoss)
             {
                 GameManager.Instance.gameState = GameState.BossState;

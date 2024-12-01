@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal; // keep this namespace in for when 2D lights become non experimental;
-using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Rendering.Universal;
 
 [DisallowMultipleComponent]
 public class LightFlicker : MonoBehaviour
@@ -14,7 +13,6 @@ public class LightFlicker : MonoBehaviour
 
     private void Awake()
     {
-        // Load components
         light2D = GetComponentInChildren<Light2D>();
     }
 
@@ -32,7 +30,6 @@ public class LightFlicker : MonoBehaviour
         if (lightFlickerTimer < 0f)
         {
             lightFlickerTimer = Random.Range(lightFlickerTimeMin, lightFlickerTimeMax);
-
             RandomiseLightIntensity();
         }
     }
@@ -42,7 +39,6 @@ public class LightFlicker : MonoBehaviour
         light2D.intensity = Random.Range(lightIntensityMin, lightIntensityMax);
     }
 
-    #region Validation
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -50,5 +46,4 @@ public class LightFlicker : MonoBehaviour
         HelperUtilities.ValidateCheckPositiveRange(this, nameof(lightFlickerTimeMin), lightFlickerTimeMin, nameof(lightFlickerTimeMax), lightFlickerTimeMax, false);
     }
 #endif
-    #endregion
 }

@@ -52,6 +52,12 @@ public class InstantiatedRoom : MonoBehaviour
         roomColliderBounds = boxCollider2D.bounds;
     }
 
+    private void Start()
+    {
+        // Update moveable item obstacles array
+        UpdateMoveableObstacles();
+    }
+
     //===========================================================================
     public void Initialize(GameObject roomGameObject)
     {
@@ -150,7 +156,6 @@ public class InstantiatedRoom : MonoBehaviour
 
                 // Add obstacles for collision tiles the enemy can't walk on
                 TileBase tile = collisionTilemap.GetTile(new Vector3Int(x + room.templateLowerBounds.x, y + room.templateLowerBounds.y, 0));
-
                 foreach (TileBase collisionTile in GameResources.Instance.enemyUnwalkableCollisionTilesArray)
                 {
                     if (tile == collisionTile)
@@ -306,13 +311,10 @@ public class InstantiatedRoom : MonoBehaviour
         if (doorUnlockDelay > 0f)
             yield return new WaitForSeconds(doorUnlockDelay);
 
-        Door[] doorArray = GetComponentsInChildren<Door>();
-
         // Trigger open doors
+        Door[] doorArray = GetComponentsInChildren<Door>();
         foreach (Door door in doorArray)
-        {
             door.UnlockDoor();
-        }
 
         // Enable room trigger collider
         boxCollider2D.enabled = true;
@@ -330,6 +332,7 @@ public class InstantiatedRoom : MonoBehaviour
         }
     }
 
+    //===========================================================================
     public void ActivateEnvironmentGameObjects()
     {
         if (environmentGameObject != null)
