@@ -4991,13 +4991,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -653709415
   m_SortingLayer: 4
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 4319395737909131107, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.125, y: 0.6875}
+  m_Size: {x: 0.75, y: 0.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -5202,15 +5202,15 @@ SpriteRenderer:
   m_SortingLayerID: -653709415
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cfeb9505b359df54490c7a85d6215eb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.25, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4946209700172344664
@@ -5289,6 +5289,7 @@ GameObject:
   - component: {fileID: 3835250012968918577}
   - component: {fileID: 7079347689800850680}
   - component: {fileID: 7079347689800850679}
+  - component: {fileID: 7079347689800850681}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -5367,8 +5368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerRolling: 0
-  playerWeapon: {fileID: 7348570547029229453}
-  weaponSprite: {fileID: 3339559027214730216}
 --- !u!114 &7079347689800850680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5383,6 +5382,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 1493457830}
   animationList_TheCowgirl: {fileID: 11400000, guid: 39f2d744da6510246b94037098f13b48, type: 2}
+--- !u!114 &7079347689800850681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5653469237337779986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66212a3ab903f97468e4d3431632b32f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerWeapon: {fileID: 7348570547029229453}
+  weaponSprite: {fileID: 3339559027214730216}
+  WeaponPositionL: {x: 0.4375, y: 0.3125}
+  WeaponPositionR: {x: -0.4375, y: 0.3125}
 --- !u!4 &7219151212939238987
 Transform:
   m_ObjectHideFlags: 0
@@ -5407,13 +5422,13 @@ Transform:
   m_GameObject: {fileID: 9211053696251376967}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.375, y: 0.3125, z: 0}
+  m_LocalPosition: {x: 0.4375, y: 0.3125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8473901425891651916}
-  - {fileID: 7219151212939238987}
   - {fileID: 6519447644811720234}
+  - {fileID: 7219151212939238987}
   m_Father: {fileID: 3026464670922589842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8466547191113485176
@@ -6454,7 +6469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5054135504617525883}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

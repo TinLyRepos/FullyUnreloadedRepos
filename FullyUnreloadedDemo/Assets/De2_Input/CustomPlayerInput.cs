@@ -53,6 +53,15 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""3fea6cb5-de9d-4764-b8bf-fd4ec0addbb1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,6 +152,17 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""MainHandAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ea554fd-2173-40e6-9618-5518c8ae89fe"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +235,7 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
         m_InputAction_Move = m_InputAction.FindAction("Move", throwIfNotFound: true);
         m_InputAction_MainHandAction = m_InputAction.FindAction("MainHandAction", throwIfNotFound: true);
         m_InputAction_Interact = m_InputAction.FindAction("Interact", throwIfNotFound: true);
+        m_InputAction_Roll = m_InputAction.FindAction("Roll", throwIfNotFound: true);
     }
 
     ~@CustomPlayerInput()
@@ -284,6 +305,7 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InputAction_Move;
     private readonly InputAction m_InputAction_MainHandAction;
     private readonly InputAction m_InputAction_Interact;
+    private readonly InputAction m_InputAction_Roll;
     public struct InputActionActions
     {
         private @CustomPlayerInput m_Wrapper;
@@ -291,6 +313,7 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_InputAction_Move;
         public InputAction @MainHandAction => m_Wrapper.m_InputAction_MainHandAction;
         public InputAction @Interact => m_Wrapper.m_InputAction_Interact;
+        public InputAction @Roll => m_Wrapper.m_InputAction_Roll;
         public InputActionMap Get() { return m_Wrapper.m_InputAction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,6 +332,9 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IInputActionActions instance)
@@ -322,6 +348,9 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IInputActionActions instance)
@@ -389,5 +418,6 @@ public partial class @CustomPlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnMainHandAction(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }

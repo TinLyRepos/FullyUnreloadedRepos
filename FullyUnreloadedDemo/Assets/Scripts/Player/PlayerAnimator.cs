@@ -35,9 +35,13 @@ public class PlayerAnimator : MonoBehaviour
     private void FlipSprite()
     {
         if (Player.Instance.Position.x > De2Helper.GetMouseToWorldPosition().x)
+        {
             playerSprite.flipX = true;
+        }
         else
+        {
             playerSprite.flipX = false;
+        }
     }
 
     private void SetPlayerAnimationSpeed()
@@ -50,7 +54,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         SO_Animation animationClip = null;
 
-        if (Player.Instance.Controller.MoveVector == Vector2.zero)
+        if (Player.Instance.Controller.MovementVector == Vector2.zero)
         {
             switch (Player.Instance.Controller.AimDirection)
             {
@@ -72,22 +76,45 @@ public class PlayerAnimator : MonoBehaviour
         }
         else
         {
-            switch (Player.Instance.Controller.AimDirection)
+            if (Player.Instance.IsRolling)
             {
-                case AimDirection.Up:
-                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUp);
-                    break;
-                case AimDirection.UpRight:
-                case AimDirection.UpLeft:
-                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUpSide);
-                    break;
-                case AimDirection.Down:
-                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDown);
-                    break;
-                case AimDirection.Left:
-                case AimDirection.Right:
-                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDownSide);
-                    break;
+                switch (Player.Instance.Controller.AimDirection)
+                {
+                    case AimDirection.Up:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.RollUp);
+                        break;
+                    case AimDirection.UpRight:
+                    case AimDirection.UpLeft:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.RollUpSide);
+                        break;
+                    case AimDirection.Down:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.RollDown);
+                        break;
+                    case AimDirection.Left:
+                    case AimDirection.Right:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.RollDownSide);
+                        break;
+                }
+            }
+            else
+            {
+                switch (Player.Instance.Controller.AimDirection)
+                {
+                    case AimDirection.Up:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUp);
+                        break;
+                    case AimDirection.UpRight:
+                    case AimDirection.UpLeft:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUpSide);
+                        break;
+                    case AimDirection.Down:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDown);
+                        break;
+                    case AimDirection.Left:
+                    case AimDirection.Right:
+                        animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDownSide);
+                        break;
+                }
             }
         }
 

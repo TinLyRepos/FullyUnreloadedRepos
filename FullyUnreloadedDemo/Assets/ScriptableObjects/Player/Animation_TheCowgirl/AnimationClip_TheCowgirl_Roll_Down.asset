@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
   m_Name: AnimationClip_TheCowgirl_Roll_Down
   m_EditorClassIdentifier: 
-  animationSpeed: 0.1
+  animationSpeed: 0.08
   animationSprites:
   - {fileID: -8392195342610085023, guid: b71e1b77d5a642747b5392fe1db692dd, type: 3}
   - {fileID: 6976944562414917858, guid: b71e1b77d5a642747b5392fe1db692dd, type: 3}

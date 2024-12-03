@@ -6,11 +6,14 @@ public class Player : SingletonMonobehaviour<Player>
 {
     public PlayerAnimator Animator { get; private set; }
     public PlayerController Controller { get; private set; }
+    public PlayerWeapon Weapon { get; private set; }
 
     public Vector3 Position { get => transform.position; set => transform.position = value; }
 
-    public bool CanMove { get; set; }
+    public bool MovementDisabled = false;
+
     public bool IsMoving { get; set; }
+    public bool IsRolling { get; set; }
 
     //===========================================================================
     protected override void Awake()
@@ -19,9 +22,11 @@ public class Player : SingletonMonobehaviour<Player>
 
         Animator = GetComponent<PlayerAnimator>();
         Controller = GetComponent<PlayerController>();
+        Weapon = GetComponent<PlayerWeapon>();
 
         Assert.IsNotNull(Animator);
         Assert.IsNotNull(Controller);
+        Assert.IsNotNull(Weapon);
     }
 
     //===========================================================================

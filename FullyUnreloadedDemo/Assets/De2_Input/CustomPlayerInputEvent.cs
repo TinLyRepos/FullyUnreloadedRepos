@@ -17,6 +17,9 @@ public class CustomPlayerInputEvent : SingletonMonobehaviour<CustomPlayerInputEv
     public event EventHandler OnInput_Interact;
     private static string Action_Interact = "Interact";
 
+    public event EventHandler OnInput_Roll;
+    private static string Action_Roll = "Roll";
+
     //===========================================================================
     protected override void Awake()
     {
@@ -29,6 +32,7 @@ public class CustomPlayerInputEvent : SingletonMonobehaviour<CustomPlayerInputEv
         OnInput_Move = null;
         OnInput_MainHandAction = null;
         OnInput_Interact = null;
+        OnInput_Roll = null;
     }
 
     //===========================================================================
@@ -45,5 +49,9 @@ public class CustomPlayerInputEvent : SingletonMonobehaviour<CustomPlayerInputEv
         // INTERACT
         if (playerInput.actions[Action_Interact].triggered)
             OnInput_Interact?.Invoke(this, EventArgs.Empty);
+
+        // ROLL
+        if (playerInput.actions[Action_Roll].triggered)
+            OnInput_Roll?.Invoke(this, EventArgs.Empty);
     }
 }
