@@ -8,6 +8,22 @@ public enum Orientation
     None,
 }
 
+public enum AnimationType
+{
+    IdleDown,
+    IdleDownSide,
+    IdleUp,
+    IdleUpSide,
+    MoveDown,
+    MoveDownSide,
+    MoveUp,
+    MoveUpSide,
+    RollDown,
+    RollDownSide,
+    RollUp,
+    RollUpSide,
+}
+
 public enum AimDirection
 {
     Up,

@@ -26,7 +26,7 @@ public class Table : MonoBehaviour, IUseable
             Bounds bounds = boxCollider2D.bounds;
 
             // Calculate closest point to player on collider bounds
-            Vector3 closestPointToPlayer = bounds.ClosestPoint(GameManager.Instance.Player.GetPlayerPosition());
+            Vector3 closestPointToPlayer = bounds.ClosestPoint(Player.Instance.Position);
 
             // If player is to the right of the table then flip left
             if (closestPointToPlayer.x == bounds.max.x)

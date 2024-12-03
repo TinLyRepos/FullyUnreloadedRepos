@@ -151,7 +151,7 @@ public class ChestSpawner : MonoBehaviour
         else if (chestSpawnPosition == ChestSpawnPosition.atPlayerPosition)
         {
             // Get nearest spawn position to player
-            Vector3 spawnPosition = HelperUtilities.GetClosetSpawnPosition(GameManager.Instance.Player.transform.position);
+            Vector3 spawnPosition = HelperUtilities.GetClosetSpawnPosition(Player.Instance.Position);
 
             // Calculate some random variation
             Vector3 variation = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);

@@ -1,143 +1,120 @@
+using System.Collections.Generic;
 using UnityEngine;
+using De2Utils;
 
-[RequireComponent(typeof(Player))]
-[DisallowMultipleComponent]
 public class PlayerAnimator : MonoBehaviour
 {
-    private Player player;
+    [Header("SPRITE RENDERER CACHE")]
+    [SerializeField] private SpriteRenderer playerSprite = default;
+
+    [Header("ANIMATION DATA")]
+    [SerializeField] private SO_AnimationList animationList_TheCowgirl = default;
+
+    private SO_AnimationList currentAnimationList = default;
+    private List<Sprite> animationSpriteList = default;
+    private int animationFrame = default;
+    private float animationSpeed = default;
+    private float animationTimer = default;
 
     //===========================================================================
-    private void Awake()
-    {
-        player = GetComponent<Player>();
-    }
-
     private void OnEnable()
     {
-        player.idleEvent.OnIdle += IdleEvent_OnIdle;
-        player.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
-        player.movementByVelocityEvent.OnMovementByVelocity += MovementByVelocityEvent_OnMovementByVelocity;
-        player.movementToPositionEvent.OnMovementToPosition += MovementToPositionEvent_OnMovementToPosition;
+        currentAnimationList = animationList_TheCowgirl;
     }
 
-    private void OnDisable()
+    private void Update()
     {
-        player.idleEvent.OnIdle -= IdleEvent_OnIdle;
-        player.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
-        player.movementByVelocityEvent.OnMovementByVelocity -= MovementByVelocityEvent_OnMovementByVelocity;
-        player.movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
-    }
+        FlipSprite();
 
-    //===========================================================================
-    private void IdleEvent_OnIdle(IdleEvent obj)
-    {
-        InitializeRollAnimationParameters();
-        SetIdleAnimationParameters();
-    }
+        AssignSpriteAnimation();
 
-    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
-    {
-        InitializeAimAnimationParameters();
-        InitializeRollAnimationParameters();
-        SetAimWeaponAnimationParameters(aimWeaponEventArgs.aimDirection);
-    }
-
-    private void MovementByVelocityEvent_OnMovementByVelocity(MovementByVelocityEvent arg1, MovementByVelocityArgs arg2)
-    {
-        InitializeRollAnimationParameters();
-        SetMovementAnimationParameters();
-    }
-
-    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent arg1, MovementToPositionArgs arg2)
-    {
-        InitializeAimAnimationParameters();
-        InitializeRollAnimationParameters();
-        SetMovementToPositionAnimationParameters(arg2);
+        PlayAnimation(playerSprite, animationSpriteList);
     }
 
     //===========================================================================
-    private void InitializeAimAnimationParameters()
+    private void FlipSprite()
     {
-        player.animator.SetBool(Settings.aimUp, false);
-        player.animator.SetBool(Settings.aimUpRight, false);
-        player.animator.SetBool(Settings.aimUpLeft, false);
-        player.animator.SetBool(Settings.aimRight, false);
-        player.animator.SetBool(Settings.aimLeft, false);
-        player.animator.SetBool(Settings.aimDown, false);
+        if (Player.Instance.Position.x > De2Helper.GetMouseToWorldPosition().x)
+            playerSprite.flipX = true;
+        else
+            playerSprite.flipX = false;
     }
 
-    private void InitializeRollAnimationParameters()
+    private void SetPlayerAnimationSpeed()
     {
-        player.animator.SetBool(Settings.rollDown, false);
-        player.animator.SetBool(Settings.rollRight, false);
-        player.animator.SetBool(Settings.rollLeft, false);
-        player.animator.SetBool(Settings.rollUp, false);
+        // Set animator speed to match movement speed
+        // player.animator.speed = moveSpeed / Settings.baseSpeedForPlayerAnimations;
     }
 
-    private void SetIdleAnimationParameters()
+    private void AssignSpriteAnimation()
     {
-        player.animator.SetBool(Settings.isMoving, false);
-        player.animator.SetBool(Settings.isIdle, true);
-    }
+        SO_Animation animationClip = null;
 
-    private void SetMovementAnimationParameters()
-    {
-        player.animator.SetBool(Settings.isMoving, true);
-        player.animator.SetBool(Settings.isIdle, false);
-    }
-
-    private void SetMovementToPositionAnimationParameters(MovementToPositionArgs movementToPositionArgs)
-    {
-        if (movementToPositionArgs.isRolling == false)
-            return;
-
-        // Animate roll
-        if (movementToPositionArgs.moveDirection.x > 0f)
+        if (Player.Instance.Controller.MoveVector == Vector2.zero)
         {
-            player.animator.SetBool(Settings.rollRight, true);
+            switch (Player.Instance.Controller.AimDirection)
+            {
+                case AimDirection.Up:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.IdleUp);
+                    break;
+                case AimDirection.UpRight:
+                case AimDirection.UpLeft:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.IdleUpSide);
+                    break;
+                case AimDirection.Down:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.IdleDown);
+                    break;
+                case AimDirection.Left:
+                case AimDirection.Right:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.IdleDownSide);
+                    break;
+            }
         }
-        else if (movementToPositionArgs.moveDirection.x < 0f)
+        else
         {
-            player.animator.SetBool(Settings.rollLeft, true);
+            switch (Player.Instance.Controller.AimDirection)
+            {
+                case AimDirection.Up:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUp);
+                    break;
+                case AimDirection.UpRight:
+                case AimDirection.UpLeft:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveUpSide);
+                    break;
+                case AimDirection.Down:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDown);
+                    break;
+                case AimDirection.Left:
+                case AimDirection.Right:
+                    animationClip = currentAnimationList.GetAnimation(AnimationType.MoveDownSide);
+                    break;
+            }
         }
-        else if (movementToPositionArgs.moveDirection.y > 0f)
-        {
-            player.animator.SetBool(Settings.rollUp, true);
-        }
-        else if (movementToPositionArgs.moveDirection.y < 0f)
-        {
-            player.animator.SetBool(Settings.rollDown, true);
-        }
+
+        // Swap only if animations have changed
+        if (animationClip != null && animationClip.Sprites != animationSpriteList)
+            UpdateAnimationClip(ref animationSpriteList, animationClip);
     }
 
-    private void SetAimWeaponAnimationParameters(AimDirection aimDirection)
+    private void UpdateAnimationClip(ref List<Sprite> currentSprites, SO_Animation animationData)
     {
-        // Set aim direction
-        switch (aimDirection)
+        currentSprites = animationData.Sprites;
+        animationSpeed = animationData.Speed;
+        animationTimer = 0.0f;
+        animationFrame = 0;
+    }
+
+    private void PlayAnimation(SpriteRenderer renderer, List<Sprite> sprites)
+    {
+        if (animationFrame == 0)
+            renderer.sprite = sprites[animationFrame];
+
+        animationTimer += Time.deltaTime;
+        while (animationTimer >= animationSpeed)
         {
-            case AimDirection.Up:
-                player.animator.SetBool(Settings.aimUp, true);
-                break;
-
-            case AimDirection.UpRight:
-                player.animator.SetBool(Settings.aimUpRight, true);
-                break;
-
-            case AimDirection.UpLeft:
-                player.animator.SetBool(Settings.aimUpLeft, true);
-                break;
-
-            case AimDirection.Right:
-                player.animator.SetBool(Settings.aimRight, true);
-                break;
-
-            case AimDirection.Left:
-                player.animator.SetBool(Settings.aimLeft, true);
-                break;
-
-            case AimDirection.Down:
-                player.animator.SetBool(Settings.aimDown, true);
-                break;
+            animationTimer -= animationSpeed;
+            animationFrame = (animationFrame + 1) % sprites.Count;
+            renderer.sprite = sprites[animationFrame];
         }
     }
 }

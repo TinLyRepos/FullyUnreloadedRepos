@@ -36,7 +36,6 @@ public class SO_PlayerData : ScriptableObject
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckEmptyString(this, nameof(characterName), characterName);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(characterPrefab), characterPrefab);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerBaseMaxHealth), playerBaseMaxHealth, false);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerMiniMapSprite), playerMiniMapSprite);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerHandSprite), playerHandSprite);

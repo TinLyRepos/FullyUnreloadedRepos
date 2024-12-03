@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Cinemachine;
+using De2Utils;
 
 [RequireComponent(typeof(CinemachineTargetGroup))]
 public class CinemachineTarget : MonoBehaviour
@@ -21,7 +22,7 @@ public class CinemachineTarget : MonoBehaviour
 
     private void FixedUpdate()
     {
-        targetCursor.position = HelperUtilities.GetMouseToWorldPosition();
+        targetCursor.position = De2Helper.GetMouseToWorldPosition();
     }
 
     //===========================================================================
@@ -29,8 +30,9 @@ public class CinemachineTarget : MonoBehaviour
     {
         CinemachineTargetGroup.Target cmgt_Player = new CinemachineTargetGroup.Target
         {
-            Weight = 1.0f, Radius = 2.5f,
-            Object = GameManager.Instance.Player.transform
+            Weight = 1.0f,
+            Radius = 2.5f,
+            Object = Player.Instance.transform
         };
         cinemachineTargetGroup.Targets.Add(cmgt_Player);
     }

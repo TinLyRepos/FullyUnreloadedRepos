@@ -24,6 +24,13 @@ public class CustomPlayerInputEvent : SingletonMonobehaviour<CustomPlayerInputEv
         playerInput = GetComponent<PlayerInput>();
     }
 
+    private void OnDestroy()
+    {
+        OnInput_Move = null;
+        OnInput_MainHandAction = null;
+        OnInput_Interact = null;
+    }
+
     //===========================================================================
     private void Update()
     {

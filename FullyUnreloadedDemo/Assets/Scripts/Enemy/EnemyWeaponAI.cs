@@ -1,3 +1,4 @@
+using De2Utils;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
@@ -68,10 +69,10 @@ public class EnemyWeaponAI : MonoBehaviour
     private void FireWeapon()
     {
         // Player distance
-        Vector3 playerDirectionVector = GameManager.Instance.Player.GetPlayerPosition() - transform.position;
+        Vector3 playerDirectionVector = Player.Instance.Position - transform.position;
 
         // Calculate direction vector of player from weapon shoot position
-        Vector3 weaponDirection = (GameManager.Instance.Player.GetPlayerPosition() - weaponShootPosition.position);
+        Vector3 weaponDirection = (Player.Instance.Position - weaponShootPosition.position);
 
         // Get weapon to player angle
         float weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
@@ -80,7 +81,7 @@ public class EnemyWeaponAI : MonoBehaviour
         float enemyAngleDegrees = HelperUtilities.GetAngleFromVector(playerDirectionVector);
 
         // Set enemy aim direction
-        AimDirection enemyAimDirection = HelperUtilities.GetAimDirection(enemyAngleDegrees);
+        AimDirection enemyAimDirection = De2Helper.GetAimDirection(enemyAngleDegrees);
 
         // Trigger weapon aim event
         enemy.aimWeaponEvent.CallAimWeaponEvent(enemyAimDirection, enemyAngleDegrees, weaponAngleDegrees, weaponDirection);

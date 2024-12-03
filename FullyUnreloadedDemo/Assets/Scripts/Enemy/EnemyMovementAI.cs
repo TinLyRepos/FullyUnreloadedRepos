@@ -33,7 +33,7 @@ public class EnemyMovementAI : MonoBehaviour
         waitForFixedUpdate = new WaitForFixedUpdate();
 
         // Reset player reference position
-        playerReferencePosition = GameManager.Instance.Player.GetPlayerPosition();
+        // playerReferencePosition = GameManager.Instance.Player.GetPlayerPosition();
     }
 
     private void Update()
@@ -49,8 +49,8 @@ public class EnemyMovementAI : MonoBehaviour
         currentEnemyPathRebuildCooldown -= Time.deltaTime;
 
         // Check distance to player to see if enemy should start chasing
-        if (!chasePlayer && Vector3.Distance(transform.position, GameManager.Instance.Player.GetPlayerPosition()) < enemy.enemyDetails.chaseDistance)
-            chasePlayer = true;
+        //if (!chasePlayer && Vector3.Distance(transform.position, GameManager.Instance.Player.GetPlayerPosition()) < enemy.enemyDetails.chaseDistance)
+        //    chasePlayer = true;
 
         // If not close enough to chase player then return
         if (chasePlayer == false)
@@ -62,13 +62,13 @@ public class EnemyMovementAI : MonoBehaviour
 
         // if the movement cooldown timer reached or player has moved more than required distance
         // then rebuild the enemy path and move the enemy
-        if (currentEnemyPathRebuildCooldown <= 0f || (Vector3.Distance(playerReferencePosition, GameManager.Instance.Player.GetPlayerPosition()) > Settings.playerMoveDistanceToRebuildPath))
+        if (currentEnemyPathRebuildCooldown <= 0f || (Vector3.Distance(playerReferencePosition, Player.Instance.Position) > Settings.playerMoveDistanceToRebuildPath))
         {
             // Reset path rebuild cooldown timer
             currentEnemyPathRebuildCooldown = Settings.enemyPathRebuildCooldown;
 
             // Reset player reference position
-            playerReferencePosition = GameManager.Instance.Player.GetPlayerPosition();
+            playerReferencePosition = Player.Instance.Position;
 
             // Move the enemy using AStar pathfinding - Trigger rebuild of path to player
             CreatePath();
@@ -142,7 +142,7 @@ public class EnemyMovementAI : MonoBehaviour
     /// Get the nearest position to the player that isn't on an obstacle
     private Vector3Int GetNearestNonObstaclePlayerPosition(Room currentRoom)
     {
-        Vector3 playerPosition = GameManager.Instance.Player.GetPlayerPosition();
+        Vector3 playerPosition = Player.Instance.Position;
 
         Vector3Int playerCellPosition = currentRoom.instantiatedRoom.grid.WorldToCell(playerPosition);
 

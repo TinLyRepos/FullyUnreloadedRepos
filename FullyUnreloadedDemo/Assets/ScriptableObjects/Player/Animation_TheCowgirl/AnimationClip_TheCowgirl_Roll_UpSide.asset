@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: AnimationClip_TheCowgirl_Roll_UpSide
+  m_EditorClassIdentifier: 
+  animationSpeed: 0.1
+  animationSprites:
+  - {fileID: 8690969275089984184, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: -5258186965908546600, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: 8131272437531557295, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: 6536575732309401467, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: -5004370815769598172, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: -4313177343122640991, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: -2790597028618825526, guid: 390d0c60079565c4ba542ae759b59034, type: 3}
+  - {fileID: 5186487077621794594, guid: 390d0c60079565c4ba542ae759b59034, type: 3}

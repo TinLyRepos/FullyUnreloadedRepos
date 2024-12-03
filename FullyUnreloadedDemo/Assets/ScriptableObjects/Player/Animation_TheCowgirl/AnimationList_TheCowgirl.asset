@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3f9526534451343a8d7ae947213cde, type: 3}
+  m_Name: AnimationList_TheCowgirl
+  m_EditorClassIdentifier: 
+  idle_down: {fileID: 11400000, guid: fc2160bb871298c499fad32c03170ef8, type: 2}
+  idle_down_side: {fileID: 11400000, guid: 45c30d9dc3461664ca33c1b1f9ab0b56, type: 2}
+  idle_up: {fileID: 11400000, guid: 766b88124fbed0b4a8cba9237886249d, type: 2}
+  idle_up_side: {fileID: 11400000, guid: 4bbb899d21b5b884ea00683d359ce40e, type: 2}
+  move_down: {fileID: 11400000, guid: 9e8ff8f9e0a0c2640af65263ae639b7c, type: 2}
+  move_down_side: {fileID: 11400000, guid: a4e6fe95df73e6341bc8bacc8f31ec8f, type: 2}
+  move_up: {fileID: 11400000, guid: c7b0c3598b9d2a04585c325b68004ad8, type: 2}
+  move_up_side: {fileID: 11400000, guid: 9317e08ffbc1c044b9835a6cdb9f4233, type: 2}
+  roll_down: {fileID: 11400000, guid: ef47a5fa69c014a4c9a6d1aeae6ac363, type: 2}
+  roll_down_side: {fileID: 11400000, guid: 96df52f1497bf4c4889e3f87d3cb384e, type: 2}
+  roll_up: {fileID: 11400000, guid: 0bd1c3cb796a09848921be106f526a0a, type: 2}
+  roll_up_side: {fileID: 11400000, guid: 174ca2f73f3f88a4697bed9cf1559fbd, type: 2}

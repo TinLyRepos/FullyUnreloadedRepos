@@ -24,12 +24,10 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
     {
         // If mouse button pressed and gamestate is dungeon overview map then get the room clicked
         if (Input.GetMouseButtonDown(0) && GameManager.Instance.gameState == GameState.DungeonOverviewMap)
-        {
             GetRoomClicked();
-        }
 
         if (dungeonMapCamera.gameObject.activeInHierarchy)
-            dungeonMapCamera.transform.position = GameManager.Instance.Player.transform.position;
+            dungeonMapCamera.transform.position = Player.Instance.Position;
     }
 
     //===========================================================================
@@ -73,19 +71,19 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         ClearDungeonOverViewMap();
 
         // Disable player during the fade
-        GameManager.Instance.Player.playerControl.DisablePlayer();
+        // GameManager.Instance.Player.playerControl.DisablePlayer();
 
         // Get nearest spawn point in room nearest to player
         Vector3 spawnPosition = HelperUtilities.GetClosetSpawnPosition(worldPosition);
 
         // Move player to new location - spawning them at the closest spawn point
-        GameManager.Instance.Player.transform.position = spawnPosition;
+        Player.Instance.Position = spawnPosition;
 
         // Fade the screen back in
         yield return StartCoroutine(GameManager.Instance.Fade(1f, 0f, 1f, Color.black));
 
         // Enable player
-        GameManager.Instance.Player.playerControl.EnablePlayer();
+        // GameManager.Instance.Player.playerControl.EnablePlayer();
     }
 
     /// Display dungeon overview map UI
@@ -96,7 +94,7 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         GameManager.Instance.gameState = GameState.DungeonOverviewMap;
 
         // Disable player
-        GameManager.Instance.Player.playerControl.DisablePlayer();
+        // GameManager.Instance.Player.playerControl.DisablePlayer();
 
         // Disable main camera and enable dungeon overview camera
         cameraMain.gameObject.SetActive(false);
@@ -117,7 +115,7 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
         GameManager.Instance.prevGameState = GameState.DungeonOverviewMap;
 
         // Enable player
-        GameManager.Instance.Player.playerControl.EnablePlayer();
+        // GameManager.Instance.Player.playerControl.EnablePlayer();
 
         // Enable main camera and disable dungeon overview camera
         cameraMain.gameObject.SetActive(true);

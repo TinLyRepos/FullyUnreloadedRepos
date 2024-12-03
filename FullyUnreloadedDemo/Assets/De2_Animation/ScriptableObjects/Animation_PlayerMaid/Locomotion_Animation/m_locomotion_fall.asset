@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: m_locomotion_fall
+  m_EditorClassIdentifier: 
+  animationName: M_PLAYER_FALL
+  animationSpeed: 0.05
+  animationSprites:
+  - {fileID: -2064443525, guid: 3030a7b98c96ff849aa84c287057f97d, type: 3}
+  - {fileID: 1133778093, guid: 3030a7b98c96ff849aa84c287057f97d, type: 3}
+  - {fileID: 427976024, guid: 3030a7b98c96ff849aa84c287057f97d, type: 3}
+  - {fileID: 1415303972, guid: 3030a7b98c96ff849aa84c287057f97d, type: 3}

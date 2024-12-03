@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using De2Utils;
 
 public class AStarTest : MonoBehaviour
 {
@@ -94,7 +95,7 @@ public class AStarTest : MonoBehaviour
     {
         if (startGridPosition == noValue)
         {
-            startGridPosition = grid.WorldToCell(HelperUtilities.GetMouseToWorldPosition());
+            startGridPosition = grid.WorldToCell(De2Helper.GetMouseToWorldPosition());
 
             if (!IsPositionWithinBounds(startGridPosition))
             {
@@ -116,7 +117,7 @@ public class AStarTest : MonoBehaviour
     {
         if (endGridPosition == noValue)
         {
-            endGridPosition = grid.WorldToCell(HelperUtilities.GetMouseToWorldPosition());
+            endGridPosition = grid.WorldToCell(De2Helper.GetMouseToWorldPosition());
 
             if (!IsPositionWithinBounds(endGridPosition))
             {

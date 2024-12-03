@@ -1,40 +1,30 @@
+using NUnit.Framework;
 using UnityEngine;
-using Unity.Cinemachine;
 
 [DisallowMultipleComponent]
-public class Minimap : MonoBehaviour
+public class Minimap : SingletonMonobehaviour<Minimap>
 {
-    [SerializeField] private GameObject playerIcon;
     [SerializeField] private Camera minimapCamera;
-    private Transform playerTransform;
+    [SerializeField] private GameObject playerIcon;
 
     //===========================================================================
-    private void Start()
+    protected override void Awake()
     {
-        playerTransform = GameManager.Instance.Player.transform;
-
-        // Set minimap player icon
-        SpriteRenderer spriteRenderer = playerIcon.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-            spriteRenderer.sprite = GameManager.Instance.GetPlayerMinimapIcon();
+        base.Awake();
+        Assert.IsNotNull(minimapCamera);
+        Assert.IsNotNull(playerIcon);
     }
 
     private void Update()
     {
-        // Move the minimap player to follow the player
-        if (playerTransform != null && playerIcon != null)
-        {
-            Vector3 playerPos = playerTransform.position;
-            playerIcon.transform.position = playerPos;
-            minimapCamera.transform.position = new Vector3(playerPos.x, playerPos.y, -10.0f);
-        }
+        Vector3 playerPosition = Player.Instance.Position;
+        playerIcon.transform.position = playerPosition;
+        minimapCamera.transform.position = new Vector3(playerPosition.x, playerPosition.y, -10.0f);
     }
 
     //===========================================================================
-#if UNITY_EDITOR
-    private void OnValidate()
+    public void Initialize()
     {
-        HelperUtilities.ValidateCheckNullValue(this, nameof(playerIcon), playerIcon);
+        playerIcon.GetComponent<SpriteRenderer>().sprite = GameManager.Instance.GetPlayerMinimapIcon();
     }
-#endif
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: AnimationClip_TheCowgirl_Roll_DownSide
+  m_EditorClassIdentifier: 
+  animationSpeed: 0.1
+  animationSprites:
+  - {fileID: 6779775868193601155, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: -1921184029846519044, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: -4572951999848764691, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: -1831951519557819527, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: 3087707536569679906, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: -5756165665047064166, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: 6747636189791655209, guid: f5b02954d944d284ebe0055236231660, type: 3}
+  - {fileID: 174942373820612078, guid: f5b02954d944d284ebe0055236231660, type: 3}

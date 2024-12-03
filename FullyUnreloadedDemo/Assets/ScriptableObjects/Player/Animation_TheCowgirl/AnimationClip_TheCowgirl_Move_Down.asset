@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: AnimationClip_TheCowgirl_Move_Down
+  m_EditorClassIdentifier: 
+  animationSpeed: 0.1
+  animationSprites:
+  - {fileID: 7561872135200905363, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: 4677357735794314523, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: -4781720462562483308, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: 79376349394422233, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: -9105210375047229005, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: -2630306717043593478, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: -2000822594308638857, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}
+  - {fileID: -2792308793607589905, guid: d2f1af788b625d245a80a3a0e4a59df6, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: maid_locomotion_idle
+  m_EditorClassIdentifier: 
+  animationSpeed: 0.2
+  animationSprites:
+  - {fileID: -1583527918, guid: cd550ae0a9a33ad45b3180b6e6617462, type: 3}
+  - {fileID: 553229322, guid: cd550ae0a9a33ad45b3180b6e6617462, type: 3}
+  - {fileID: -693749544, guid: cd550ae0a9a33ad45b3180b6e6617462, type: 3}
+  - {fileID: -873784853, guid: cd550ae0a9a33ad45b3180b6e6617462, type: 3}
+  - {fileID: -634814661, guid: cd550ae0a9a33ad45b3180b6e6617462, type: 3}

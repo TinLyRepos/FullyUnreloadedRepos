@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53d307eefb6bd1c42b98555a5b7a98e4, type: 3}
+  m_Name: AnimationClip_TheCowgirl_Idle_UpSide
+  m_EditorClassIdentifier: 
+  animationSpeed: 0.15
+  animationSprites:
+  - {fileID: -5359341268896675430, guid: e6f002e9223f4374a8627251a43b1e3a, type: 3}
+  - {fileID: 1357743099059946739, guid: e6f002e9223f4374a8627251a43b1e3a, type: 3}
+  - {fileID: -8686892638905256201, guid: e6f002e9223f4374a8627251a43b1e3a, type: 3}
+  - {fileID: -7224704636875197022, guid: e6f002e9223f4374a8627251a43b1e3a, type: 3}

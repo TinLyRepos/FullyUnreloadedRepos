@@ -1,3 +1,4 @@
+using De2Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,34 +25,23 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     [HideInInspector] public GameState gameState = default;
     [HideInInspector] public GameState prevGameState = default;
-    private long gameScore;
-    private int scoreMultiplier;
+
     private InstantiatedRoom bossRoom;
     private bool isFading = false;
 
     public Room CurrentRoom => currentRoom;
-    public Player Player => player;
 
     //===========================================================================
     protected override void Awake()
     {
         base.Awake();
-
-        HelperUtilities.CacheMainCamera();
-
-        // Create player gameobject
-        playerData = GameResources.Instance.currentPlayerData.playerData;
-        InstantiatePlayer();
+        De2Helper.CacheMainCamera();
     }
 
     private void OnEnable()
     {
         StaticEventHandler.OnRoomChanged += StaticEvents_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
-        StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
-        StaticEventHandler.OnMultiplier += StaticEventHandler_OnMultiplier;
-
-        player.destroyedEvent.OnDestroyed += Player_OnDestroyed;
     }
 
     private void Start()
@@ -59,11 +49,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         prevGameState = GameState.GameStarted;
         gameState = GameState.GameStarted;
 
-        // Set score to zero
-        gameScore = 0;
-
-        // Set multiplier to 1;
-        scoreMultiplier = 1;
+        // Create player gameobject
+        // playerData = GameResources.Instance.currentPlayerData.playerData;
+        // InstantiatePlayer();
 
         // Set screen to black
         StartCoroutine(Fade(0f, 1f, 0f, Color.black));
@@ -84,10 +72,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         StaticEventHandler.OnRoomChanged -= StaticEvents_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
-        StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
-        StaticEventHandler.OnMultiplier -= StaticEventHandler_OnMultiplier;
-
-        player.destroyedEvent.OnDestroyed -= Player_OnDestroyed;
     }
 
     //===========================================================================
@@ -99,33 +83,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedArgs roomEnemiesDefeatedArgs)
     {
         RoomEnemiesDefeated();
-    }
-
-    private void StaticEventHandler_OnPointsScored(PointsScoredArgs pointsScoredArgs)
-    {
-        // Increase score
-        gameScore += pointsScoredArgs.points * scoreMultiplier;
-
-        // Call score changed event
-        StaticEventHandler.CallScoreChangedEvent(gameScore, scoreMultiplier);
-    }
-
-    private void StaticEventHandler_OnMultiplier(MultiplierArgs multiplierArgs)
-    {
-        if (multiplierArgs.multiplier)
-        {
-            scoreMultiplier++;
-        }
-        else
-        {
-            scoreMultiplier--;
-        }
-
-        // clamp between 1 and 30
-        scoreMultiplier = Mathf.Clamp(scoreMultiplier, 1, 30);
-
-        // Call score changed event
-        StaticEventHandler.CallScoreChangedEvent(gameScore, scoreMultiplier);
     }
 
     private void Player_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
@@ -230,7 +187,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) * 0.5f);
 
         // Set player position to the closest spawn point from roomCenter
-        player.gameObject.transform.position = HelperUtilities.GetClosetSpawnPosition(roomCenter);
+        Player.Instance.Position = HelperUtilities.GetClosetSpawnPosition(roomCenter);
 
         // Display Dungeon Level Text
         StartCoroutine(DisplayDungeonLevelText());
@@ -300,14 +257,14 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         // Set screen to black
         StartCoroutine(Fade(0f, 1f, 0f, Color.black));
 
-        Player.playerControl.DisablePlayer();
+        // Player.playerControl.DisablePlayer();
 
         string messageText = "LEVEL " + (currentDungeonLevelIndex + 1).ToString() + 
             "\n\n" + dungeonLevelList[currentDungeonLevelIndex].Name.ToUpper();
 
         yield return StartCoroutine(DisplayMessageRoutine(messageText, Color.white, 2f));
 
-        Player.playerControl.EnablePlayer();
+        // Player.playerControl.EnablePlayer();
 
         // Fade In
         yield return StartCoroutine(Fade(1f, 0f, 2f, Color.black));
@@ -429,37 +386,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         prevGameState = GameState.GameWon;
 
         // Disable player
-        Player.playerControl.DisablePlayer();
-
-        int rank = HighScoreManager.Instance.GetRank(gameScore);
-
-        string rankText;
-
-        // Test if the score is in the rankings
-        if (rank > 0 && rank <= Settings.numberOfHighScoresToSave)
-        {
-            rankText = "YOUR SCORE IS RANKED " + rank.ToString("#0") + " IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
-
-            string name = GameResources.Instance.currentPlayerData.playerName;
-
-            if (name == "")
-            {
-                name = playerData.Name.ToUpper();
-            }
-
-            // Update scores
-            HighScoreManager.Instance.AddScore(new Score()
-            {
-                playerName = name,
-                levelDescription = "LEVEL " + 
-                (currentDungeonLevelIndex + 1).ToString() + " - " + 
-                GetCurrentDungeonLevel().Name.ToUpper(), playerScore = gameScore
-            }, rank);
-        }
-        else
-        {
-            rankText = "YOUR SCORE ISN'T RANKED IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
-        }
+        // Player.playerControl.DisablePlayer();
 
         // Wait 1 seconds
         yield return new WaitForSeconds(1f);
@@ -469,9 +396,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         // Display game won
         yield return StartCoroutine(DisplayMessageRoutine("WELL DONE " + 
-            GameResources.Instance.currentPlayerData.playerName + "! YOU HAVE DEFEATED THE DUNGEON", Color.white, 3f));
-
-        yield return StartCoroutine(DisplayMessageRoutine("YOU SCORED " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 4f));
+            GameResources.Instance.currentPlayerData.playerName +
+            "! YOU HAVE DEFEATED THE DUNGEON", Color.white, 3f));
 
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
@@ -484,30 +410,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         prevGameState = GameState.GameLost;
 
         // Disable player
-        Player.playerControl.DisablePlayer();
-
-        // Get rank
-        int rank = HighScoreManager.Instance.GetRank(gameScore);
-        string rankText;
-
-        // Test if the score is in the rankings
-        if (rank > 0 && rank <= Settings.numberOfHighScoresToSave)
-        {
-            rankText = "YOUR SCORE IS RANKED " + rank.ToString("#0") + " IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
-
-            string name = GameResources.Instance.currentPlayerData.playerName;
-
-            if (name == "")
-                name = playerData.Name.ToUpper();
-
-            // Update scores
-            HighScoreManager.Instance.AddScore(new Score() { playerName = name, levelDescription = "LEVEL " + (currentDungeonLevelIndex + 1).ToString() + " - " + GetCurrentDungeonLevel().Name.ToUpper(), playerScore = gameScore }, rank);
-        }
-        else
-        {
-            rankText = "YOUR SCORE ISN'T RANKED IN THE TOP " + Settings.numberOfHighScoresToSave.ToString("#0");
-        }
-
+        // Player.playerControl.DisablePlayer();
 
         // Wait 1 seconds
         yield return new WaitForSeconds(1f);
@@ -524,8 +427,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         yield return StartCoroutine(DisplayMessageRoutine("BAD LUCK " + 
             GameResources.Instance.currentPlayerData.playerName + 
             "! YOU HAVE SUCCUMBED TO THE DUNGEON", Color.white, 2f));
-
-        yield return StartCoroutine(DisplayMessageRoutine("YOU SCORED " + gameScore.ToString("###,###0") + "\n\n" + rankText, Color.white, 4f));
 
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
@@ -559,7 +460,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         if (gameState != GameState.GamePaused)
         {
             pauseMenu.SetActive(true);
-            Player.playerControl.DisablePlayer();
+            // Player.playerControl.DisablePlayer();
 
             // Set game state
             prevGameState = gameState;
@@ -568,7 +469,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         else if (gameState == GameState.GamePaused)
         {
             pauseMenu.SetActive(false);
-            Player.playerControl.EnablePlayer();
+            // Player.playerControl.EnablePlayer();
 
             // Set game state
             gameState = prevGameState;

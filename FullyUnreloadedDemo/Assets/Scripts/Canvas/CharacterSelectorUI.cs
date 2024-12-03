@@ -6,14 +6,9 @@ using TMPro;
 [DisallowMultipleComponent]
 public class CharacterSelectorUI : MonoBehaviour
 {
-    #region Tooltip
-    [Tooltip("Populate this with the child CharacterSelector gameobject")]
-    #endregion
     [SerializeField] private Transform characterSelector;
-    #region Tooltip
-    [Tooltip("Populate with the TextMeshPro component on the PlayerNameInput gameobject")]
-    #endregion
     [SerializeField] private TMP_InputField playerNameInput;
+
     private List<SO_PlayerData> playerDetailsList;
     private GameObject playerSelectionPrefab;
     private SO_CurrentPlayerData currentPlayer;
@@ -22,9 +17,9 @@ public class CharacterSelectorUI : MonoBehaviour
     private int selectedPlayerIndex = 0;
     private float offset = 4f;
 
+    //===========================================================================
     private void Awake()
     {
-        // Load resources
         playerSelectionPrefab = GameResources.Instance.playerSelectionPrefab;
         playerDetailsList = GameResources.Instance.playerDetailsList;
         currentPlayer = GameResources.Instance.currentPlayerData;
@@ -45,10 +40,9 @@ public class CharacterSelectorUI : MonoBehaviour
 
         // Initialise the current player
         currentPlayer.playerData = playerDetailsList[selectedPlayerIndex];
-
     }
 
-    /// Populate player character details for display
+    //===========================================================================
     private void PopulatePlayerDetails(PlayerSelectionUI playerSelection, SO_PlayerData playerDetails)
     {
         playerSelection.playerHandSpriteRenderer.sprite = playerDetails.HandSprite;
@@ -57,7 +51,6 @@ public class CharacterSelectorUI : MonoBehaviour
         playerSelection.animator.runtimeAnimatorController = playerDetails.RuntimeAnimatorController;
     }
 
-    /// Select next character - this method is called from the onClick event set in the inspector
     public void NextCharacter()
     {
         if (selectedPlayerIndex >= playerDetailsList.Count - 1)
@@ -69,7 +62,6 @@ public class CharacterSelectorUI : MonoBehaviour
         MoveToSelectedCharacter(selectedPlayerIndex);
     }
 
-    /// Select previous character - this method is called from the onClick event set in the inspector
     public void PreviousCharacter()
     {
         if (selectedPlayerIndex == 0)
@@ -106,7 +98,6 @@ public class CharacterSelectorUI : MonoBehaviour
         characterSelector.localPosition = new Vector3(targetLocalXPosition, characterSelector.localPosition.y, 0f);
     }
 
-    /// Update player name - this method is called from the field changed event set in the inspector
     public void UpdatePlayerName()
     {
         playerNameInput.text = playerNameInput.text.ToUpper();

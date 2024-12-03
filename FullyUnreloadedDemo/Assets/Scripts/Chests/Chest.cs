@@ -41,9 +41,7 @@ public class Chest : MonoBehaviour, IUseable
         messageTextTMP = GetComponentInChildren<TextMeshPro>();
     }
 
-    /// <summary>
     /// Initialize Chest and either make it visible immediately or materialize it
-    /// </summary>
     public void Initialize(bool shouldMaterialize, int healthPercent, WeaponDetailsSO weaponDetails, int ammoPercent)
     {
         this.healthPercent = healthPercent;
@@ -60,9 +58,7 @@ public class Chest : MonoBehaviour, IUseable
         }
     }
 
-    /// <summary>
     /// Materialise the chest
-    /// </summary>
     private IEnumerator MaterializeChest()
     {
         SpriteRenderer[] spriteRendererArray = new SpriteRenderer[] { spriteRenderer };
@@ -72,21 +68,18 @@ public class Chest : MonoBehaviour, IUseable
         EnableChest();
     }
 
-    /// <summary>
     /// Enable the chest
-    /// </summary>
     private void EnableChest()
     {
         // Set use to enabled
         isEnabled = true;
     }
 
-    /// <summary>
     /// Use the chest - action will vary depending on the chest state
-    /// </summary>
     public void UseItem()
     {
-        if (!isEnabled) return;
+        if (!isEnabled)
+            return;
 
         switch (chestState)
         {
@@ -114,9 +107,7 @@ public class Chest : MonoBehaviour, IUseable
         }
     }
 
-    /// <summary>
     /// Open the chest on first use
-    /// </summary>
     private void OpenChest()
     {
         animator.SetBool(Settings.use, true);
@@ -127,8 +118,8 @@ public class Chest : MonoBehaviour, IUseable
         // Check if player alreay has the weapon - if so set weapon to null
         if (weaponDetails != null)
         {
-            if (GameManager.Instance.Player.IsWeaponHeldByPlayer(weaponDetails))
-                weaponDetails = null;
+            // if (GameManager.Instance.Player.IsWeaponHeldByPlayer(weaponDetails))
+            weaponDetails = null;
         }
 
         UpdateChestState();
@@ -190,7 +181,7 @@ public class Chest : MonoBehaviour, IUseable
         if (chestItem == null || !chestItem.isItemMaterialized) return;
 
         // Add health to player
-        GameManager.Instance.Player.health.AddHealth(healthPercent);
+        // GameManager.Instance.Player.health.AddHealth(healthPercent);
 
         // Play pickup sound effect
         SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.healthPickup);
@@ -221,10 +212,8 @@ public class Chest : MonoBehaviour, IUseable
         // Check item exists and has been materialized
         if (chestItem == null || !chestItem.isItemMaterialized) return;
 
-        Player player = GameManager.Instance.Player;
-
         // Update ammo for current weapon
-        player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), ammoPercent);
+        // player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), ammoPercent);
 
         // Play pickup sound effect
         SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.ammoPickup);
@@ -255,21 +244,20 @@ public class Chest : MonoBehaviour, IUseable
         if (chestItem == null || !chestItem.isItemMaterialized) return;
 
         // If the player doesn't already have the weapon, then add to player
-        if (!GameManager.Instance.Player.IsWeaponHeldByPlayer(weaponDetails))
-        {
-            // Add weapon to player
-            GameManager.Instance.Player.AddWeaponToPlayer(weaponDetails);
+        //if (!GameManager.Instance.Player.IsWeaponHeldByPlayer(weaponDetails))
+        //{
+        //    // Add weapon to player
+        //    GameManager.Instance.Player.AddWeaponToPlayer(weaponDetails);
 
-            // Play pickup sound effect
-            SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.weaponPickup);
-        }
+        //    // Play pickup sound effect
+        //    SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.weaponPickup);
+        //}
+        //else
+        //{
+        //    // display message saying you already have the weapon
+        //    StartCoroutine(DisplayMessage("WEAPON\nALREADY\nEQUIPPED", 5f));
 
-        else
-        {
-            // display message saying you already have the weapon
-            StartCoroutine(DisplayMessage("WEAPON\nALREADY\nEQUIPPED", 5f));
-
-        }
+        //}
         weaponDetails = null;
 
         Destroy(chestItemGameObject);

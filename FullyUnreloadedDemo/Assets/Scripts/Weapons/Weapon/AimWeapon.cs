@@ -4,7 +4,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class AimWeapon : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponRotationPoint;
+    [SerializeField] private Transform weaponRotationPoint;
 
     private AimWeaponEvent aimWeaponEvent;
 
@@ -34,19 +34,19 @@ public class AimWeapon : MonoBehaviour
     private void Aim(AimDirection aimDirection, float aimAngle)
     {
         // Set angle of the weapon transform
-        weaponRotationPoint.transform.eulerAngles = new Vector3(0.0f, 0.0f, aimAngle);
+        weaponRotationPoint.eulerAngles = new Vector3(0.0f, 0.0f, aimAngle);
 
         switch (aimDirection)
         {
             case AimDirection.UpLeft:
             case AimDirection.Left:
-                weaponRotationPoint.transform.localScale = new Vector3(1.0f, -1.0f, 1.0f);
+                weaponRotationPoint.localScale = new Vector3(1.0f, -1.0f, 1.0f);
                 break;
             case AimDirection.Up:
             case AimDirection.UpRight:
             case AimDirection.Down:
             case AimDirection.Right:
-                weaponRotationPoint.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                weaponRotationPoint.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
             default:
                 break;

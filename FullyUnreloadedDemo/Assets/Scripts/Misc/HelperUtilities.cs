@@ -5,25 +5,6 @@ public static class HelperUtilities
 {
     public static Camera mainCamera;
 
-    public static void CacheMainCamera()
-    {
-        if (mainCamera == null)
-            mainCamera = Camera.main;
-    }
-
-    public static Vector3 GetMouseToWorldPosition()
-    {
-        // Clamp mouse screen position to screen size
-        Vector3 screenPos = Input.mousePosition;
-        screenPos.x = Mathf.Clamp(screenPos.x, 0.0f, Screen.width);
-        screenPos.y = Mathf.Clamp(screenPos.y, 0.0f, Screen.height);
-
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
-        worldPos.z = 0.0f;
-
-        return worldPos;
-    }
-
     public static float GetAngleFromVector(Vector3 vector)
     {
         float radians = Mathf.Atan2(vector.y, vector.x);
@@ -58,40 +39,6 @@ public static class HelperUtilities
         }
 
         return closetSpawnPosition;
-    }
-
-    public static AimDirection GetAimDirection(float angleDegrees)
-    {
-        AimDirection aimDirection;
-        if (angleDegrees >= 22f && angleDegrees <= 67f)
-        {   //Up Right
-            aimDirection = AimDirection.UpRight;
-        }
-        else if (angleDegrees > 67f && angleDegrees <= 112f)
-        {   // Up
-            aimDirection = AimDirection.Up;
-        }
-        else if (angleDegrees > 112f && angleDegrees <= 158f)
-        {   // Up Left
-            aimDirection = AimDirection.UpLeft;
-        }
-        else if ((angleDegrees <= 180f && angleDegrees > 158f) || (angleDegrees > -180 && angleDegrees <= -135f))
-        {   // Left
-            aimDirection = AimDirection.Left;
-        }
-        else if ((angleDegrees > -135f && angleDegrees <= -45f))
-        {   // Down
-            aimDirection = AimDirection.Down;
-        }
-        else if ((angleDegrees > -45f && angleDegrees <= 0f) || (angleDegrees > 0 && angleDegrees < 22f))
-        {   // Right
-            aimDirection = AimDirection.Right;
-        }
-        else
-        {
-            aimDirection = AimDirection.Right;
-        }
-        return aimDirection;
     }
 
     public static bool IsIntervalOverlapping(int min1, int max1, int min2, int max2)

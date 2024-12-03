@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3f9526534451343a8d7ae947213cde, type: 3}
+  m_Name: locomotion_list
+  m_EditorClassIdentifier: 
+  idle: {fileID: 11400000, guid: 04eaaf104dccab24a9b07608c0fc43b3, type: 2}
+  walk: {fileID: 11400000, guid: b07adb609ecf3ca4f87f02eda4e8d7bc, type: 2}
+  run: {fileID: 11400000, guid: aa99eb9c0574a7a4a9f1c96575ffd84a, type: 2}
+  jump: {fileID: 11400000, guid: b0a852890732df54883844ebcf392939, type: 2}
+  fall: {fileID: 11400000, guid: 60dbec8467189734ea972a8034e60343, type: 2}
+  attackSword: {fileID: 11400000, guid: d63a39ccac77ce24586fb715d861b26b, type: 2}

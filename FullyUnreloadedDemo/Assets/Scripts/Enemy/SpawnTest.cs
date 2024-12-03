@@ -1,3 +1,4 @@
+using De2Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class SpawnTest : MonoBehaviour
             EnemyDetailsSO enemyDetails = randomEnemyHelperClass.GetItem();
 
             if (enemyDetails != null)
-                instantiatedEnemyList.Add(Instantiate(enemyDetails.enemyPrefab, HelperUtilities.GetClosetSpawnPosition(HelperUtilities.GetMouseToWorldPosition()), Quaternion.identity));
+                instantiatedEnemyList.Add(Instantiate(enemyDetails.enemyPrefab, HelperUtilities.GetClosetSpawnPosition(De2Helper.GetMouseToWorldPosition()), Quaternion.identity));
         }
     }
 
