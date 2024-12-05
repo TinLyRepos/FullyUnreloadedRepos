@@ -18,13 +18,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [SerializeField] private List<DungeonLevelSO> dungeonLevelList = default;
     [SerializeField] private int currentDungeonLevelIndex = default;
 
+    [Header("PLAYER")]
+    [SerializeField] private SO_PlayerData playerData_TheCowgirl = default;
+    private SO_PlayerData activePlayerData = default;
+
     private Room currentRoom = default;
     private Room prevRoom = default;
-    private Player player = default;
-    private SO_PlayerData playerData = default;
 
-    [HideInInspector] public GameState gameState = default;
-    [HideInInspector] public GameState prevGameState = default;
+    [HideInInspector] public GameState currentGameState = default;
+    [HideInInspector] public GameState previousGameState = default;
 
     private InstantiatedRoom bossRoom;
     private bool isFading = false;
@@ -46,12 +48,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private void Start()
     {
-        prevGameState = GameState.GameStarted;
-        gameState = GameState.GameStarted;
+        previousGameState = GameState.GameStarted;
+        currentGameState = GameState.GameStarted;
 
         // Create player gameobject
-        // playerData = GameResources.Instance.currentPlayerData.playerData;
-        // InstantiatePlayer();
+        activePlayerData = playerData_TheCowgirl;
+        Player.Instance.Initialize(activePlayerData);
 
         // Set screen to black
         StartCoroutine(Fade(0f, 1f, 0f, Color.black));
@@ -87,18 +89,18 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private void Player_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
     {
-        prevGameState = gameState;
-        gameState = GameState.GameLost;
+        previousGameState = currentGameState;
+        currentGameState = GameState.GameLost;
     }
 
     //===========================================================================
     private void HandleGameState()
     {
-        switch (gameState)
+        switch (currentGameState)
         {
             case GameState.GameStarted:
                 PlayDungeonLevel(currentDungeonLevelIndex);
-                gameState = GameState.PlayingLevel;
+                currentGameState = GameState.PlayingLevel;
                 RoomEnemiesDefeated();
                 break;
             case GameState.PlayingLevel:
@@ -125,11 +127,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 StartCoroutine(LevelCompleted());
                 break;
             case GameState.GameWon:
-                if (prevGameState != GameState.GameWon)
+                if (previousGameState != GameState.GameWon)
                     StartCoroutine(GameWon());
                 break;
             case GameState.GameLost:
-                if (prevGameState != GameState.GameLost)
+                if (previousGameState != GameState.GameLost)
                 {
                     StopAllCoroutines(); // Prevent messages if you clear the level just as you get killed
                     StartCoroutine(GameLost());
@@ -152,25 +154,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     }
 
     //===========================================================================
-    private void InstantiatePlayer()
-    {
-        // Instantiate Player
-        GameObject playerGameObject = Instantiate(playerData.Prefab, null);
-
-        // Initialize Player
-        player = playerGameObject.GetComponent<Player>();
-        player.Initialize(playerData);
-    }
-
-    public void SetCurrentRoom(Room room)
-    {
-        prevRoom = currentRoom;
-        currentRoom = room;
-
-        //Debug
-        //Debug.Log(room.Prefab.name)
-    }
-
     private void PlayDungeonLevel(int levelIndex)
     {
         // Building Dungeon for Level
@@ -225,17 +208,17 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             // Are there more dungeon levels then
             if (currentDungeonLevelIndex < dungeonLevelList.Count - 1)
             {
-                gameState = GameState.LevelCompleted;
+                currentGameState = GameState.LevelCompleted;
             }
             else
             {
-                gameState = GameState.GameWon;
+                currentGameState = GameState.GameWon;
             }
         }
         // Else if dungeon level cleared apart from boss room
         else if (isDungeonClearOfRegularEnemies)
         {
-            gameState = GameState.BossState;
+            currentGameState = GameState.BossState;
             StartCoroutine(BossStage());
         }
     }
@@ -331,7 +314,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private IEnumerator LevelCompleted()
     {
         // Play next level
-        gameState = GameState.PlayingLevel;
+        currentGameState = GameState.PlayingLevel;
 
         // Wait 2 seconds
         yield return new WaitForSeconds(2f);
@@ -383,7 +366,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private IEnumerator GameWon()
     {
-        prevGameState = GameState.GameWon;
+        previousGameState = GameState.GameWon;
 
         // Disable player
         // Player.playerControl.DisablePlayer();
@@ -402,12 +385,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
         // Set game state to restart game
-        gameState = GameState.RestartGame;
+        currentGameState = GameState.RestartGame;
     }
 
     private IEnumerator GameLost()
     {
-        prevGameState = GameState.GameLost;
+        previousGameState = GameState.GameLost;
 
         // Disable player
         // Player.playerControl.DisablePlayer();
@@ -431,7 +414,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         yield return StartCoroutine(DisplayMessageRoutine("PRESS RETURN TO RESTART THE GAME", Color.white, 0f));
 
         // Set game state to restart game
-        gameState = GameState.RestartGame;
+        currentGameState = GameState.RestartGame;
     }
 
     private void RestartGame()
@@ -440,9 +423,18 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     }
 
     //===========================================================================
+    public void SetCurrentRoom(Room room)
+    {
+        prevRoom = currentRoom;
+        currentRoom = room;
+
+        //Debug
+        //Debug.Log(room.Prefab.name)
+    }
+
     public Sprite GetPlayerMinimapIcon()
     {
-        return playerData.MiniMapIcon;
+        return activePlayerData.MiniMapIcon;
     }
 
     public DungeonLevelSO GetCurrentDungeonLevel()
@@ -457,23 +449,23 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     public void PauseGameMenu()
     {
-        if (gameState != GameState.GamePaused)
+        if (currentGameState != GameState.GamePaused)
         {
             pauseMenu.SetActive(true);
             // Player.playerControl.DisablePlayer();
 
             // Set game state
-            prevGameState = gameState;
-            gameState = GameState.GamePaused;
+            previousGameState = currentGameState;
+            currentGameState = GameState.GamePaused;
         }
-        else if (gameState == GameState.GamePaused)
+        else if (currentGameState == GameState.GamePaused)
         {
             pauseMenu.SetActive(false);
             // Player.playerControl.EnablePlayer();
 
             // Set game state
-            gameState = prevGameState;
-            prevGameState = GameState.GamePaused;
+            currentGameState = previousGameState;
+            previousGameState = GameState.GamePaused;
         }
     }
 

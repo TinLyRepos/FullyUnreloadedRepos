@@ -1,18 +1,23 @@
 using UnityEngine;
 using De2Utils;
+using System;
 
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private Transform playerWeapon = default;
     [SerializeField] private SpriteRenderer weaponSprite = default;
 
+    private SO_WeaponData weaponData_Starter = default;
+    private SO_WeaponData weaponData_Slot1 = default;
+    private SO_WeaponData weaponData_Slot2 = default;
+
     private int currentWeaponIndex = 1;
     private bool leftMouseDownPreviousFrame = false;
 
     //===========================================================================
-    public Vector2 WeaponPositionL = new Vector2(0.5f, 0.375f);
+    public Vector2 WeaponPositionL { get; private set; }
 
-    public Vector2 WeaponPositionR = new Vector2(-0.5f, 0.375f);
+    public Vector2 WeaponPositionR { get; private set; }
 
     //===========================================================================
     private void Update()
@@ -180,6 +185,41 @@ public class PlayerWeapon : MonoBehaviour
     //===========================================================================
     public void SetWeaponActive(bool active)
     {
-        weaponSprite.enabled = active;
+        weaponSprite.enabled = true;
+    }
+
+    public void SetWeaponStarter(SO_WeaponData weaponData)
+    {
+        weaponData_Starter = weaponData;
+
+        WeaponPositionL = weaponData.WeaponPosition;
+        WeaponPositionR = new Vector2(-weaponData.WeaponPosition.x, weaponData.WeaponPosition.y);
+
+        weaponSprite.sprite = weaponData.Sprite;
+
+        SetWeaponActive(true);
+    }
+
+    public Weapon AddWeaponToPlayer(SO_WeaponData weaponDetails)
+    {
+        Weapon weapon = new Weapon()
+        {
+            weaponDetails = weaponDetails,
+            weaponReloadTimer = 0f,
+            weaponClipRemainingAmmo = weaponDetails.ClipCapacity,
+            weaponRemainingAmmo = weaponDetails.AmmoCapacity,
+            isWeaponReloading = false
+        };
+
+        // Add the weapon to the list
+        // weaponList.Add(weapon);
+
+        // Set weapon position in list
+        // weapon.weaponListPosition = weaponList.Count;
+
+        // Set the added weapon as active
+        // setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
+
+        return weapon;
     }
 }

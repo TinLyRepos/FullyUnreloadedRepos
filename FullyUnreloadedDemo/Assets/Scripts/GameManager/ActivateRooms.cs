@@ -20,7 +20,7 @@ public class ActivateRooms : MonoBehaviour
     private void EnableRooms()
     {
         // if currently showing the dungeon map UI don't process
-        if (GameManager.Instance.gameState == GameState.DungeonOverviewMap)
+        if (GameManager.Instance.currentGameState == GameState.DungeonOverviewMap)
             return;
 
         HelperUtilities.CameraWorldPositionBounds(out Vector2Int miniMapCameraWorldPositionLowerBounds,

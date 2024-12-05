@@ -62,14 +62,14 @@ public class ReloadWeapon : MonoBehaviour
     private IEnumerator ReloadWeaponRoutine(Weapon weapon, int topUpAmmoPercent)
     {
         // Play reload sound if there is one
-        if (weapon.weaponDetails.soundEffectReload != null && SoundEffectManager.Instance != null)
-            SoundEffectManager.Instance.PlaySoundEffect(weapon.weaponDetails.soundEffectReload);
+        if (weapon.weaponDetails.SoundEffectReload != null && SoundEffectManager.Instance != null)
+            SoundEffectManager.Instance.PlaySoundEffect(weapon.weaponDetails.SoundEffectReload);
 
         // Set weapon as reloading
         weapon.isWeaponReloading = true;
 
         // Update reload progress timer
-        while (weapon.weaponReloadTimer < weapon.weaponDetails.weaponReloadTime)
+        while (weapon.weaponReloadTimer < weapon.weaponDetails.ReloadTime)
         {
             weapon.weaponReloadTimer += Time.deltaTime;
             yield return null;
@@ -78,13 +78,13 @@ public class ReloadWeapon : MonoBehaviour
         // If total ammo is to be increased then update
         if (topUpAmmoPercent != 0)
         {
-            int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.weaponAmmoCapacity * topUpAmmoPercent) / 100f);
+            int ammoIncrease = Mathf.RoundToInt((weapon.weaponDetails.AmmoCapacity * topUpAmmoPercent) / 100f);
 
             int totalAmmo = weapon.weaponRemainingAmmo + ammoIncrease;
 
-            if (totalAmmo > weapon.weaponDetails.weaponAmmoCapacity)
+            if (totalAmmo > weapon.weaponDetails.AmmoCapacity)
             {
-                weapon.weaponRemainingAmmo = weapon.weaponDetails.weaponAmmoCapacity;
+                weapon.weaponRemainingAmmo = weapon.weaponDetails.AmmoCapacity;
             }
             else
             {
@@ -93,15 +93,15 @@ public class ReloadWeapon : MonoBehaviour
         }
 
         // If weapon has infinite ammo then just refil the clip
-        if (weapon.weaponDetails.hasInfiniteAmmo)
+        if (weapon.weaponDetails.HasInfiniteAmmo)
         {
-            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.ClipCapacity;
         }
         // else if not infinite ammo then if remaining ammo is greater than the amount required to
         // refill the clip, then fully refill the clip
-        else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity)
+        else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.ClipCapacity)
         {
-            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
+            weapon.weaponClipRemainingAmmo = weapon.weaponDetails.ClipCapacity;
         }
         // else set the clip to the remaining ammo
         else

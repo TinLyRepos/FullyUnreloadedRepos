@@ -1,7 +1,7 @@
 
 public class Weapon
 {
-    public WeaponDetailsSO weaponDetails;
+    public SO_WeaponData weaponDetails;
 
     public int weaponListPosition;
     public float weaponReloadTimer;

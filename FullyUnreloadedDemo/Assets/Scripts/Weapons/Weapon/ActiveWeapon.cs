@@ -41,7 +41,7 @@ public class ActiveWeapon : MonoBehaviour
         currentWeapon = weapon;
 
         // Set current weapon sprite
-        weaponSpriteRenderer.sprite = currentWeapon.weaponDetails.weaponSprite;
+        weaponSpriteRenderer.sprite = currentWeapon.weaponDetails.Sprite;
 
         // If the weapon has a polygon collider and a sprite then set it to the weapon sprite physics shape
         if (weaponPolygonCollider2D != null && weaponSpriteRenderer.sprite != null)
@@ -55,13 +55,13 @@ public class ActiveWeapon : MonoBehaviour
         }
 
         // Set weapon shoot position
-        weaponShootPositionTransform.localPosition = currentWeapon.weaponDetails.weaponShootPosition;
+        weaponShootPositionTransform.localPosition = currentWeapon.weaponDetails.ShootPosition;
     }
 
     //===========================================================================
-    public AmmoDetailsSO GetCurrentAmmo()
+    public SO_AmmoData GetCurrentAmmo()
     {
-        return currentWeapon.weaponDetails.weaponCurrentAmmo;
+        return currentWeapon.weaponDetails.AmmoData;
     }
 
     public Weapon GetCurrentWeapon()

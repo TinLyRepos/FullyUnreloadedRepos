@@ -5,23 +5,18 @@ using De2Utils;
 public class PlayerAnimator : MonoBehaviour
 {
     [Header("SPRITE RENDERER CACHE")]
-    [SerializeField] private SpriteRenderer playerSprite = default;
+    [SerializeField] private SpriteRenderer playerSprite;
 
     [Header("ANIMATION DATA")]
-    [SerializeField] private SO_AnimationList animationList_TheCowgirl = default;
+    [SerializeField] private SO_AnimationList animationList;
 
-    private SO_AnimationList currentAnimationList = default;
-    private List<Sprite> animationSpriteList = default;
-    private int animationFrame = default;
-    private float animationSpeed = default;
-    private float animationTimer = default;
+    private SO_AnimationList currentAnimationList;
+    private List<Sprite> animationSpriteList;
+    private float animationSpeed;
+    private float animationTimer;
+    private int animationFrame;
 
     //===========================================================================
-    private void OnEnable()
-    {
-        currentAnimationList = animationList_TheCowgirl;
-    }
-
     private void Update()
     {
         FlipSprite();
@@ -29,6 +24,11 @@ public class PlayerAnimator : MonoBehaviour
         AssignSpriteAnimation();
 
         PlayAnimation(playerSprite, animationSpriteList);
+    }
+
+    private void OnDisable()
+    {
+        animationList = null;
     }
 
     //===========================================================================
@@ -143,5 +143,12 @@ public class PlayerAnimator : MonoBehaviour
             animationFrame = (animationFrame + 1) % sprites.Count;
             renderer.sprite = sprites[animationFrame];
         }
+    }
+
+    //===========================================================================
+    public void SetAnimationList(SO_AnimationList list)
+    {
+        animationList = list;
+        currentAnimationList = animationList;
     }
 }

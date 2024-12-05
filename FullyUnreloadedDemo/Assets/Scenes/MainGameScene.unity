@@ -463,9 +463,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.055555556
+    width: 0.33333334
+    height: 0.3333333
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -1719,8 +1719,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 79a8f3e29dbb7ba4f9bea34360a221b0, type: 2}
   - {fileID: 11400000, guid: 85a77b16ad171e54a93701179864a5f8, type: 2}
   currentDungeonLevelIndex: 0
-  gameState: 0
-  prevGameState: 0
+  playerData_TheCowgirl: {fileID: 11400000, guid: 6f484ca66de65934a80136e8ee950c80, type: 2}
+  currentGameState: 0
+  previousGameState: 0
 --- !u!4 &1978190102
 Transform:
   m_ObjectHideFlags: 0
@@ -4992,7 +4993,7 @@ SpriteRenderer:
   m_SortingLayerID: -653709415
   m_SortingLayer: 4
   m_SortingOrder: 10
-  m_Sprite: {fileID: 4319395737909131107, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5000,7 +5001,7 @@ SpriteRenderer:
   m_Size: {x: 0.75, y: 0.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3703072257803762368
@@ -5367,7 +5368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e1751fb0feee4429b1bab4f7074215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerRolling: 0
 --- !u!114 &7079347689800850680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5381,7 +5381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 1493457830}
-  animationList_TheCowgirl: {fileID: 11400000, guid: 39f2d744da6510246b94037098f13b48, type: 2}
+  animationList: {fileID: 0}
 --- !u!114 &7079347689800850681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5396,8 +5396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerWeapon: {fileID: 7348570547029229453}
   weaponSprite: {fileID: 3339559027214730216}
-  WeaponPositionL: {x: 0.4375, y: 0.3125}
-  WeaponPositionR: {x: -0.4375, y: 0.3125}
 --- !u!4 &7219151212939238987
 Transform:
   m_ObjectHideFlags: 0

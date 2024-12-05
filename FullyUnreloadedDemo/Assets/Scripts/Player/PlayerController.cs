@@ -7,16 +7,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRB2D = default;
 
     // MOVEMENT
-    private float moveSpeed = 5.0f;
+    private float baseMoveSpeed = default;
 
     // ROLL
-    private float rollDistance = 4.48f;  // Total roll distance
-    private float rollSpeed = 7.0f;     // Speed during roll
     private Vector2 rollDirection = Vector2.zero;
-    private float rollRemainingDistance = 0f;
-
-    private float rollCooldown = 0.5f;
-    private float currentRollCooldown = 0f;
+    private float rollRemainingDistance;
+    private float rollCooldownTimer = default;
 
     //===========================================================================
     public Vector2 MovementVector { get; private set; }
@@ -74,7 +70,7 @@ public class PlayerController : MonoBehaviour
         if (MovementVector == Vector2.zero)
             return;
 
-        if (Player.Instance.IsRolling || currentRollCooldown > 0.0f)
+        if (Player.Instance.IsRolling || rollCooldownTimer > 0.0f)
             return;
 
         TriggerRoll();
@@ -95,8 +91,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateRollCooldown()
     {
-        if (currentRollCooldown > 0f)
-            currentRollCooldown -= Time.deltaTime;
+        if (rollCooldownTimer > 0f)
+            rollCooldownTimer -= Time.deltaTime;
     }
 
     private void TriggerRoll()
@@ -106,19 +102,19 @@ public class PlayerController : MonoBehaviour
         Player.Instance.Weapon.SetWeaponActive(false);
 
         rollDirection = MovementVector;
-        rollRemainingDistance = rollDistance;
-        currentRollCooldown = rollCooldown;
+        rollRemainingDistance = Settings.ROLL_DISTANCE;
+        rollCooldownTimer = Settings.ROLL_CD;
 
-        playerRB2D.linearVelocity = rollDirection * rollSpeed;
+        playerRB2D.linearVelocity = rollDirection * Settings.ROLL_SPEED;
     }
 
     private void PerformRoll()
     {
-        float distanceToTravel = rollSpeed * Time.deltaTime;
+        float distanceToTravel = Settings.ROLL_SPEED * Time.deltaTime;
         if (rollRemainingDistance > distanceToTravel)
         {
             rollRemainingDistance -= distanceToTravel;
-            playerRB2D.linearVelocity = rollDirection * rollSpeed;
+            playerRB2D.linearVelocity = rollDirection * Settings.ROLL_SPEED;
         }
         else
         {
@@ -141,6 +137,12 @@ public class PlayerController : MonoBehaviour
         if (Player.Instance.MovementDisabled)
             return;
 
-        playerRB2D.linearVelocity = MovementVector * moveSpeed;
+        playerRB2D.linearVelocity = MovementVector * baseMoveSpeed;
+    }
+
+    //===========================================================================
+    public void SetBaseMoveSpeed(float moveSpeed)
+    {
+        baseMoveSpeed = moveSpeed;
     }
 }

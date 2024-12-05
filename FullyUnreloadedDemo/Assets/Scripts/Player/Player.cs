@@ -10,10 +10,11 @@ public class Player : SingletonMonobehaviour<Player>
 
     public Vector3 Position { get => transform.position; set => transform.position = value; }
 
-    public bool MovementDisabled = false;
-
+    public bool MovementDisabled { get; set; }
     public bool IsMoving { get; set; }
     public bool IsRolling { get; set; }
+
+    public SO_PlayerData PlayerData { get; set; }
 
     //===========================================================================
     protected override void Awake()
@@ -32,29 +33,9 @@ public class Player : SingletonMonobehaviour<Player>
     //===========================================================================
     public void Initialize(SO_PlayerData playerData)
     {
+        Animator.SetAnimationList(playerData.AnimationList);
+        Controller.SetBaseMoveSpeed(playerData.BaseMoveSpeed);
 
-    }
-
-    public Weapon AddWeaponToPlayer(WeaponDetailsSO weaponDetails)
-    {
-        Weapon weapon = new Weapon()
-        {
-            weaponDetails = weaponDetails,
-            weaponReloadTimer = 0f,
-            weaponClipRemainingAmmo = weaponDetails.weaponClipAmmoCapacity,
-            weaponRemainingAmmo = weaponDetails.weaponAmmoCapacity,
-            isWeaponReloading = false
-        };
-
-        // Add the weapon to the list
-        // weaponList.Add(weapon);
-
-        // Set weapon position in list
-        // weapon.weaponListPosition = weaponList.Count;
-
-        // Set the added weapon as active
-        // setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
-
-        return weapon;
+        Weapon.SetWeaponStarter(playerData.WeaponStarter);
     }
 }

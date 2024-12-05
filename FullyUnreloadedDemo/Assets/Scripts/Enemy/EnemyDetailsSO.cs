@@ -18,7 +18,7 @@ public class EnemyDetailsSO : ScriptableObject
     public Color enemyMaterializeColor;
 
     [Header("ENEMY WEAPON SETTINGS")]
-    public WeaponDetailsSO enemyWeapon;
+    public SO_WeaponData enemyWeapon;
     public float firingIntervalMin = 0.1f;
     public float firingIntervalMax = 1f;
     public float firingDurationMin = 1f;

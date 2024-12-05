@@ -11,7 +11,7 @@ public class AmmoPattern : MonoBehaviour, IFireable
     private float ammoSpeed;
     private Vector3 fireDirectionVector;
     private float fireDirectionAngle;
-    private AmmoDetailsSO ammoDetails;
+    private SO_AmmoData ammoDetails;
     private float ammoChargeTimer;
 
     public GameObject GetGameObject()
@@ -19,7 +19,7 @@ public class AmmoPattern : MonoBehaviour, IFireable
         return gameObject;
     }
 
-    public void InitialiseAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed, Vector3 weaponAimDirectionVector, bool overrideAmmoMovement)
+    public void InitialiseAmmo(SO_AmmoData ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed, Vector3 weaponAimDirectionVector, bool overrideAmmoMovement)
     {
         this.ammoDetails = ammoDetails;
 
@@ -82,7 +82,7 @@ public class AmmoPattern : MonoBehaviour, IFireable
     /// Set ammo fire direction based on the input angle and direction adjusted by the
     /// random spread
     /// </summary>
-    private void SetFireDirection(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
+    private void SetFireDirection(SO_AmmoData ammoDetails, float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
         // calculate random spread angle between min and max
         float randomSpread = Random.Range(ammoDetails.ammoSpreadMin, ammoDetails.ammoSpreadMax);

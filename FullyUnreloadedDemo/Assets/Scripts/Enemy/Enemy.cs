@@ -118,7 +118,14 @@ public class Enemy : MonoBehaviour
         // Process if enemy has a weapon
         if (enemyDetails.enemyWeapon != null)
         {
-            Weapon weapon = new Weapon() { weaponDetails = enemyDetails.enemyWeapon, weaponReloadTimer = 0f, weaponClipRemainingAmmo = enemyDetails.enemyWeapon.weaponClipAmmoCapacity, weaponRemainingAmmo = enemyDetails.enemyWeapon.weaponAmmoCapacity, isWeaponReloading = false };
+            Weapon weapon = new Weapon()
+            {
+                weaponDetails = enemyDetails.enemyWeapon,
+                weaponReloadTimer = 0f,
+                weaponClipRemainingAmmo = enemyDetails.enemyWeapon.ClipCapacity,
+                weaponRemainingAmmo = enemyDetails.enemyWeapon.AmmoCapacity,
+                isWeaponReloading = false
+            };
 
             //Set weapon for enemy
             setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);

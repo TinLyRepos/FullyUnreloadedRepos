@@ -1,47 +1,36 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Scriptable Objects/Player/Player Data")]
 public class SO_PlayerData : ScriptableObject
 {
     [Header("BASE DATA")]
-    [SerializeField] private string characterName = string.Empty;
-    [SerializeField] private GameObject characterPrefab = default;
+    [SerializeField] private string characterName;
 
     [Header("ANIMATION")]
-    [SerializeField] private RuntimeAnimatorController runtimeAnimatorController;
-    [SerializeField] private Sprite playerMiniMapSprite;
-    [SerializeField] private Sprite playerHandSprite;
+    [SerializeField] private SO_AnimationList animationList;
+    [SerializeField] private Sprite miniMapIcon;
+    [SerializeField] private Sprite handSprite;
 
     [Header("GAMEPLAY")]
-    [SerializeField] private int playerBaseMaxHealth;
-    public bool isImmuneAfterHit = false;
-    public float hitImmunityTime;
+    [SerializeField] private int baseMaxHealth;
+    [SerializeField] private float baseMoveSpeed;
 
     [Header("WEAPON")]
-    [SerializeField] private WeaponDetailsSO startingWeapon;
-    [SerializeField] private List<WeaponDetailsSO> startingWeaponList;
+    [SerializeField] private SO_WeaponData weaponStarter;
 
     public string Name => characterName;
-    public GameObject Prefab => characterPrefab;
-    public RuntimeAnimatorController RuntimeAnimatorController => runtimeAnimatorController;
-    public Sprite MiniMapIcon => playerMiniMapSprite;
-    public Sprite HandSprite => playerHandSprite;
-    public int BaseMaxHealth => playerBaseMaxHealth;
-    public WeaponDetailsSO StartingWeapon => startingWeapon;
-    public List<WeaponDetailsSO> StartingWeaponList => startingWeaponList;
+    public SO_AnimationList AnimationList => animationList;
+    public Sprite MiniMapIcon => miniMapIcon;
+    public Sprite HandSprite => handSprite;
+    public int BaseMaxHealth => baseMaxHealth;
+    public float BaseMoveSpeed => baseMoveSpeed;
+    public SO_WeaponData WeaponStarter => weaponStarter;
 
     //===========================================================================
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        HelperUtilities.ValidateCheckEmptyString(this, nameof(characterName), characterName);
-        HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerBaseMaxHealth), playerBaseMaxHealth, false);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(playerMiniMapSprite), playerMiniMapSprite);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(playerHandSprite), playerHandSprite);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(runtimeAnimatorController), runtimeAnimatorController);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(startingWeapon), startingWeapon);
-        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(startingWeaponList), startingWeaponList);
+
     }
 #endif
 }

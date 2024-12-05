@@ -47,8 +47,7 @@ public class CharacterSelectorUI : MonoBehaviour
     {
         playerSelection.playerHandSpriteRenderer.sprite = playerDetails.HandSprite;
         playerSelection.playerHandNoWeaponSpriteRenderer.sprite = playerDetails.HandSprite;
-        playerSelection.playerWeaponSpriteRenderer.sprite = playerDetails.StartingWeapon.weaponSprite;
-        playerSelection.animator.runtimeAnimatorController = playerDetails.RuntimeAnimatorController;
+        playerSelection.playerWeaponSpriteRenderer.sprite = playerDetails.WeaponStarter.Sprite;
     }
 
     public void NextCharacter()

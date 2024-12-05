@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class Settings
 {
+    // PLAYER
+    public const float ROLL_DISTANCE = 4.48f;
+    public const float ROLL_SPEED = 7.0f;
+    public const float ROLL_CD = 0.5f;
+
     // UNITS
     public const float pixelsPerUnit = 16.0f;
     public const float tileSizePixels = 16.0f;

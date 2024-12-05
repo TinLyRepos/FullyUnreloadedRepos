@@ -79,17 +79,17 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
     private void SpawnEnemies()
     {
         // Set gamestate engaging boss
-        if (GameManager.Instance.gameState == GameState.BossState)
+        if (GameManager.Instance.currentGameState == GameState.BossState)
         {
-            GameManager.Instance.prevGameState = GameState.BossState;
-            GameManager.Instance.gameState = GameState.EngagingBoss;
+            GameManager.Instance.previousGameState = GameState.BossState;
+            GameManager.Instance.currentGameState = GameState.EngagingBoss;
         }
 
         // Set gamestate engaging enemies
-        else if (GameManager.Instance.gameState == GameState.PlayingLevel)
+        else if (GameManager.Instance.currentGameState == GameState.PlayingLevel)
         {
-            GameManager.Instance.prevGameState = GameState.PlayingLevel;
-            GameManager.Instance.gameState = GameState.EngagingEnemy;
+            GameManager.Instance.previousGameState = GameState.PlayingLevel;
+            GameManager.Instance.currentGameState = GameState.EngagingEnemy;
         }
 
         StartCoroutine(SpawnEnemiesRoutine());
@@ -173,15 +173,15 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
             currentRoom.isCleared = true;
 
             // Set game state
-            if (GameManager.Instance.gameState == GameState.EngagingEnemy)
+            if (GameManager.Instance.currentGameState == GameState.EngagingEnemy)
             {
-                GameManager.Instance.gameState = GameState.PlayingLevel;
-                GameManager.Instance.prevGameState = GameState.EngagingEnemy;
+                GameManager.Instance.currentGameState = GameState.PlayingLevel;
+                GameManager.Instance.previousGameState = GameState.EngagingEnemy;
             }
-            else if (GameManager.Instance.gameState == GameState.EngagingBoss)
+            else if (GameManager.Instance.currentGameState == GameState.EngagingBoss)
             {
-                GameManager.Instance.gameState = GameState.BossState;
-                GameManager.Instance.prevGameState = GameState.EngagingBoss;
+                GameManager.Instance.currentGameState = GameState.BossState;
+                GameManager.Instance.previousGameState = GameState.EngagingBoss;
             }
 
             // unlock doors

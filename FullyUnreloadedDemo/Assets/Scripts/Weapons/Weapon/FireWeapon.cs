@@ -48,9 +48,6 @@ public class FireWeapon : MonoBehaviour
     //===========================================================================
     private void WeaponFire(FireWeaponEventArgs fireWeaponEventArgs)
     {
-        // Handle weapon precharge timer.
-        WeaponPreCharge(fireWeaponEventArgs);
-
         // Weapon fire.
         if (fireWeaponEventArgs.fire)
         {
@@ -60,31 +57,15 @@ public class FireWeapon : MonoBehaviour
                 FireAmmo(fireWeaponEventArgs.aimAngle, fireWeaponEventArgs.weaponAimAngle, fireWeaponEventArgs.weaponAimDirectionVector);
 
                 ResetCoolDownTimer();
-
-                ResetPrechargeTimer();
             }
-        }
-    }
-
-    private void WeaponPreCharge(FireWeaponEventArgs fireWeaponEventArgs)
-    {
-        // Weapon precharge.
-        if (fireWeaponEventArgs.firePreviousFrame)
-        {
-            // Decrease precharge timer if fire button held previous frame.
-            firePreChargeTimer -= Time.deltaTime;
-        }
-        else
-        {
-            // else reset the precharge timer.
-            ResetPrechargeTimer();
         }
     }
 
     private bool IsWeaponReadyToFire()
     {
         // if there is no ammo and weapon doesn't have infinite ammo then return false.
-        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo)
+        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 &&
+            activeWeapon.GetCurrentWeapon().weaponDetails.HasInfiniteAmmo == false)
             return false;
 
         // if the weapon is reloading then return false.
@@ -96,8 +77,7 @@ public class FireWeapon : MonoBehaviour
             return false;
 
         // if no ammo in the clip and the weapon doesn't have infinite clip capacity then return false.
-        if (activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0 &&
-            activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity == false)
+        if (activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0)
         {
             reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
             return false;
@@ -109,7 +89,7 @@ public class FireWeapon : MonoBehaviour
 
     private void FireAmmo(float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
     {
-        AmmoDetailsSO currentAmmo = activeWeapon.GetCurrentAmmo();
+        SO_AmmoData currentAmmo = activeWeapon.GetCurrentAmmo();
 
         if (currentAmmo != null)
         {
@@ -118,7 +98,7 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle,
+    private IEnumerator FireAmmoRoutine(SO_AmmoData currentAmmo, float aimAngle, float weaponAimAngle,
         Vector3 weaponAimDirectionVector)
     {
         int ammoCounter = 0;
@@ -159,56 +139,22 @@ public class FireWeapon : MonoBehaviour
             yield return new WaitForSeconds(ammoSpawnInterval);
         }
 
-        // Reduce ammo clip count if not infinite clip capacity
-        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
-        {
-            activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
-            activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
-        }
+        // Reduce ammo clip count
+        activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
+        activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
 
         // Call weapon fired event
         weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
 
-        // Display weapon shoot effect
-        WeaponShootEffect(aimAngle);
-
         // Weapon fired sound effect
-        if (activeWeapon.GetCurrentWeapon().weaponDetails.soundEffectFire != null)
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.SoundEffectFire != null)
             SoundEffectManager.Instance.PlaySoundEffect(
-                activeWeapon.GetCurrentWeapon().weaponDetails.soundEffectFire);
+                activeWeapon.GetCurrentWeapon().weaponDetails.SoundEffectFire);
     }
 
     private void ResetCoolDownTimer()
     {
         // Reset cooldown timer
-        fireRateCoolDownTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponFireRate;
-    }
-
-    private void ResetPrechargeTimer()
-    {
-        // Reset precharge timer
-        firePreChargeTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponPrechargeTime;
-    }
-
-    private void WeaponShootEffect(float aimAngle)
-    {
-        // Process if there is a shoot effect & prefab
-        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect != null &&
-            activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab != null)
-        {
-            // Get weapon shoot effect gameobject from the pool with particle system component
-            WeaponShootEffect weaponShootEffect =
-                (WeaponShootEffect)PoolManager.Instance.ReuseComponent(
-                    activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect.weaponShootEffectPrefab,
-                    activeWeapon.GetShootEffectPosition(), Quaternion.identity);
-
-            // Set shoot effect
-            weaponShootEffect.SetShootEffect(
-                activeWeapon.GetCurrentWeapon().weaponDetails.weaponShootEffect, aimAngle);
-
-            // Set gameobject active (the particle system is set to automatically disable the
-            // gameobject once finished)
-            weaponShootEffect.gameObject.SetActive(true);
-        }
+        fireRateCoolDownTimer = activeWeapon.GetCurrentWeapon().weaponDetails.FireRate;
     }
 }

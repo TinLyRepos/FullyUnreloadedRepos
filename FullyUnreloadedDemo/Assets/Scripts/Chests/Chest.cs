@@ -21,7 +21,7 @@ public class Chest : MonoBehaviour, IUseable
     #endregion Tooltip
     [SerializeField] private Transform itemSpawnPoint;
     private int healthPercent;
-    private WeaponDetailsSO weaponDetails;
+    private SO_WeaponData weaponDetails;
     private int ammoPercent;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -42,7 +42,7 @@ public class Chest : MonoBehaviour, IUseable
     }
 
     /// Initialize Chest and either make it visible immediately or materialize it
-    public void Initialize(bool shouldMaterialize, int healthPercent, WeaponDetailsSO weaponDetails, int ammoPercent)
+    public void Initialize(bool shouldMaterialize, int healthPercent, SO_WeaponData weaponDetails, int ammoPercent)
     {
         this.healthPercent = healthPercent;
         this.weaponDetails = weaponDetails;
@@ -232,7 +232,7 @@ public class Chest : MonoBehaviour, IUseable
     {
         InstantiateItem();
 
-        chestItemGameObject.GetComponent<ChestItem>().Initialize(weaponDetails.weaponSprite, weaponDetails.weaponName, itemSpawnPoint.position, materializeColor);
+        chestItemGameObject.GetComponent<ChestItem>().Initialize(weaponDetails.Sprite, weaponDetails.Name, itemSpawnPoint.position, materializeColor);
     }
 
     /// <summary>

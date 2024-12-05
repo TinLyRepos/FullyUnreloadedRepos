@@ -59,7 +59,7 @@ public class ChestSpawner : MonoBehaviour
     #region Tooltip
     [Tooltip("The weapons to spawn for each dungeon level and their spawn ratios")]
     #endregion Tooltip
-    [SerializeField] private List<SpawnableObjectsByLevel<WeaponDetailsSO>> weaponSpawnByLevelList;
+    [SerializeField] private List<SpawnableObjectsByLevel<SO_WeaponData>> weaponSpawnByLevelList;
     #region Tooltip
     [Tooltip("The range of health to spawn for each level")]
     #endregion Tooltip
@@ -283,15 +283,15 @@ public class ChestSpawner : MonoBehaviour
     /// <summary>
     /// Get the weapon details to spawn - return null if no weapon is to be spawned or the player already has the weapon
     /// </summary>
-    private WeaponDetailsSO GetWeaponDetailsToSpawn(int weaponNumber)
+    private SO_WeaponData GetWeaponDetailsToSpawn(int weaponNumber)
     {
         if (weaponNumber == 0) return null;
 
         // Create an instance of the class used to select a random item from a list based on the
         // relative 'ratios' of the items specified
-        RandomSpawnableObject<WeaponDetailsSO> weaponRandom = new RandomSpawnableObject<WeaponDetailsSO>(weaponSpawnByLevelList);
+        RandomSpawnableObject<SO_WeaponData> weaponRandom = new RandomSpawnableObject<SO_WeaponData>(weaponSpawnByLevelList);
 
-        WeaponDetailsSO weaponDetails = weaponRandom.GetItem();
+        SO_WeaponData weaponDetails = weaponRandom.GetItem();
 
         return weaponDetails;
     }
@@ -320,11 +320,11 @@ public class ChestSpawner : MonoBehaviour
 
         if (weaponSpawnByLevelList != null && weaponSpawnByLevelList.Count > 0)
         {
-            foreach (SpawnableObjectsByLevel<WeaponDetailsSO> weaponDetailsByLevel in weaponSpawnByLevelList)
+            foreach (SpawnableObjectsByLevel<SO_WeaponData> weaponDetailsByLevel in weaponSpawnByLevelList)
             {
                 HelperUtilities.ValidateCheckNullValue(this, nameof(weaponDetailsByLevel.dungeonLevel), weaponDetailsByLevel.dungeonLevel);
 
-                foreach (SpawnableObjectRatio<WeaponDetailsSO> weaponRatio in weaponDetailsByLevel.spawnableObjectRatioList)
+                foreach (SpawnableObjectRatio<SO_WeaponData> weaponRatio in weaponDetailsByLevel.spawnableObjectRatioList)
                 {
                     HelperUtilities.ValidateCheckNullValue(this, nameof(weaponRatio.dungeonObject), weaponRatio.dungeonObject);
 

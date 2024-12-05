@@ -23,7 +23,7 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
     private void Update()
     {
         // If mouse button pressed and gamestate is dungeon overview map then get the room clicked
-        if (Input.GetMouseButtonDown(0) && GameManager.Instance.gameState == GameState.DungeonOverviewMap)
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.currentGameState == GameState.DungeonOverviewMap)
             GetRoomClicked();
 
         if (dungeonMapCamera.gameObject.activeInHierarchy)
@@ -90,8 +90,8 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
     public void DisplayDungeonOverViewMap()
     {
         // Set game state
-        GameManager.Instance.prevGameState = GameManager.Instance.gameState;
-        GameManager.Instance.gameState = GameState.DungeonOverviewMap;
+        GameManager.Instance.previousGameState = GameManager.Instance.currentGameState;
+        GameManager.Instance.currentGameState = GameState.DungeonOverviewMap;
 
         // Disable player
         // GameManager.Instance.Player.playerControl.DisablePlayer();
@@ -111,8 +111,8 @@ public class DungeonMap : SingletonMonobehaviour<DungeonMap>
     public void ClearDungeonOverViewMap()
     {
         // Set game state
-        GameManager.Instance.gameState = GameManager.Instance.prevGameState;
-        GameManager.Instance.prevGameState = GameState.DungeonOverviewMap;
+        GameManager.Instance.currentGameState = GameManager.Instance.previousGameState;
+        GameManager.Instance.previousGameState = GameState.DungeonOverviewMap;
 
         // Enable player
         // GameManager.Instance.Player.playerControl.EnablePlayer();

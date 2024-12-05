@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12a34cfb193d044bb7a59044f3c78ea, type: 3}
+  m_Name: WeaponData_Pistol
+  m_EditorClassIdentifier: 
+  weaponName: Basic Pistol
+  weaponSprite: {fileID: 4319395737909131107, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
+  ammoData: {fileID: 11400000, guid: 87d2acecb82de0141b867c5682486b7e, type: 2}
+  weaponPosition: {x: 0.4375, y: 0.3125}
+  shootPosition: {x: 0, y: 0}
+  soundEffectFire: {fileID: 11400000, guid: 97bc6e8a66935e942b3a6c5d76d055c6, type: 2}
+  soundEffectReload: {fileID: 11400000, guid: 2602fa5af0aed184e9fdd2a531a9de39, type: 2}
+  hasInfiniteAmmo: 1
+  clipCapacity: 0
+  ammoCapacity: 0
+  fireRate: 0.2
+  reloadTime: 1.5

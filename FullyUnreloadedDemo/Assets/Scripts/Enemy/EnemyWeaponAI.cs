@@ -90,7 +90,7 @@ public class EnemyWeaponAI : MonoBehaviour
         if (enemyDetails.enemyWeapon != null)
         {
             // Get ammo range
-            float enemyAmmoRange = enemyDetails.enemyWeapon.weaponCurrentAmmo.ammoRange;
+            float enemyAmmoRange = enemyDetails.enemyWeapon.AmmoData.ammoRange;
 
             // Is the player in range
             if (playerDirectionVector.magnitude <= enemyAmmoRange)
